@@ -46,7 +46,7 @@ public class Entity {
         return this.attack_damage;
     }
 
-    public void setName(int attack_speed){
+    public void setAS(int attack_speed){
         
         this.attack_speed = attack_speed;
     }
