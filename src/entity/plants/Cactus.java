@@ -6,7 +6,7 @@ import entity.zombies.Zombie;
 public class Cactus extends Plant{
     
     public Cactus(){
-        super("Cactus", 125,100,40,3,-1,20,false);
+        super("Cactus", 125,100, 40,3, -1, 20, false);
     }
 
     @Override
@@ -14,7 +14,7 @@ public class Cactus extends Plant{
     
     public void popBalloon(Zombie zombie){
         if (zombie instanceof BalloonZombie){
-            int newHealth = (int) (zombie.getHealth()*0.5);
+            int newHealth = (int) (zombie.getHealth() * 0.5);
             zombie.setHealth(newHealth);
         }  
     }
