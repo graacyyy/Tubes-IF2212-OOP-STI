@@ -2,6 +2,7 @@ package entity.plants;
 
 import entity.Entity;
 import entity.zombies.*;
+// import game.GameMap;
 
 public abstract class Plant extends Entity {
 
@@ -86,9 +87,10 @@ public abstract class Plant extends Entity {
         return getHealth() == 0;
 
     }
-    public boolean isPlantable(){
-        // return is_cooldown = false;
-
-
-    }
+    
+    // public boolean isPlantable(){
+    //     // return is_cooldown = false;
+    // }
+    
+    public abstract void instantKill(Zombie zombie);
 }    

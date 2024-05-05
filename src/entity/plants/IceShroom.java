@@ -33,4 +33,7 @@ public class IceShroom extends Plant{
         });
         thread.start();
     }
+
+    @Override
+    public void instantKill(Zombie zombie) {}
 }
