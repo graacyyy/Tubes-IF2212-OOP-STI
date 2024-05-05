@@ -1,13 +1,16 @@
 package entity.plants;
 
 import entity.Entity;
+import entity.zombies.*;
+// import game.GameMap;
 
 public abstract class Plant extends Entity {
 
-    private int cost;
-    private int range;
-    private int cooldown;
-    private boolean is_waterplant;
+    protected int cost;
+    protected int range;
+    protected int cooldown;
+    protected boolean is_waterplant;
+    static boolean is_cooldown = true;
 
     public Plant (String name, int cost, int health, int attack_damage, int attack_speed, int range, int cooldown, boolean is_waterplant){
 
@@ -61,5 +64,33 @@ public abstract class Plant extends Entity {
     }
 
     // Methods
+    public void attack(Zombie zombie){
+        // Attack
+
+
+        if (!is_cooldown){
+            setAS(0);
+        }
+        else{
+
+        }
+
+        // Plant tidak melakukan attack selama cooldown
+        /*setAS(getAS() + 1);
+        if (getAS() >= getCooldown()){
+            setAS(0);
+        }
+        */
+    }
+
+    public boolean isDead(int health){
+        return getHealth() == 0;
+
+    }
     
-}
+    // public boolean isPlantable(){
+    //     // return is_cooldown = false;
+    // }
+    
+    public abstract void instantKill(Zombie zombie);
+}    
