@@ -2,6 +2,17 @@ package entity.inventory;
 import java.util.ArrayList;
 
 import entity.plants.Plant;
+import entity.plants.Sunflower;
+import entity.plants.Peashooter;
+import entity.plants.Wallnut;
+import entity.plants.SnowPea;
+import entity.plants.Squash;
+import entity.plants.Lilypad;
+import entity.plants.Cactus;
+import entity.plants.TangleKelp;
+import entity.plants.Jalapeno;
+import entity.plants.IceShroom;
+
 
 public class Inventory {
     private ArrayList<Plant> inventory;
@@ -9,16 +20,16 @@ public class Inventory {
     public Inventory(ArrayList<Plant> inventory) {
         this.inventory = inventory;
 
-        inventory.add(Sunflower);
-        inventory.add(Peashooter);
-        inventory.add(WallNut);
-        inventory.add(SnowPea);
-        inventory.add(Squash);
-        inventory.add(Lilypad);
-        inventory.add(Jalapeno);
-        inventory.add(Cactus);
-        inventory.add(TangleKelp);
-        inventory.add(IceShroom);
+        inventory.add(new Sunflower());
+        inventory.add(new Peashooter());
+        inventory.add(new Wallnut());
+        inventory.add(new SnowPea());
+        inventory.add(new Squash());
+        inventory.add(new Lilypad());
+        inventory.add(new Jalapeno());
+        inventory.add(new Cactus());
+        inventory.add(new TangleKelp());
+        inventory.add(new IceShroom());
     }
 
     public void showInventory(){
