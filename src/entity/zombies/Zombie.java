@@ -5,9 +5,9 @@ import entity.Entity;
 public abstract class Zombie extends Entity{
 
     private boolean is_aquatic;
-    private int speed;
+    private double speed;
 
-    public Zombie(String name, int health, int attack_damage, int attack_speed, boolean is_aquatic, int speed){
+    public Zombie(String name, int health, int attack_damage, int attack_speed, boolean is_aquatic, double speed){
         
         super(name, health, attack_damage, attack_speed);
         this.is_aquatic = is_aquatic;
@@ -26,12 +26,12 @@ public abstract class Zombie extends Entity{
         return this.is_aquatic;
     }
 
-    public void setSpeed(int speed){
+    public void setSpeed(double speed){
 
         this.speed = speed;
     }
 
-    public int getSpeed(){
+    public double getSpeed(){
 
         return this.speed;
     }
