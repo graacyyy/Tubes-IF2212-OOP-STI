@@ -4,9 +4,9 @@ public class Entity {
     private String name;
     private int health;
     private int attack_damage;
-    private int attack_speed;
+    private double attack_speed;
 
-    public Entity (String name, int health, int attack_damage, int attack_speed){
+    public Entity (String name, int health, int attack_damage, double attack_speed){
 
         this.name = name;
         this.health = health;
@@ -46,12 +46,12 @@ public class Entity {
         return this.attack_damage;
     }
 
-    public void setAS(int attack_speed){
+    public void setAS(double attack_speed){
         
         this.attack_speed = attack_speed;
     }
 
-    public int getAS(){
+    public double getAS(){
         
         return this.attack_speed;
     }

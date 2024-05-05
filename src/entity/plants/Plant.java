@@ -4,10 +4,10 @@ import entity.Entity;
 
 public abstract class Plant extends Entity {
 
-    private int cost;
-    private int range;
-    private int cooldown;
-    private boolean is_waterplant;
+    protected int cost;
+    protected int range;
+    protected int cooldown;
+    protected boolean is_waterplant;
 
     public Plant (String name, int cost, int health, int attack_damage, int attack_speed, int range, int cooldown, boolean is_waterplant){
 
@@ -61,4 +61,21 @@ public abstract class Plant extends Entity {
     }
 
     // Methods
+    public void attack(Zombie zombie){
+        // Attack
+        
+        // Plant tidak melakukan attack selama cooldown
+        setAS(getAS() + 1);
+        if (getAS() >= getCooldown()){
+            setAS(0);
+        }
+    }
+
+    public boolean isDead(int health){
+        return getHealth() == 0;
+
+    }
+    public boolean isPlantable(){
+        // cek dulu di kotak itu ada zombie/tanaman lain apa ngga
+    }
 }    
