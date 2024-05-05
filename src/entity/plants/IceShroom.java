@@ -13,7 +13,7 @@ public class IceShroom extends Plant{
         long startTime = System.currentTimeMillis();
 
         synchronized (zombie){
-            zombie.setSpeed(0);
+            zombie.setWalkingSpeed(0);
         }
         
         Thread thread = new Thread(() -> {
@@ -25,7 +25,7 @@ public class IceShroom extends Plant{
             } while (elapsedTime < 5000);
 
             synchronized (zombie){
-                zombie.setSpeed(zombie.getSpeed());
+                zombie.setWalkingSpeed(zombie.getWalkingSpeed());
             }
         } catch (InterruptedException e){
             Thread.currentThread().interrupt();

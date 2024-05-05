@@ -12,7 +12,7 @@ public class SnowPea extends Plant {
     public void delaySpeed(Zombie zombie){
         long startTime = System.currentTimeMillis();
 
-        zombie.setSpeed(zombie.getSpeed()*0.5);
+        zombie.setWalkingSpeed(zombie.getWalkingSpeed()*0.5);
         zombie.setAS(zombie.getAS()*0.5);
 
         Thread thread = new Thread(() -> {
@@ -23,7 +23,7 @@ public class SnowPea extends Plant {
                     elapsedTime = System.currentTimeMillis() - startTime;
                 } while (elapsedTime < 3000);
 
-                zombie.setSpeed(zombie.getSpeed()*2);
+                zombie.setWalkingSpeed(zombie.getWalkingSpeed()*2);
                 zombie.setAS(zombie.getAS()*2);
             } catch (InterruptedException e){
                 e.printStackTrace();

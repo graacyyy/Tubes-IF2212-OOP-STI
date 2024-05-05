@@ -5,13 +5,13 @@ import entity.Entity;
 public abstract class Zombie extends Entity{
 
     private boolean is_aquatic;
-    private double speed;
+    private double walking_speed;
 
-    public Zombie(String name, int health, int attack_damage, int attack_speed, boolean is_aquatic, double speed){
+    public Zombie(String name, int health, int attack_damage, int attack_speed, boolean is_aquatic, double walking_speed){
         
         super(name, health, attack_damage, attack_speed);
         this.is_aquatic = is_aquatic;
-        this.speed = speed;
+        this.walking_speed = walking_speed;
     }
 
     // Setter dan Getter
@@ -26,14 +26,14 @@ public abstract class Zombie extends Entity{
         return this.is_aquatic;
     }
 
-    public void setSpeed(double speed){
+    public void setWalkingSpeed(double walking_speed){
 
-        this.speed = speed;
+        this.walking_speed = walking_speed;
     }
 
-    public double getSpeed(){
+    public double getWalkingSpeed(){
 
-        return this.speed;
+        return this.walking_speed;
     }
 
     // Methods
