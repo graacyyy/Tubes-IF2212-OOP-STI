@@ -64,31 +64,15 @@ public abstract class Plant extends Entity {
 
     // Methods
     public void attack(Zombie zombie){
-        // Attack
-
-
-        if (!is_cooldown){
-            setAS(0);
-        }
-        else{
-
-        }
-
-        // Plant tidak melakukan attack selama cooldown
-        /*setAS(getAS() + 1);
-        if (getAS() >= getCooldown()){
-            setAS(0);
-        }
-        */
+       zombie.takeDamage(getAD());
     }
 
-    public boolean isDead(int health){
-        return getHealth() == 0;
-
+    public void takeDamage(int attack_damage){
+        setHealth(getHealth()-attack_damage);
     }
-    public boolean isPlantable(){
-        // return is_cooldown = false;
 
+    public boolean isDead(){
+        return getHealth() <= 0;
 
     }
 }    
