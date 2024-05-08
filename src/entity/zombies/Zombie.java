@@ -37,8 +37,12 @@ public abstract class Zombie extends Entity{
     }
 
     // Methods
+     public void takeDamage(int attack_damage){
+        setHealth(getHealth()-attack_damage);
+    }
+    
     public boolean isDead(){
-        return getHealth() == 0;
+        return getHealth() <= 0;
     }
 
     
