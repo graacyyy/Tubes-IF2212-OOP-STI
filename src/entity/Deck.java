@@ -1,4 +1,4 @@
-package entity.inventory;
+package entity;
 
 import entity.plants.Plant;
 
@@ -59,5 +59,9 @@ public class Deck {
 
     public void startRecharge(){
         
+    }
+
+    public void checkArea(){
+        if 
     }
 }

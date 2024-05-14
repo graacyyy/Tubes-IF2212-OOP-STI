@@ -2,7 +2,12 @@ package entity.zombies;
 
 public class ConeHead extends Zombie {
     
-    public ConeHead(){
-        super("Conehead Zombie",250,100,1,false,100);
+    public ConeHead(int x, int y){
+        super(x,y);
+        name = "Conehead Zombie";
+        health = 250;
+        attack_damage = 100;
+        attack_speed = 1;
+        is_aquatic = false;
     }
 }

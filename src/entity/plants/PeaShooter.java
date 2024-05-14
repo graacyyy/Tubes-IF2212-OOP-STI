@@ -4,17 +4,24 @@ import entity.zombies.*;
 
 public class PeaShooter extends Plant {
     
-    public PeaShooter(String name, int cost, int health, int attack_damage, int attack_speed, int range, int cooldown,
-            boolean is_waterplant) {
-        super("PeaShooter", 100, 100, 25, 4, -1, 10, false);
-    }
+    public PeaShooter(int x, int y) {
 
-    public PeaShooter() {
-        //TODO Auto-generated constructor stub
+        super(x, y);
+        name = "Pea Shooter";
+        cost = 100;
+        health = 100;
+        attack_damage = 25;
+        attack_speed = 4;
+        range = -1;
+        cooldown = 10;
+        is_waterplant = false;
+        fileimage = "././res/plant/peashooter_0.png";
     }
 
     @Override
-    public void instantKill(Zombie zombie) {
-        // TODO
+    public void instantKill(Zombie zombie) {}
+
+    @Override
+    public void actionPerformed() {
     }
 }

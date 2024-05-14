@@ -4,11 +4,28 @@ import entity.zombies.*;
 
 public class Jalapeno extends Plant{
     
-    public Jalapeno(){
-        super("Jalapeno",125,100,10000,0,-1,20,false);
+    public Jalapeno(int x, int y) {
+        
+        super(x, y);
+        name = "Jalapeno";
+        cost = 125;
+        health = 100;
+        attack_damage = 10000;
+        attack_speed = 0;
+        range = -1;
+        cooldown = 20;
+        is_waterplant = false;
     }
 
+    @Override
     public void instantKill(Zombie zombie){
+        
         zombie.setHealth(0);
+    }
+
+    @Override
+    public void actionPerformed() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
     }
 }

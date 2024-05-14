@@ -2,7 +2,13 @@ package entity.zombies;
 
 public class DolphinRiderZombie extends Zombie {
     
-    public DolphinRiderZombie(){
-        super("Dolphin Rider Zombie",175,100,1,true,110);
+    public DolphinRiderZombie(int x, int y){
+
+        super(x,y);
+        name = "Dolphin Rider Zombie";
+        health = 175;
+        attack_damage = 100;
+        attack_speed = 1;
+        is_aquatic = true;
     }
 }
