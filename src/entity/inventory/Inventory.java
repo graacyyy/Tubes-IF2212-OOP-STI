@@ -1,5 +1,6 @@
 package entity.inventory;
 import java.util.ArrayList;
+import entity.inventory.Deck;
 
 import entity.plants.Plant;
 import entity.plants.Sunflower;
@@ -43,12 +44,7 @@ public class Inventory {
             System.out.println("Attack Speed: " + plant.getAS());
             System.out.println("Range: " + plant.getRange());
             System.out.println("Cooldown: " + plant.getCooldown());
-        }
-    }
-
-    public boolean isOnDeck(plant Plant){
-        for (Plant plant : deck){
-            return deck.contains(plant);
+            System.out.println(" ");
         }
     }
 }
