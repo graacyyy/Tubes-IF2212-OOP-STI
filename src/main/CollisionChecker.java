@@ -1,18 +1,17 @@
 package main;
 
-import entity.Entity;
+import entity.plants.Plant;
+import entity.zombies.Zombie;
 
 public class CollisionChecker {
-    
     GamePanel gp;
 
-    public CollisionChecker (GamePanel gp){
-
+    public CollisionChecker(GamePanel gp) {
         this.gp = gp;
     }
 
-    public void checkObject(Entity entity){
-
+    public boolean isColliding(Zombie zombie, Plant plant){
         
+        return zombie.getX() < plant.getX() + GamePanel.tileSize;
     }
 }

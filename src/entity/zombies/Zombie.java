@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 // import java.awt.image.BufferedImage;
 // import java.io.File;
 // import java.io.IOException;
+import java.awt.Rectangle;
 
 // import javax.imageio.ImageIO;
 
@@ -27,6 +28,13 @@ public class Zombie extends Entity implements CustomListener{
         
         this.x = x;
         this.y = y;
+
+        this.solidArea = new Rectangle();
+        this.solidArea.x = x;
+        this.solidArea.y = y;
+        this.solidArea.width = 48;
+        this.solidArea.height = 48;
+
         // setDefaultValues();
         // getZombieImage();
     }
@@ -50,6 +58,16 @@ public class Zombie extends Entity implements CustomListener{
     public void setIsSlowed(boolean isSlowed){
         
         this.isSlowed = isSlowed;
+    }
+    
+    public int getX(){
+
+        return x;
+    }
+
+    public int getY(){
+
+        return y;
     }
 
     // public void setIsAquatic(boolean is_aquatic){
@@ -88,10 +106,9 @@ public class Zombie extends Entity implements CustomListener{
         plant.takeDamage(attack_damage);
     }
 
-    // DRAW OBJECT
     // public void setDefaultValues(){
-        
-    //     x = 10*GamePanel.tileSize;
+
+    //     // x = 10*GamePanel.tileSize;
     //     y = 0*GamePanel.tileSize;
     //     // speed = 0.0001;
     //     // distanceToMove = speed*(1.0/60);
@@ -151,6 +168,7 @@ public class Zombie extends Entity implements CustomListener{
 
     public void moveZombie(){
         x--;
+        solidArea.x = x;
     }
 
     public void draw(Graphics2D g2){

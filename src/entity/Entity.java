@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 public class Entity {
@@ -19,4 +20,6 @@ public class Entity {
     protected int health;
     protected int attack_damage;
     protected double attack_speed;
+
+    public Rectangle solidArea;
 }

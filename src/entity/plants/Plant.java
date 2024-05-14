@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 // import java.awt.image.BufferedImage;
 // import java.io.File;
 // import java.io.IOException;
+import java.awt.Rectangle;
 
 // import javax.imageio.ImageIO;
 
@@ -28,6 +29,13 @@ public abstract class Plant extends Entity implements CustomListener{
 
         this.x = x;
         this.y = y;
+
+        this.solidArea = new Rectangle();
+        this.solidArea.x = x;
+        this.solidArea.y = y;
+        this.solidArea.width = 64;
+        this.solidArea.height = 64;
+
         // setDefaultValues();
         // getPlantImage();
     }
@@ -44,6 +52,20 @@ public abstract class Plant extends Entity implements CustomListener{
         return cooldown;
     }
 
+    public int getHealth(){
+        
+        return health;
+    }
+
+    public int getX(){
+
+        return x;
+    }
+
+    public int getY(){
+
+        return y;
+    }
     // public void setCost(int cost){
 
     //     this.cost = cost;

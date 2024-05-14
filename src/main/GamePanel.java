@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.Iterator;
 // import java.io.File;
 // import java.io.IOException;
 import java.util.Random;
@@ -45,6 +46,7 @@ public class GamePanel extends JPanel implements Runnable{
     // int xz, xb;
     Zombie zb;
     Plant pl;
+    CollisionChecker collisionChecker = new CollisionChecker(this);
     
 
     public GamePanel(){
@@ -98,9 +100,48 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void update(){
-        for (Zombie zombie : GameMap.zombies) {
-            zombie.actionPerformed();
+
+        Iterator<Zombie> zombieIterator = GameMap.zombies.iterator();
+        while (zombieIterator.hasNext()) {
+            Zombie zombie = zombieIterator.next();
+            boolean zombieStopped = false;
+
+            Iterator<Plant> plantIterator = GameMap.plants.iterator();
+            while (plantIterator.hasNext()) {
+                Plant plant = plantIterator.next();
+                if(collisionChecker.isColliding(zombie, plant)){
+                    zombie.setIsMoving(false);
+                    zombie.attack(plant);
+                    
+                    if(plant.isDead(plant.getHealth())){
+                        plantIterator.remove();
+                    }
+
+                    zombieStopped = true;
+                    break;
+                }
+            }
+
+            if(!zombieStopped){
+                zombie.setIsMoving(true);
+                zombie.actionPerformed();
+            }
+
         }
+        // for (Zombie zombie : GameMap.zombies) {
+        //     for (Plant plant : GameMap.plants) {
+        //         collisionChecker.isColliding(zombie);
+        //         if (!zombie.collisionOn){
+        //             zombie.actionPerformed();
+        //         }
+        //         else{
+        //             zombie.attack(plant);
+        //             System.out.printf("healt:%d",plant.getHealth());
+        //         }
+        //         zombie.collisionOn = false;
+        //     }
+        // }
+
         // if(timer>=60){
         //     // xz-=speed;
         //     xb+=speed;
