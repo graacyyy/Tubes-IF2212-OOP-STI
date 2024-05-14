@@ -2,7 +2,13 @@ package entity.zombies;
 
 public class PoleVaulting extends Zombie {
 
-    public PoleVaulting(){
-        super("Pole Vaulting Zombie",175,100,1,false,100);
+    public PoleVaulting(int x, int y){
+
+        super(x,y);
+        name = "Pole Vaulting Zombie";
+        health = 175;
+        attack_damage = 100;
+        attack_speed = 1;
+        is_aquatic = false;
     }
 }

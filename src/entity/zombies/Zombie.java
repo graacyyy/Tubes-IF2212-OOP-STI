@@ -1,58 +1,170 @@
 package entity.zombies;
 
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
+import java.awt.Graphics2D;
+// import java.awt.image.BufferedImage;
+// import java.io.File;
+// import java.io.IOException;
+
+// import javax.imageio.ImageIO;
+
 import entity.Entity;
-import entity.plants.*;
+import entity.plants.Plant;
+import main.CustomListener;
+import main.GamePanel;
 
-public abstract class Zombie extends Entity{
+public class Zombie extends Entity implements CustomListener{
 
-    private boolean is_aquatic;
-    private double walking_speed;
+    protected boolean is_aquatic;
+    protected boolean isMoving = true;
+    protected boolean isSlowed = false;
 
-    public Zombie(String name, int health, int attack_damage, int attack_speed, boolean is_aquatic, double walking_speed){
+    public Zombie(int x, int y){ 
         
-        // super(name, health, attack_damage, attack_speed);
-        super(name, health, attack_damage, attack_speed);
-        this.is_aquatic = is_aquatic;
-        this.walking_speed = walking_speed;
+        this.x = x;
+        this.y = y;
+        // setDefaultValues();
+        // getZombieImage();
     }
 
-    // Setter dan Getter
+    // GETTER SETTER
+    public void setHealth(int health){
+        
+        this.health = health;
+    }
 
-    public void setIsAquatic(boolean is_aquatic){
+    public int getHealth(){
+        
+        return health;
+    }
+
+    public void setIsMoving(boolean isMoving){
+            
+            this.isMoving = isMoving;
+    }
+
+    public void setIsSlowed(boolean isSlowed){
+        
+        this.isSlowed = isSlowed;
+    }
+
+    // public void setIsAquatic(boolean is_aquatic){
     
-        this.is_aquatic = is_aquatic;
+    //     this.is_aquatic = is_aquatic;
+    // }
+
+    // public boolean getIsAquatic(){
+
+    //     return this.is_aquatic;
+    // }
+
+    // public void setWalkingSpeed(double walking_speed){
+
+    //     this.walking_speed = walking_speed;
+    // }
+
+    // public double getWalkingSpeed(){
+
+    //     return this.walking_speed;
+    // }
+
+    // METHOD
+    public void takeDamage(int attack_damage){
+        
+        health = health - attack_damage;
     }
 
-    public boolean getIsAquatic(){
-
-        return this.is_aquatic;
-    }
-
-    public void setWalkingSpeed(double walking_speed){
-
-        this.walking_speed = walking_speed;
-    }
-
-    public double getWalkingSpeed(){
-
-        return this.walking_speed;
-    }
-
-    // Methods
-     public void takeDamage(int attack_damage){
-        setHealth(getHealth()-attack_damage);
-    }
-    
     public boolean isDead(){
-        return getHealth() <= 0;
+        
+        return health <= 0;
     }
 
     public void attack(Plant plant){
-        plant.takeDamage(getAD());
+        
+        plant.takeDamage(attack_damage);
     }
 
-    public void takeDamage(int attack_damage){
-        setHealth(getHealth() - attack_damage);
+    // DRAW OBJECT
+    // public void setDefaultValues(){
+        
+    //     x = 10*GamePanel.tileSize;
+    //     y = 0*GamePanel.tileSize;
+    //     // speed = 0.0001;
+    //     // distanceToMove = speed*(1.0/60);
+    // }    
+
+    // public void getZombieImage(){
+        
+    //     zombie1 = setup("orc_left_1");
+    //     zombie2 = setup("orc_left_2");
+    // }
+
+    // public BufferedImage setup(String imageName){
+        
+    //     BufferedImage image = null;
+
+    //     try {
+    //         image = ImageIO.read(new File("././res/zombie/" + imageName + ".png"));
+    //     } catch (IOException e) {
+    //         e.printStackTrace();
+    //     }
+
+    //     return image;
+
+    // }
+
+    // public void move(){
+
+    //     if (x > 0){
+    //         x --;
+    //     }
+
+    //     spriteCounter++;
+    //     if (spriteCounter > 30){
+    //         if(spriteNum == 1){
+    //             spriteNum = 2;
+    //         }
+    //         else if (spriteNum == 2){
+    //             spriteNum = 1;
+    //         }
+    //         spriteCounter = 0;
+    //     }
+    // }
+
+    // public void draw(Graphics2D g2){
+
+    //     BufferedImage image = null;
+
+    //     if (spriteNum == 1){
+    //         image = zombie1;
+    //     }
+    //     else if (spriteNum == 2){
+    //         image = zombie2;
+    //     }
+
+    //     g2.drawImage(image, x, y, GamePanel.tileSize, GamePanel.tileSize, null);
+    // }
+
+    public void moveZombie(){
+        x--;
     }
-    
+
+    public void draw(Graphics2D g2){
+        try {
+            image = ImageIO.read(new File(fileimage));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        g2.drawImage(image, x, y, GamePanel.tileSize, GamePanel.tileSize, null);
+    }
+
+    @Override
+    public void actionPerformed() {
+        moveZombie();
+    }
 }

@@ -1,6 +1,5 @@
-package entity.inventory;
+package entity;
 import java.util.ArrayList;
-import entity.inventory.Deck;
 
 import entity.plants.Plant;
 import entity.plants.Sunflower;

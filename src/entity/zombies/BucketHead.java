@@ -2,7 +2,12 @@ package entity.zombies;
 
 public class BucketHead extends Zombie {
 
-    public BucketHead(){
-        super("BucketHead Zombie",300,100,1,false,100);
+    public BucketHead(int x, int y){
+        super(x,y);
+        name = "BucketHead Zombie";
+        health = 300;
+        attack_damage = 100;
+        attack_speed = 1;
+        is_aquatic = false;
     }
 }
