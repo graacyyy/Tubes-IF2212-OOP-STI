@@ -30,9 +30,10 @@ public class SnowPea extends Plant {
             }
         });
         thread.start();
-    }
-
     public void shootPea(){
 
     }
+
+    @Override
+    public void instantKill(Zombie zombie) {}
 }
