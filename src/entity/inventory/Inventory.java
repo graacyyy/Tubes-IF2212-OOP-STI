@@ -4,7 +4,7 @@ import entity.inventory.Deck;
 
 import entity.plants.Plant;
 import entity.plants.Sunflower;
-import entity.plants.Peashooter;
+import entity.plants.PeaShooter;
 import entity.plants.Wallnut;
 import entity.plants.SnowPea;
 import entity.plants.Squash;
@@ -22,7 +22,7 @@ public class Inventory {
         this.inventory = inventory;
 
         inventory.add(new Sunflower());
-        inventory.add(new Peashooter());
+        inventory.add(new PeaShooter());
         inventory.add(new Wallnut());
         inventory.add(new SnowPea());
         inventory.add(new Squash());

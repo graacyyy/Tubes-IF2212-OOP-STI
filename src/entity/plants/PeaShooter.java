@@ -9,6 +9,10 @@ public class PeaShooter extends Plant {
         super("PeaShooter", 100, 100, 25, 4, -1, 10, false);
     }
 
+    public PeaShooter() {
+        //TODO Auto-generated constructor stub
+    }
+
     @Override
     public void instantKill(Zombie zombie) {
         // TODO

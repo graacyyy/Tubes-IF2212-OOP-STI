@@ -10,6 +10,10 @@ public class Sunflower extends Plant {
         super("Sunflower", 50, 100, 0, 0, 0, 10, false);
     }
 
+    public Sunflower() {
+        //TODO Auto-generated constructor stub
+    }
+
     @Override
     public void instantKill(Zombie zombie) {
     }
