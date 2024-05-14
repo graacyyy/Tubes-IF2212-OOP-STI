@@ -30,5 +30,9 @@ public class SnowPea extends Plant {
             }
         });
         thread.start();
-}
+    }
+
+    public void shootPea(){
+
+    }
 }
