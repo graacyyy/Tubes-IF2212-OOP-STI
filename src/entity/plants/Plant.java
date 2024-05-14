@@ -80,4 +80,9 @@ public abstract class Plant extends Entity {
     // }
     
     public abstract void instantKill(Zombie zombie);
+
+    public void takeDamage(int ad) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'takeDamage'");
+    }
 }    

@@ -9,6 +9,10 @@ public class Lilypad extends Plant {
         super("Lilypad", 25, 100, 0, 0, 0, 10, true);
     }
 
+    public Lilypad() {
+        //TODO Auto-generated constructor stub
+    }
+
     @Override
     public void instantKill(Zombie zombie) {}
 

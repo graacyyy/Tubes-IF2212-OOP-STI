@@ -1,6 +1,7 @@
 package entity.zombies;
 
 import entity.Entity;
+import entity.plants.*;
 
 public abstract class Zombie extends Entity{
 
@@ -46,5 +47,12 @@ public abstract class Zombie extends Entity{
         return getHealth() <= 0;
     }
 
+    public void attack(Plant plant){
+        plant.takeDamage(getAD());
+    }
+
+    public void takeDamage(int attack_damage){
+        setHealth(getHealth() - attack_damage);
+    }
     
 }
