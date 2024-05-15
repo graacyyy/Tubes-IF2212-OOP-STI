@@ -62,5 +62,6 @@ public class Deck {
     }
 
     public void checkArea(){
+        
     }
 }

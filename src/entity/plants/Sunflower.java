@@ -16,6 +16,7 @@ public class Sunflower extends Plant {
         range = 0;
         cooldown = 10;
         is_waterplant = false;
+        fileimage = "././res/plant/Sunflower/Sunflower_1.png";
     }
 
     @Override
