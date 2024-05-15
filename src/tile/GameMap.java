@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import entity.plants.Bullet;
 import entity.plants.Plant;
 import entity.zombies.Zombie;
 
@@ -70,7 +69,7 @@ public class GameMap {
     
     public static ArrayList<Plant> plants = new ArrayList<>();
     public static ArrayList<Zombie> zombies = new ArrayList<>();
-    public static ArrayList<Bullet> bullets = new ArrayList<>();
+    // public static ArrayList<Plant> plants = new ArrayList<>();
 
 }
 
