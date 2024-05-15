@@ -40,8 +40,14 @@ import entity.Deck;
 import entity.PlantSpawner;
 
 import tile.GameMap;
+import tile.UI;
 
 public class GamePanel extends JPanel implements Runnable{
+
+    // STATE
+    public static int gameState;
+    public final static int titleState = 0;
+    public final static int playState = 1;
     
     // SCREEN SETTINGS
     final static int originalTileSize = 16; // 16x16
@@ -90,6 +96,7 @@ public class GamePanel extends JPanel implements Runnable{
 
         gameThread = new Thread(this);
         gameThread.start();
+        gameState = titleState;
     }
 
     @Override
@@ -335,27 +342,33 @@ public class GamePanel extends JPanel implements Runnable{
 
         Graphics2D g2 = (Graphics2D)g;
 
-        gameMap.draw(g2);
+        if (gameState == titleState){
+            UI.drawTitle(g2);
+        } else {
+            gameMap.draw(g2);
 
-        for (Plant plant : GameMap.plants) {
-            plant.draw(g2);
-        }
-        try {
-            
-            for (Zombie zombie : GameMap.zombies) {
-                
-                zombie.draw(g2);
+            for (Plant plant : GameMap.plants) {
+                plant.draw(g2);
             }
-        } catch (Exception e) {
+            try {
+                
+                for (Zombie zombie : GameMap.zombies) {
+                    
+                    zombie.draw(g2);
+                }
+            } catch (Exception e) {
+            }
+
+            tileSelector.draw(g2);
+        
+            // drawBullet(g2);
+            
+            // pl.draw(g2);
+
+            g2.dispose();
         }
 
-        tileSelector.draw(g2);
-    
-        // drawBullet(g2);
         
-        // pl.draw(g2);
-
-        g2.dispose();
     }
 
     // public void moveZombie(){
