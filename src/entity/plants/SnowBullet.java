@@ -2,9 +2,9 @@ package entity.plants;
 
 import entity.zombies.*;
 
-public class Snowbullet extends Bullet {
+public class SnowBullet extends Bullet {
     
-    public Snowbullet(int x, int y, int damage){
+    public SnowBullet(int x, int y, int damage){
 
         super(x,y,damage);
         fileimage = "././res/bullet/SnowPea.png";
