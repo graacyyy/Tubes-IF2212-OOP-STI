@@ -9,7 +9,9 @@ public class KeyHandler implements KeyListener{
     public int numKey;
 
     @Override
-    public void keyTyped(KeyEvent e) {}
+    public void keyTyped(KeyEvent e) {
+
+    }
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -62,52 +64,6 @@ public class KeyHandler implements KeyListener{
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
-
-        int code = e.getKeyCode();
-        if(code == KeyEvent.VK_ENTER){
-            enterPressed = false;
-        }
-        if(code == KeyEvent.VK_UP){
-            upPressed = false;
-        }
-        if(code == KeyEvent.VK_DOWN){
-            downPressed = false;
-        }
-        if(code == KeyEvent.VK_LEFT){
-            leftPressed = false;
-        }
-        if(code == KeyEvent.VK_RIGHT){
-            rightPressed = false;
-        }
-        if(code == KeyEvent.VK_1){
-            numPressed = false;
-            numKey = 1;
-        }
-        if(code == KeyEvent.VK_2){
-            numPressed = false;
-            numKey = 2;
-        }
-        if(code == KeyEvent.VK_3){
-            numPressed = false;
-            numKey = 3;
-        }
-        if(code == KeyEvent.VK_4){
-            numPressed = false;
-            numKey = 4;
-        }
-        if(code == KeyEvent.VK_5){
-            numPressed = false;
-            numKey = 5;
-        }
-        if(code == KeyEvent.VK_6){
-            numPressed = false;
-            numKey = 6;
-        }
-        if(code == KeyEvent.VK_7){
-            numPressed = false;
-            numKey = 7;
-        }
-    }
+    public void keyReleased(KeyEvent e) {}
     
 }
