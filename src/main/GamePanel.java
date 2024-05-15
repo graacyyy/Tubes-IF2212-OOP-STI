@@ -13,6 +13,7 @@ import java.util.Random;
 // import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import entity.TileSelector;
 import entity.plants.Plant;
 import entity.zombies.Zombie;
 // import entity.ZombieSpawner;
@@ -28,24 +29,27 @@ public class GamePanel extends JPanel implements Runnable{
 
     public final static int tileSize = originalTileSize * scale; // 64x64
     public final static int maxScreenCol = 11;
-    public final static int maxScreenRow = 6;
+    public final static int maxScreenRow = 6; // jadiin 7 buat deck diatas
     public final static int screenWidth = tileSize * maxScreenCol; // 704 pixels
-    public final static int screenHeight = tileSize * maxScreenRow; // 384 pixels
+    public final static int screenHeight = tileSize * maxScreenRow; // 448 pixels
 
+    
     //FPS
     int FPS = 60;
-
+    
     // GAME OBJECTS
     GameMap gameMap = new GameMap();
     MouseHandler mh = new MouseHandler();
-    Thread gameThread;
+    KeyHandler kh = new KeyHandler();
     Random randomize = new Random();
+    Thread gameThread;
     BufferedImage image3;
     int timer = 0;
     // double speed = 2;
     // int xz, xb;
     Zombie zb;
     Plant pl;
+    TileSelector tileSelector = new TileSelector();
     CollisionChecker collisionChecker = new CollisionChecker(this);
     
 
@@ -55,6 +59,7 @@ public class GamePanel extends JPanel implements Runnable{
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         this.addMouseListener(mh);
+        this.addKeyListener(kh);
         this.setFocusable(true);
         // moveZombie();
         // moveBullet();
@@ -126,8 +131,34 @@ public class GamePanel extends JPanel implements Runnable{
                 zombie.setIsMoving(true);
                 zombie.actionPerformed();
             }
-
         }
+        if (kh.enterPressed == true){
+            System.out.println("Enter pressed");
+        }           
+        else if (kh.upPressed == true){
+            if (tileSelector.getY() == 0){
+                tileSelector.setY(maxScreenRow-1);
+            }
+            else tileSelector.setY(tileSelector.getY()-tileSize);
+        }
+
+        else if (kh.downPressed == true){
+            if (tileSelector.getY() == maxScreenRow-1){
+                tileSelector.setY(0);
+            }
+            else tileSelector.setY(tileSelector.getY()+tileSize);
+        }
+
+        else if (kh.leftPressed == true){
+            System.out.println("Left pressed");
+        }
+        else if (kh.rightPressed == true){
+            System.out.println("Right pressed");
+        }
+        else if (kh.numPressed == true){
+            System.out.println("Number pressed: " + kh.numKey);
+        }
+
         // for (Zombie zombie : GameMap.zombies) {
         //     for (Plant plant : GameMap.plants) {
         //         collisionChecker.isColliding(zombie);
@@ -180,12 +211,15 @@ public class GamePanel extends JPanel implements Runnable{
         Graphics2D g2 = (Graphics2D)g;
 
         gameMap.draw(g2);
-        for (Zombie zombie : GameMap.zombies) {
-            zombie.draw(g2);
-        }
+
         for (Plant plant : GameMap.plants) {
             plant.draw(g2);
         }
+        for (Zombie zombie : GameMap.zombies) {
+            zombie.draw(g2);
+        }
+
+        tileSelector.draw(g2);
     
         // drawBullet(g2);
         

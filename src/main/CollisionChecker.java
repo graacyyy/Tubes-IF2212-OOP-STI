@@ -12,6 +12,6 @@ public class CollisionChecker {
 
     public boolean isColliding(Zombie zombie, Plant plant){
         
-        return zombie.getX() < plant.getX() + GamePanel.tileSize;
+        return zombie.getX() < plant.getSolidAreaX() + GamePanel.tileSize;
     }
 }
