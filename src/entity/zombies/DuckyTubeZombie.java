@@ -2,7 +2,14 @@ package entity.zombies;
 
 public class DuckyTubeZombie extends Zombie {
     
-    public DuckyTubeZombie(){
-        super("Ducky Tube Zoombie",100,100,1,true,100);
+    public DuckyTubeZombie(int x, int y){
+
+        super(x,y);
+        name = "Ducky Tube Zombie";
+        health = 100;
+        attack_damage = 100;
+        attack_speed = 1;
+        is_aquatic = true;
+        fileimage = "././res/zombie/DuckyTubeZombie/DuckyTubeZombie_1.png";
     }
 }

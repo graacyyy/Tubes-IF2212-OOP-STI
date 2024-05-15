@@ -4,15 +4,25 @@ import entity.zombies.*;
 
 public class Lilypad extends Plant {
     
-    public Lilypad(String name, int cost, int health, int attack_damage, int attack_speed, int range, int cooldown,
-            boolean is_waterplant) {
-        super("Lilypad", 25, 100, 0, 0, 0, 10, true);
+    public Lilypad(int x, int y) {
+
+        super(x, y);
+        name = "Pea Shooter";
+        cost = 25;
+        health = 100;
+        attack_damage = 0;
+        attack_speed = 0;
+        range = 0;
+        cooldown = 10;
+        is_waterplant = true;
     }
 
     @Override
     public void instantKill(Zombie zombie) {}
 
-    public void addHealthToPlant(Plant plant) {
-        plant.setHealth(plant.getHealth() + this.getHealth());
+    @Override
+    public void actionPerformed() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
     }
 }

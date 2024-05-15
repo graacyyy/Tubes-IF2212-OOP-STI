@@ -1,20 +1,34 @@
 package entity.plants;
 
 import entity.zombies.*;
-import game.Sun;
+// import game.Sun;
 
 public class Sunflower extends Plant {
     
-    public Sunflower(String name, int cost, int health, int attack_damage, int attack_speed, int range, int cooldown,
-            boolean is_waterplant) {
-        super("Sunflower", 50, 100, 0, 0, 0, 10, false);
+    public Sunflower(int x, int y) {
+
+        super(x, y);
+        name = "Sunflower";
+        cost = 50;
+        health = 100;
+        attack_damage = 0;
+        attack_speed = 0;
+        range = 0;
+        cooldown = 10;
+        is_waterplant = false;
     }
 
     @Override
     public void instantKill(Zombie zombie) {
     }
 
-    public void produceSun(Sun sun){
-        sun.setSunAmount(sun.getSunAmount() + 25);
+    @Override
+    public void actionPerformed() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
     }
+
+    // public void produceSun(Sun sun){
+    //     sun.setSunAmount(sun.getSunAmount() + 25);
+    // }
 }

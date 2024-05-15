@@ -2,15 +2,33 @@ package entity.plants;
 
 import entity.zombies.*;
 
+import tile.GameMap;
+
 public class PeaShooter extends Plant {
     
-    public PeaShooter(String name, int cost, int health, int attack_damage, int attack_speed, int range, int cooldown,
-            boolean is_waterplant) {
-        super("PeaShooter", 100, 100, 25, 4, -1, 10, false);
+    public PeaShooter(int x, int y) {
+
+        super(x, y);
+        name = "Pea Shooter";
+        cost = 100;
+        health = 100;
+        attack_damage = 25;
+        attack_speed = 4;
+        range = -1;
+        cooldown = 10;
+        is_waterplant = false;
+        fileimage = "././res/plant/PeaShooter/PeaShooter_1.png";
+    }
+
+    public void shootPea(){
+        PeaBullet bullet = new PeaBullet(x, y, attack_damage);
+        GameMap.bullets.add(bullet);
     }
 
     @Override
-    public void instantKill(Zombie zombie) {
-        // TODO
+    public void instantKill(Zombie zombie) {}
+
+    @Override
+    public void actionPerformed() {
     }
 }
