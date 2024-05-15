@@ -10,7 +10,7 @@ public class NormalZombie extends Zombie{
         attack_damage = 100;
         attack_speed = 1;
         is_aquatic = false;
-        fileimage = "././res/zombie/orc_left_1.png";
+        fileimage = "././res/zombie/NormalZombie/NormalZombie_1.png";
     }
     
 }
