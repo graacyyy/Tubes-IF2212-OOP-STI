@@ -18,13 +18,6 @@ public class Cactus extends Plant{
         is_waterplant = false;
     }
 
-    public void popBalloon(Zombie zombie){
-        if (zombie instanceof BalloonZombie){
-            int newHealth = (int) (zombie.getHealth() * 0.5);
-            zombie.setHealth(newHealth);
-        }  
-    }
-
     @Override
     public void instantKill(Zombie zombie){}
 

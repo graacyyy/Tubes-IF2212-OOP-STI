@@ -2,6 +2,8 @@ package entity.plants;
 
 import entity.zombies.*;
 
+import tile.GameMap;;
+
 public class PeaShooter extends Plant {
     
     public PeaShooter(int x, int y) {
@@ -16,6 +18,11 @@ public class PeaShooter extends Plant {
         cooldown = 10;
         is_waterplant = false;
         fileimage = "././res/plant/PeaShooter/PeaShooter_1.png";
+    }
+
+    public void shootPea(){
+        PeaBullet bullet = new PeaBullet(x, y, attack_damage);
+        GameMap.bullets.add(bullet);
     }
 
     @Override

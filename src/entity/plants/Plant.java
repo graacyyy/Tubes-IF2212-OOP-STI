@@ -112,6 +112,8 @@ public abstract class Plant extends Entity implements CustomListener{
     public void attack(Zombie zombie){
         
         zombie.takeDamage(attack_damage);
+
+        
     }
 
     public void takeDamage(int attack_damage){
