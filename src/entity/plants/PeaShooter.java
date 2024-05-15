@@ -15,7 +15,7 @@ public class PeaShooter extends Plant {
         range = -1;
         cooldown = 10;
         is_waterplant = false;
-        fileimage = "././res/plant/peashooter_0.png";
+        fileimage = "././res/plant/PeaShooter/PeaShooter_1.png";
     }
 
     @Override

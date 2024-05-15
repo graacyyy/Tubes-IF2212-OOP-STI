@@ -67,7 +67,6 @@ public class GameMap {
         }
     }
     
-
     public static ArrayList<Plant> plants = new ArrayList<>();
     public static ArrayList<Zombie> zombies = new ArrayList<>();
     // public static ArrayList<Plant> plants = new ArrayList<>();

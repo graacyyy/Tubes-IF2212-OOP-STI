@@ -31,10 +31,10 @@ public abstract class Plant extends Entity implements CustomListener{
         this.y = y;
 
         this.solidArea = new Rectangle();
-        this.solidArea.x = x;
-        this.solidArea.y = y;
-        this.solidArea.width = 64;
-        this.solidArea.height = 64;
+        this.solidArea.x = 8;
+        this.solidArea.y = 16;
+        this.solidArea.width = 48;
+        this.solidArea.height = 48;
 
         // setDefaultValues();
         // getPlantImage();
@@ -66,6 +66,17 @@ public abstract class Plant extends Entity implements CustomListener{
 
         return y;
     }
+    
+    public int getSolidAreaX(){
+
+        return solidArea.x;
+    }
+
+    public int getSolidAreaY(){
+
+        return solidArea.y;
+    }
+
     // public void setCost(int cost){
 
     //     this.cost = cost;
@@ -233,6 +244,6 @@ public abstract class Plant extends Entity implements CustomListener{
                 e.printStackTrace();
             }
 
-        g2.drawImage(image, x, y, GamePanel.tileSize, GamePanel.tileSize, null);
+        g2.drawImage(image, x, y+16, GamePanel.tileSize-16, GamePanel.tileSize-16, null);
     }
 }
