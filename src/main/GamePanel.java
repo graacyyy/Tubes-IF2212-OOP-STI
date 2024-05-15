@@ -15,10 +15,19 @@ import javax.swing.JPanel;
 
 import entity.TileSelector;
 import entity.plants.Plant;
+import entity.zombies.BalloonZombie;
+import entity.zombies.BucketHead;
+import entity.zombies.ConeHead;
+import entity.zombies.DolphinRiderZombie;
+import entity.zombies.DuckyTubeZombie;
+import entity.zombies.FootballZombie;
+import entity.zombies.Gargantuar;
+import entity.zombies.ImpZombie;
+import entity.zombies.NormalZombie;
+import entity.zombies.PoleVaulting;
 import entity.zombies.Zombie;
-// import entity.ZombieSpawner;
+import entity.ZombieSpawner;
 
-// import entity.ZombieSpawner;
 import tile.GameMap;
 
 public class GamePanel extends JPanel implements Runnable{
@@ -45,6 +54,7 @@ public class GamePanel extends JPanel implements Runnable{
     Thread gameThread;
     BufferedImage image3;
     int timer = 0;
+    int selectedX, selectedY;
     // double speed = 2;
     // int xz, xb;
     Zombie zb;
@@ -106,6 +116,57 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void update(){
 
+        // SPAWN ZOMBIE
+        if (timer >= 60){
+            int y = randomize.nextInt(0,6);
+
+            if (y == 2 || y == 3){
+                int x = randomize.nextInt(1,3);
+                switch (x) {
+                    case 1:
+                    ZombieSpawner.spawn(new DolphinRiderZombie(10*tileSize, y*tileSize));
+                        break;
+                    case 2:
+                    ZombieSpawner.spawn(new DuckyTubeZombie(10*tileSize, y*tileSize));
+                        break;
+                }
+            }
+            else {
+                int x = randomize.nextInt(1,9);
+                switch (x) {
+                    case 1:
+                    ZombieSpawner.spawn(new BalloonZombie(10*tileSize, y*tileSize));
+                        break;
+                    case 2:
+                    ZombieSpawner.spawn(new BucketHead(10*tileSize, y*tileSize));
+                        break;
+                    case 3:
+                    ZombieSpawner.spawn(new ConeHead(10*tileSize, y*tileSize));
+                        break;
+                    case 4:
+                    ZombieSpawner.spawn(new FootballZombie(10*tileSize, y*tileSize));
+                        break;
+                    case 5:
+                    ZombieSpawner.spawn(new Gargantuar(10*tileSize, y*tileSize));
+                        break;
+                    case 6:
+                    ZombieSpawner.spawn(new ImpZombie(10*tileSize, y*tileSize));
+                        break;
+                    case 7:
+                    ZombieSpawner.spawn(new NormalZombie(10*tileSize, y*tileSize));
+                        break;
+                    case 8:
+                    ZombieSpawner.spawn(new PoleVaulting(10*tileSize, y*tileSize));
+                        break;
+                }
+            }
+            
+            timer = 0;
+        } else {
+            timer++;
+        }
+
+        // COLLISION HANDLER
         Iterator<Zombie> zombieIterator = GameMap.zombies.iterator();
         while (zombieIterator.hasNext()) {
             Zombie zombie = zombieIterator.next();
@@ -132,30 +193,46 @@ public class GamePanel extends JPanel implements Runnable{
                 zombie.actionPerformed();
             }
         }
+
+        // TILESELECTOR HANDLER
         if (kh.enterPressed == true){
-            System.out.println("Enter pressed");
+            kh.enterPressed = false;
+            selectedX = tileSelector.getX();
+            selectedY = tileSelector.getY();
+            System.out.println("X: " + selectedX + " Y: " + selectedY);
         }           
         else if (kh.upPressed == true){
+            kh.upPressed = false;
             if (tileSelector.getY() == 0){
-                tileSelector.setY(maxScreenRow-1);
+                tileSelector.setY((maxScreenRow-1)*tileSize);
             }
             else tileSelector.setY(tileSelector.getY()-tileSize);
         }
 
         else if (kh.downPressed == true){
-            if (tileSelector.getY() == maxScreenRow-1){
+            kh.downPressed = false;
+            if (tileSelector.getY() == (maxScreenRow-1)*tileSize){
                 tileSelector.setY(0);
             }
             else tileSelector.setY(tileSelector.getY()+tileSize);
         }
 
         else if (kh.leftPressed == true){
-            System.out.println("Left pressed");
+            kh.leftPressed = false;
+            if (tileSelector.getX() == 0){
+                tileSelector.setX((maxScreenCol-1)*tileSize);
+            }
+            else tileSelector.setX(tileSelector.getX()-tileSize);
         }
         else if (kh.rightPressed == true){
-            System.out.println("Right pressed");
+            kh.rightPressed = false;
+            if (tileSelector.getX() == (maxScreenCol-1)*tileSize){
+                tileSelector.setX(0);
+            }
+            else tileSelector.setX(tileSelector.getX()+tileSize);
         }
         else if (kh.numPressed == true){
+            kh.numPressed = false;
             System.out.println("Number pressed: " + kh.numKey);
         }
 

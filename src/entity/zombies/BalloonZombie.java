@@ -12,6 +12,7 @@ public class BalloonZombie extends Zombie{
         attack_damage = 100;
         attack_speed = 1;
         is_aquatic = false;
+        fileimage = "././res/zombie/BalloonZombie/BalloonZombie_1.png";
     }
 
     public boolean getIsPopped(){
