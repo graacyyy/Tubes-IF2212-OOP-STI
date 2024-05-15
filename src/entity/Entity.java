@@ -55,4 +55,5 @@ public class Entity {
         
         return this.attack_speed;
     }
+
 }
