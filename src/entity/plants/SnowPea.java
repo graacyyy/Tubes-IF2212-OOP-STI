@@ -4,35 +4,33 @@ import entity.zombies.*;;
 
 public class SnowPea extends Plant {
 
-    public SnowPea(){
+    public SnowPea(int x, int y){
 
-        super("Snow pea",175, 100, 25, 4, -1, 10, false);
+        super(x, y);
+        name = "Snow Pea";
+        cost = 175;
+        health = 100;
+        attack_damage = 25;
+        attack_speed = 4;
+        range = -1;
+        cooldown = 10;
+        is_waterplant = false;
     }
 
     public void delaySpeed(Zombie zombie){
-        long startTime = System.currentTimeMillis();
-
-        zombie.setWalkingSpeed(zombie.getWalkingSpeed()*0.5);
-        zombie.setAS(zombie.getAS()*0.5);
-
-        Thread thread = new Thread(() -> {
-            try{
-                long elapsedTime;
-                do {
-                    Thread.sleep(100);
-                    elapsedTime = System.currentTimeMillis() - startTime;
-                } while (elapsedTime < 3000);
-
-                zombie.setWalkingSpeed(zombie.getWalkingSpeed()*2);
-                zombie.setAS(zombie.getAS()*2);
-            } catch (InterruptedException e){
-                e.printStackTrace();
-            }
-        });
-        thread.start();
+        zombie.setIsSlowed(true);
     }
 
     public void shootPea(){
+        
+    }
 
+    @Override
+    public void instantKill(Zombie zombie) {}
+
+    @Override
+    public void actionPerformed() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
     }
 }
