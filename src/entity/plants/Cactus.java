@@ -1,6 +1,5 @@
 package entity.plants;
 
-import entity.zombies.BalloonZombie;
 import entity.zombies.Zombie;
 
 public class Cactus extends Plant{
