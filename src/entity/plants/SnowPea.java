@@ -1,6 +1,8 @@
 package entity.plants;
 
-import entity.zombies.*;;
+import entity.zombies.*;
+
+import tile.GameMap;
 
 public class SnowPea extends Plant {
 
@@ -22,7 +24,8 @@ public class SnowPea extends Plant {
     }
 
     public void shootPea(){
-        
+        Snowbullet bullet = new Snowbullet(x, y, attack_damage);
+        GameMap.bullets.add(bullet);
     }
 
     @Override
