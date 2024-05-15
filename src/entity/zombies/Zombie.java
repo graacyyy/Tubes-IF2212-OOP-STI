@@ -26,6 +26,11 @@ public class Zombie extends Entity implements CustomListener{
 
     public Zombie(int x, int y){ 
         
+<<<<<<< HEAD
+        super(name, health, attack_damage, attack_speed);
+        this.is_aquatic = is_aquatic;
+        this.walking_speed = walking_speed;
+=======
         this.x = x;
         this.y = y;
 
@@ -37,6 +42,7 @@ public class Zombie extends Entity implements CustomListener{
 
         // setDefaultValues();
         // getZombieImage();
+>>>>>>> 955d6d875befc0e87d6f9e1c6654bc5b89b57ba7
     }
 
     // GETTER SETTER

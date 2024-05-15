@@ -9,5 +9,6 @@ public class Gargantuar extends Zombie {
         attack_damage = 80;
         attack_speed = 1;
         is_aquatic = false;
+        fileimage = "././res/zombie/GargantuarZombie/GargantuarZombie_1.png";
     }
 }

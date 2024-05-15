@@ -1,6 +1,5 @@
 package entity.plants;
 
-import entity.zombies.BalloonZombie;
 import entity.zombies.Zombie;
 
 public class Cactus extends Plant{
@@ -16,13 +15,6 @@ public class Cactus extends Plant{
         range = -1;
         cooldown = 20;
         is_waterplant = false;
-    }
-
-    public void popBalloon(Zombie zombie){
-        if (zombie instanceof BalloonZombie){
-            int newHealth = (int) (zombie.getHealth() * 0.5);
-            zombie.setHealth(newHealth);
-        }  
     }
 
     @Override
