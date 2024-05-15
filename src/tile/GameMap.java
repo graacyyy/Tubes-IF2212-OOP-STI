@@ -44,8 +44,8 @@ public class GameMap {
             e.printStackTrace();
         }
     }
+    
     public void draw (Graphics2D g2){
-
         // Restricted Area
         for (int i = 0; i < GamePanel.maxScreenRow; i++){
             g2.drawImage(tile[1].image, 0*GamePanel.tileSize, i*GamePanel.tileSize, GamePanel.tileSize, GamePanel.tileSize, null);
@@ -66,7 +66,6 @@ public class GameMap {
             g2.drawImage(tile[3].image, 10*GamePanel.tileSize, i*GamePanel.tileSize, GamePanel.tileSize, GamePanel.tileSize, null);
         }
     }
-    
 
     public static ArrayList<Plant> plants = new ArrayList<>();
     public static ArrayList<Zombie> zombies = new ArrayList<>();

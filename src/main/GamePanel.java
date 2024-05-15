@@ -19,6 +19,7 @@ import entity.zombies.Zombie;
 
 // import entity.ZombieSpawner;
 import tile.GameMap;
+import tile.UI;
 
 public class GamePanel extends JPanel implements Runnable{
     
@@ -32,6 +33,10 @@ public class GamePanel extends JPanel implements Runnable{
     public final static int screenWidth = tileSize * maxScreenCol; // 704 pixels
     public final static int screenHeight = tileSize * maxScreenRow; // 384 pixels
 
+    public static int gameState;
+    public final static int titleState = 0;
+    public final static int playState = 1;
+
     //FPS
     int FPS = 60;
 
@@ -41,7 +46,9 @@ public class GamePanel extends JPanel implements Runnable{
     Thread gameThread;
     Random randomize = new Random();
     BufferedImage image3;
+    UI ui = new UI();
     int timer = 0;
+    
     // double speed = 2;
     // int xz, xb;
     Zombie zb;
@@ -64,6 +71,7 @@ public class GamePanel extends JPanel implements Runnable{
 
         gameThread = new Thread(this);
         gameThread.start();
+        gameState = titleState;
     }
 
     @Override
@@ -179,13 +187,20 @@ public class GamePanel extends JPanel implements Runnable{
 
         Graphics2D g2 = (Graphics2D)g;
 
-        gameMap.draw(g2);
-        for (Zombie zombie : GameMap.zombies) {
-            zombie.draw(g2);
+        // TITLE SCREEN
+        if (gameState == titleState){
+            ui.draw(g2);
+        } else{
+            gameMap.draw(g2);
+            for (Zombie zombie : GameMap.zombies) {
+                zombie.draw(g2);
+            }
+            for (Plant plant : GameMap.plants) {
+                plant.draw(g2);
+            }
         }
-        for (Plant plant : GameMap.plants) {
-            plant.draw(g2);
-        }
+
+        
     
         // drawBullet(g2);
         
