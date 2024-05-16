@@ -17,6 +17,7 @@ public class SnowPea extends Plant {
         range = -1;
         cooldown = 10;
         is_waterplant = false;
+        fileimage = "././res/plant/SnowPeaShooter/SnowPeaShooter_1.png";
     }
 
     public void delaySpeed(Zombie zombie){
@@ -24,7 +25,8 @@ public class SnowPea extends Plant {
     }
 
     public void shootPea(){
-        Snowbullet bullet = new Snowbullet(x, y, attack_damage);
+      
+        SnowBullet bullet = new SnowBullet(x, y, attack_damage);
         GameMap.bullets.add(bullet);
     }
 

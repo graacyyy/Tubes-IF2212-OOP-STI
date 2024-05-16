@@ -15,6 +15,7 @@ public class IceShroom extends Plant{
         range = -1;
         cooldown = 20;
         is_waterplant = false;
+        fileimage = "././res/plant/IceShroom.png";
     }
 
     public void freeze(Zombie zombie){
@@ -28,6 +29,5 @@ public class IceShroom extends Plant{
     @Override
     public void actionPerformed() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
     }
 }

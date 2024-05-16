@@ -13,8 +13,17 @@ import java.util.Random;
 // import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import entity.TileSelector;
+import entity.TileSelector
+import entity.plants.Cactus;
+import entity.plants.IceShroom;
+import entity.plants.Jalapeno;
+import entity.plants.Lilypad;
+import entity.plants.PeaShooter;
 import entity.plants.Plant;
+import entity.plants.SnowPea;
+// import entity.plants.Squash;
+// import entity.plants.Sunflower;
+// import entity.plants.Wallnut;
 import entity.zombies.BalloonZombie;
 import entity.zombies.BucketHead;
 import entity.zombies.ConeHead;
@@ -27,10 +36,19 @@ import entity.zombies.NormalZombie;
 import entity.zombies.PoleVaulting;
 import entity.zombies.Zombie;
 import entity.ZombieSpawner;
+import entity.Deck;
+import entity.PlantSpawner;
 
 import tile.GameMap;
+import tile.UI;
+
 
 public class GamePanel extends JPanel implements Runnable{
+
+    // STATE
+    public static int gameState;
+    public final static int titleState = 0;
+    public final static int playState = 1;
     
     // SCREEN SETTINGS
     final static int originalTileSize = 16; // 16x16
@@ -61,7 +79,7 @@ public class GamePanel extends JPanel implements Runnable{
     Plant pl;
     TileSelector tileSelector = new TileSelector();
     CollisionChecker collisionChecker = new CollisionChecker(this);
-    
+    Deck deck = new Deck(new Plant[6], true);
 
     public GamePanel(){
 
@@ -79,6 +97,7 @@ public class GamePanel extends JPanel implements Runnable{
 
         gameThread = new Thread(this);
         gameThread.start();
+        gameState = titleState;
     }
 
     @Override
@@ -115,6 +134,35 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void update(){
+
+        // SPAWN PLANT
+        if (kh.numPressed == true){
+            kh.numPressed = false;
+            int plantIndex = kh.numKey;
+            switch (plantIndex) {
+                case 1:
+                PlantSpawner.spawn(new Cactus(selectedX, selectedY));
+                    break;
+                case 2:
+                PlantSpawner.spawn(new IceShroom(selectedX, selectedY));
+                    break;
+                case 3:
+                PlantSpawner.spawn(new Jalapeno(selectedX, selectedY));
+                    break;
+                case 4:
+                PlantSpawner.spawn(new Lilypad(selectedX, selectedY));
+                    break;
+                case 5:
+                PlantSpawner.spawn(new PeaShooter(selectedX, selectedY));
+                    break;
+                case 6:
+                PlantSpawner.spawn(new SnowPea(selectedX, selectedY));
+                    break;
+                case 7:
+                GameMap.plants.removeIf(plant -> plant.getX() == selectedX && plant.getY() == selectedY);
+                    break;
+            }
+        }
 
         // SPAWN ZOMBIE
         if (timer >= 60){
@@ -166,33 +214,41 @@ public class GamePanel extends JPanel implements Runnable{
             timer++;
         }
 
-        // COLLISION HANDLER
-        Iterator<Zombie> zombieIterator = GameMap.zombies.iterator();
-        while (zombieIterator.hasNext()) {
-            Zombie zombie = zombieIterator.next();
-            boolean zombieStopped = false;
-
-            Iterator<Plant> plantIterator = GameMap.plants.iterator();
-            while (plantIterator.hasNext()) {
-                Plant plant = plantIterator.next();
-                if(collisionChecker.isColliding(zombie, plant)){
-                    zombie.setIsMoving(false);
-                    zombie.attack(plant);
-                    
-                    if(plant.isDead(plant.getHealth())){
-                        plantIterator.remove();
-                    }
-
-                    zombieStopped = true;
-                    break;
-                }
-            }
-
-            if(!zombieStopped){
-                zombie.setIsMoving(true);
-                zombie.actionPerformed();
-            }
+        for (Zombie zombie : GameMap.zombies) {
+            
+            zombie.actionPerformed();
         }
+
+        // COLLISION HANDLER
+        // Iterator<Zombie> zombieIterator = GameMap.zombies.iterator();
+        // while (zombieIterator.hasNext()) {
+        //     Zombie zombie = zombieIterator.next();
+        //     boolean zombieStopped = false;
+            
+        //     Iterator<Plant> plantIterator = GameMap.plants.iterator();
+        //     while (plantIterator.hasNext()) {
+        //         Plant plant = plantIterator.next();
+        //         if(collisionChecker.isColliding(zombie, plant)){
+        //             zombie.setIsMoving(false);
+        //             zombie.attack(plant);
+                    
+        //             if(plant.isDead(plant.getHealth())){
+        //                 plantIterator.remove();
+        //             }
+
+        //             zombieStopped = true;
+        //             break;
+        //         }
+        //     }
+
+        //     if(!zombieStopped){
+        //         zombie.setIsMoving(true);
+        //         if (zombie.getX() <= 0){
+        //             zombieIterator.remove();
+        //         }
+        //         else zombie.actionPerformed();
+        //     }
+        //}
 
         // TILESELECTOR HANDLER
         if (kh.enterPressed == true){
@@ -287,22 +343,31 @@ public class GamePanel extends JPanel implements Runnable{
 
         Graphics2D g2 = (Graphics2D)g;
 
-        gameMap.draw(g2);
+        if (gameState == titleState){
+            UI.drawTitle(g2);
+        } else {
+            gameMap.draw(g2);
 
-        for (Plant plant : GameMap.plants) {
-            plant.draw(g2);
-        }
-        for (Zombie zombie : GameMap.zombies) {
-            zombie.draw(g2);
-        }
+            for (Plant plant : GameMap.plants) {
+                plant.draw(g2);
+            }
+            try {
+                
+                for (Zombie zombie : GameMap.zombies) {
+                    
+                    zombie.draw(g2);
+                }
+            } catch (Exception e) {
+            }
 
-        tileSelector.draw(g2);
-    
-        // drawBullet(g2);
+            tileSelector.draw(g2);
         
-        // pl.draw(g2);
+            // drawBullet(g2);
+            
+            // pl.draw(g2);
 
-        g2.dispose();
+            g2.dispose();
+        }
     }
 
     // public void moveZombie(){
