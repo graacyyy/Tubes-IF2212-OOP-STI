@@ -120,7 +120,7 @@ public abstract class Plant extends Entity implements CustomListener{
         health = health - attack_damage;
     }
 
-    public boolean isDead(int health){
+    public boolean isDead(){
         
         return health <= 0;
     }
