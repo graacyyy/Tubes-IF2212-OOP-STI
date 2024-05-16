@@ -13,7 +13,7 @@ import java.util.Random;
 // import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import entity.TileSelector;
+import entity.TileSelector
 import entity.plants.Cactus;
 import entity.plants.IceShroom;
 import entity.plants.Jalapeno;
@@ -41,6 +41,7 @@ import entity.PlantSpawner;
 
 import tile.GameMap;
 import tile.UI;
+
 
 public class GamePanel extends JPanel implements Runnable{
 
@@ -79,7 +80,7 @@ public class GamePanel extends JPanel implements Runnable{
     TileSelector tileSelector = new TileSelector();
     CollisionChecker collisionChecker = new CollisionChecker(this);
     Deck deck = new Deck(new Plant[6], true);
-    
+
     public GamePanel(){
 
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -350,14 +351,14 @@ public class GamePanel extends JPanel implements Runnable{
             for (Plant plant : GameMap.plants) {
                 plant.draw(g2);
             }
-            try {
+            // try {
                 
                 for (Zombie zombie : GameMap.zombies) {
                     
                     zombie.draw(g2);
                 }
-            } catch (Exception e) {
-            }
+            // } catch (Exception e) {
+            // }
 
             tileSelector.draw(g2);
         
@@ -367,8 +368,6 @@ public class GamePanel extends JPanel implements Runnable{
 
             g2.dispose();
         }
-
-        
     }
 
     // public void moveZombie(){
