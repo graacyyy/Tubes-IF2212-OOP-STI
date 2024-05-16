@@ -5,7 +5,9 @@ import entity.zombies.*;
 import tile.GameMap;
 
 public class PeaShooter extends Plant {
-    
+
+    int timer = 0;
+
     public PeaShooter(int x, int y) {
 
         super(x, y);
@@ -30,5 +32,17 @@ public class PeaShooter extends Plant {
 
     @Override
     public void actionPerformed() {
+
+        if (timer >= 60){
+            for (Zombie zombie : GameMap.zombies) {
+                if (zombie.getY() == y){
+                    shootPea();
+                }
+            }
+            timer = 0;
+        }
+        else {
+            timer++;
+        }
     }
 }

@@ -24,10 +24,10 @@ public class IceShroom extends Plant{
     }
 
     @Override
-    public void instantKill(Zombie zombie) {}
+    public void instantKill(Zombie zombie) {
+        zombie.setHealth(0);
+    }
 
     @Override
-    public void actionPerformed() {
-        // TODO Auto-generated method stub
-    }
+    public void actionPerformed() {}
 }

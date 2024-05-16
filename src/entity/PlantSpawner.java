@@ -5,8 +5,7 @@ import tile.GameMap;
 
 public class PlantSpawner {
     
-        public static void spawn (Plant pl){
+    public static void spawn (Plant pl){
         GameMap.plants.add(pl);
     }
-
 }

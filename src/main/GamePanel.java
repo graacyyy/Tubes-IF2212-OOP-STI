@@ -13,7 +13,8 @@ import java.util.Random;
 // import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import entity.TileSelector
+import entity.TileSelector;
+import entity.plants.Bullet;
 import entity.plants.Cactus;
 import entity.plants.IceShroom;
 import entity.plants.Jalapeno;
@@ -72,6 +73,7 @@ public class GamePanel extends JPanel implements Runnable{
     Thread gameThread;
     BufferedImage image3;
     int timer = 0;
+    public static int gametime = 0;
     int selectedX, selectedY;
     // double speed = 2;
     // int xz, xb;
@@ -94,7 +96,7 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void startGameThread() {
-
+        System.out.println("thread");
         gameThread = new Thread(this);
         gameThread.start();
         gameState = titleState;
@@ -120,7 +122,6 @@ public class GamePanel extends JPanel implements Runnable{
 
             if(delta >= 1){
                 update();
-                repaint();
                 delta--;
                 drawCount++;
             }
@@ -129,12 +130,13 @@ public class GamePanel extends JPanel implements Runnable{
                 System.out.println("FPS:" + drawCount);
                 drawCount = 0;
                 timer = 0;
+                gametime++;
             }
         }
     }
 
     public void update(){
-
+        repaint();
         // SPAWN PLANT
         if (kh.numPressed == true){
             kh.numPressed = false;
@@ -208,47 +210,38 @@ public class GamePanel extends JPanel implements Runnable{
                         break;
                 }
             }
-            
+
             timer = 0;
         } else {
             timer++;
         }
 
-        for (Zombie zombie : GameMap.zombies) {
-            
-            zombie.actionPerformed();
+        Iterator<Bullet> bulletIterator = GameMap.bullets.iterator();
+        while (bulletIterator.hasNext()){
+            Bullet bullet = bulletIterator.next();
+            bullet.actionPerformed();
+            if (bullet.isHit()){
+                bulletIterator.remove();
+            }
         }
 
-        // COLLISION HANDLER
-        // Iterator<Zombie> zombieIterator = GameMap.zombies.iterator();
-        // while (zombieIterator.hasNext()) {
-        //     Zombie zombie = zombieIterator.next();
-        //     boolean zombieStopped = false;
-            
-        //     Iterator<Plant> plantIterator = GameMap.plants.iterator();
-        //     while (plantIterator.hasNext()) {
-        //         Plant plant = plantIterator.next();
-        //         if(collisionChecker.isColliding(zombie, plant)){
-        //             zombie.setIsMoving(false);
-        //             zombie.attack(plant);
-                    
-        //             if(plant.isDead(plant.getHealth())){
-        //                 plantIterator.remove();
-        //             }
+        Iterator<Plant> planIterator = GameMap.plants.iterator();
+        while (planIterator.hasNext()){
+            Plant plant = planIterator.next();
+            plant.actionPerformed();
+            if (plant.isDead()){
+                planIterator.remove();
+            }
+        }
 
-        //             zombieStopped = true;
-        //             break;
-        //         }
-        //     }
-
-        //     if(!zombieStopped){
-        //         zombie.setIsMoving(true);
-        //         if (zombie.getX() <= 0){
-        //             zombieIterator.remove();
-        //         }
-        //         else zombie.actionPerformed();
-        //     }
-        //}
+        Iterator<Zombie> zombieIterator = GameMap.zombies.iterator();
+        while (zombieIterator.hasNext()){
+            Zombie zombie = zombieIterator.next();
+            zombie.actionPerformed();
+            if (zombie.isDead()){
+                zombieIterator.remove();
+            }
+        }
 
         // TILESELECTOR HANDLER
         if (kh.enterPressed == true){
@@ -348,17 +341,23 @@ public class GamePanel extends JPanel implements Runnable{
         } else {
             gameMap.draw(g2);
 
-            for (Plant plant : GameMap.plants) {
-                plant.draw(g2);
-            }
-            // try {
-                
-                for (Zombie zombie : GameMap.zombies) {
-                    
-                    zombie.draw(g2);
+            for (int i = 0; i < GameMap.plants.size(); i++) {
+                if(GameMap.plants.get(i)!=null){
+                    GameMap.plants.get(i).draw(g2);
                 }
-            // } catch (Exception e) {
-            // }
+            }
+
+            for (int i = 0; i < GameMap.bullets.size(); i++) {
+                if(GameMap.bullets.get(i)!=null){
+                    GameMap.bullets.get(i).draw(g2);
+                }
+            }
+            
+            for (int i = 0; i < GameMap.zombies.size(); i++) {
+                if(GameMap.zombies.get(i)!=null){
+                    GameMap.zombies.get(i).draw(g2);
+                }
+            }
 
             tileSelector.draw(g2);
         
