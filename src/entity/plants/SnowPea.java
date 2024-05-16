@@ -25,6 +25,7 @@ public class SnowPea extends Plant {
     }
 
     public void shootPea(){
+      
         SnowBullet bullet = new SnowBullet(x, y, attack_damage);
         GameMap.bullets.add(bullet);
     }

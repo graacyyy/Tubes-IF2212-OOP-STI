@@ -35,6 +35,7 @@ public abstract class Plant extends Entity implements CustomListener{
         this.solidArea.y = 16;
         this.solidArea.width = 48;
         this.solidArea.height = 48;
+
         // setDefaultValues();
         // getPlantImage();
     }
@@ -82,6 +83,7 @@ public abstract class Plant extends Entity implements CustomListener{
     // }
 
     // public int getCost(){
+
 
     //     return this.cost;
     // }
