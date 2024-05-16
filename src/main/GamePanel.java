@@ -351,14 +351,14 @@ public class GamePanel extends JPanel implements Runnable{
             for (Plant plant : GameMap.plants) {
                 plant.draw(g2);
             }
-            try {
+            // try {
                 
                 for (Zombie zombie : GameMap.zombies) {
                     
                     zombie.draw(g2);
                 }
-            } catch (Exception e) {
-            }
+            // } catch (Exception e) {
+            // }
 
             tileSelector.draw(g2);
         
