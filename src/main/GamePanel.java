@@ -54,6 +54,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final static int winState = 3;
     public final static int plantState = 4;
     public final static int zombieState = 5;
+    public static boolean pause = false;
     
     // SCREEN SETTINGS
     final static int originalTileSize = 16; // 16x16
@@ -117,7 +118,7 @@ public class GamePanel extends JPanel implements Runnable{
         long timer = 0;
         int drawCount = 0;
 
-        while(gameThread != null){
+        while(!pause){
 
             currentTime = System.nanoTime();
 

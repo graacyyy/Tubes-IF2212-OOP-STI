@@ -4,10 +4,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import tile.UI;
+import tile.GameMap;
 
 public class KeyHandler implements KeyListener{
 
-    public boolean upPressed, downPressed, leftPressed, rightPressed, numPressed, enterPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, numPressed, enterPressed, pausePressed;
+    public boolean pause;
     public int numKey;
 
     @Override
@@ -60,6 +62,11 @@ public class KeyHandler implements KeyListener{
             if(code == KeyEvent.VK_ENTER){
                 if (UI.commandNum == 1){
                     GamePanel.gameState = GamePanel.playState;
+                    GameMap.zombies.clear();
+                    GameMap.plants.clear();
+                    GameMap.bullets.clear();
+                    GamePanel.gametime = 0;
+                    // Sun nya = 0
                 } else {
                     System.exit(0); 
                 }
@@ -129,6 +136,19 @@ public class KeyHandler implements KeyListener{
             if(code == KeyEvent.VK_7){
                 numPressed = true;
                 numKey = 7;
+            }
+            if (code == KeyEvent.VK_P){
+                if(pause){
+                    pausePressed = false;
+                    pause = false;
+                    GamePanel.pause = true;
+                } else {
+                    pausePressed = false;
+                    pause = true;
+                    GamePanel.pause = false;
+                    Main.startThread();
+                }
+                
             }    
         } 
     }

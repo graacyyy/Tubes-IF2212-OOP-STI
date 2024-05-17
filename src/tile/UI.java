@@ -14,9 +14,7 @@ public class UI {
     static Font titleFont;
     static Font heading2;
     static String text;
-    private static BufferedImage titleImage;
-    private static BufferedImage loseImage;
-    private static BufferedImage winImage;
+    private static BufferedImage titleImage, loseImage, winImage, pauseImage;
     public static int commandNum = 1;
 
     static {
@@ -24,6 +22,7 @@ public class UI {
             titleImage = ImageIO.read(new File("./res/menu/titlemenu.png"));
             loseImage = ImageIO.read(new File("./res/menu/gameover.png"));
             winImage = ImageIO.read(new File("./res/menu/winPage.png"));
+            pauseImage = ImageIO.read(new File("./res/menu/pause.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -182,6 +181,12 @@ public class UI {
             if(commandNum == 2){
                 g2.drawString(">", x-GamePanel.tileSize, y);
             }
+        }
+    }
+
+    public static void drawPause(Graphics2D g2) {
+        if (pauseImage != null) {
+            g2.drawImage(pauseImage, 0, 0, GamePanel.screenWidth, GamePanel.screenHeight,null);
         }
     }
 
