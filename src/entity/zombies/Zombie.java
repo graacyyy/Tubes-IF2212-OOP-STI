@@ -17,6 +17,7 @@ import entity.Entity;
 import entity.plants.Plant;
 import main.CustomListener;
 import main.GamePanel;
+import tile.GameMap;
 
 public class Zombie extends Entity implements CustomListener{
 
@@ -166,6 +167,11 @@ public class Zombie extends Entity implements CustomListener{
     //     g2.drawImage(image, x, y, GamePanel.tileSize, GamePanel.tileSize, null);
     // }
 
+    public void hit(Plant plant){
+
+        plant.takeDamage(attack_damage);
+    }
+
     public void moveZombie(){
         x--;
         solidArea.x = x;
@@ -182,6 +188,18 @@ public class Zombie extends Entity implements CustomListener{
 
     @Override
     public void actionPerformed() {
-        moveZombie();
+        for (Plant plant : GameMap.plants){
+            if (plant.getX() >= x && plant.getY() == y){
+                isMoving = false;
+                plant.takeDamage(attack_damage);
+            }
+            else{
+                isMoving = true;
+            }
+        }
+
+        if (isMoving){
+            moveZombie();
+        }
     }
 }

@@ -22,8 +22,5 @@ public class Lilypad extends Plant {
     public void instantKill(Zombie zombie) {}
 
     @Override
-    public void actionPerformed() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
-    }
+    public void actionPerformed() {}
 }

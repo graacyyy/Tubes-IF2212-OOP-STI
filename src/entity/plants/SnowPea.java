@@ -6,6 +6,8 @@ import tile.GameMap;
 
 public class SnowPea extends Plant {
 
+    int timer = 0;
+
     public SnowPea(int x, int y){
 
         super(x, y);
@@ -35,7 +37,16 @@ public class SnowPea extends Plant {
 
     @Override
     public void actionPerformed() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+        if (timer >= 60){
+            for (Zombie zombie : GameMap.zombies) {
+                if (zombie.getY() == y){
+                    shootPea();
+                }
+            }
+            timer = 0;
+        }
+        else {
+            timer++;
+        }
     }
 }

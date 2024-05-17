@@ -15,21 +15,13 @@ import entity.plants.IceShroom;
 
 
 public class Inventory {
-    private ArrayList<Plant> inventory;
+
+    protected ArrayList<Plant> inventory;
+    
 
     public Inventory(ArrayList<Plant> inventory) {
         this.inventory = inventory;
 
-        inventory.add(new Sunflower());
-        inventory.add(new PeaShooter());
-        inventory.add(new Wallnut());
-        inventory.add(new SnowPea());
-        inventory.add(new Squash());
-        inventory.add(new Lilypad());
-        inventory.add(new Jalapeno());
-        inventory.add(new Cactus());
-        inventory.add(new TangleKelp());
-        inventory.add(new IceShroom());
     }
 
     public void showInventory(){
