@@ -46,7 +46,7 @@ public class TileSelector {
         BufferedImage image = null;
 
         try {
-            image = ImageIO.read(new File("././res/ /tileselector.png"));
+            image = ImageIO.read(new File("././res/tiles/tileselector.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

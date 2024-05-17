@@ -37,9 +37,55 @@ public class KeyHandler implements KeyListener{
             if(code == KeyEvent.VK_ENTER){
                 if (UI.commandNum == 1){
                     GamePanel.gameState = GamePanel.playState;
+                } else if (UI.commandNum == 5){
+                    System.exit(0); 
                 }
             }
 
+        } else if (GamePanel.gameState == GamePanel.loseState){
+            if(code == KeyEvent.VK_UP){
+                UI.commandNum--;
+                if (UI.commandNum < 1){
+                    UI.commandNum = 2;
+                }
+            }
+
+            if(code == KeyEvent.VK_DOWN){
+                UI.commandNum++;
+                if (UI.commandNum > 2){
+                    UI.commandNum = 1;
+                }
+            }
+
+            if(code == KeyEvent.VK_ENTER){
+                if (UI.commandNum == 1){
+                    GamePanel.gameState = GamePanel.playState;
+                } else {
+                    System.exit(0); 
+                }
+            }
+        } else if (GamePanel.gameState == GamePanel.winState){
+            if(code == KeyEvent.VK_UP){
+                UI.commandNum--;
+                if (UI.commandNum < 1){
+                    UI.commandNum = 2;
+                }
+            }
+
+            if(code == KeyEvent.VK_DOWN){
+                UI.commandNum++;
+                if (UI.commandNum > 2){
+                    UI.commandNum = 1;
+                }
+            }
+
+            if(code == KeyEvent.VK_ENTER){
+                if (UI.commandNum == 1){
+                    GamePanel.gameState = GamePanel.playState;
+                } else {
+                    System.exit(0); 
+                }
+            } 
         } else if (GamePanel.gameState == GamePanel.playState){
             if(code == KeyEvent.VK_ENTER){
                 enterPressed = true;
