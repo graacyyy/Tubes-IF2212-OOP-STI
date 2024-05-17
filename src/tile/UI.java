@@ -14,12 +14,16 @@ public class UI {
     static Font titleFont;
     static Font heading2;
     static String text;
-    private static BufferedImage backgroundImage;
+    private static BufferedImage titleImage;
+    private static BufferedImage loseImage;
+    private static BufferedImage winImage;
     public static int commandNum = 1;
 
     static {
         try {
-            backgroundImage = ImageIO.read(new File("./res/menu/titlemenu.png"));
+            titleImage = ImageIO.read(new File("./res/menu/titlemenu.png"));
+            loseImage = ImageIO.read(new File("./res/menu/gameover.png"));
+            winImage = ImageIO.read(new File("./res/menu/winPage.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -31,8 +35,8 @@ public class UI {
     }
 
     public static void drawTitle(Graphics2D g2){
-        if (backgroundImage != null) {
-            g2.drawImage(backgroundImage, 0, 0, GamePanel.screenWidth, GamePanel.screenHeight,null);
+        if (titleImage != null) {
+            g2.drawImage(titleImage, 0, 0, GamePanel.screenWidth, GamePanel.screenHeight,null);
         }
 
         g2.setFont(titleFont);
@@ -99,6 +103,86 @@ public class UI {
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         int x = GamePanel.screenWidth / 2 - length / 2;
         return x;
+    }
+
+    public static void drawLose(Graphics2D g2) {
+        if (loseImage != null) {
+            g2.drawImage(loseImage, 0, 0, GamePanel.screenWidth, GamePanel.screenHeight,null);
+        }
+
+        g2.setFont(titleFont);
+        g2.setColor(Color.white);
+
+        if(GamePanel.gameState == GamePanel.loseState) {
+            // BACKGROUND
+            
+            // TITLE NAME
+            // g2.setFont(titleFont);
+            // text = "GAME OVER";
+            // int x = getXForCenteredText(g2, text);
+            // int y = GamePanel.tileSize*2;
+
+            // g2.drawString(text, x, y);
+
+            // MENU
+            g2.setFont(titleFont);
+
+            text = "PLAY AGAIN";
+            int x = getXForCenteredText(g2, text);
+            int y = (int) (GamePanel.tileSize*2.7f);
+            g2.drawString(text, x, y);
+            if(commandNum == 1){
+                g2.drawString(">", x-GamePanel.tileSize, y);
+            }
+
+            text = "EXIT";
+            x = getXForCenteredText(g2, text);
+            y += GamePanel.tileSize*0.5f;
+            g2.drawString(text, x, y);
+            if(commandNum == 2){
+                g2.drawString(">", x-GamePanel.tileSize, y);
+            }
+        }
+    }
+
+    public static void drawWin(Graphics2D g2) {
+        if (winImage != null) {
+            g2.drawImage(winImage, 0, 0, GamePanel.screenWidth, GamePanel.screenHeight,null);
+        }
+
+        g2.setFont(titleFont);
+        g2.setColor(Color.white);
+
+        if(GamePanel.gameState == GamePanel.winState) {
+            // BACKGROUND
+            
+            // TITLE NAME
+            // g2.setFont(titleFont);
+            // text = "GAME OVER";
+            // int x = getXForCenteredText(g2, text);
+            // int y = GamePanel.tileSize*2;
+
+            // g2.drawString(text, x, y);
+
+            // MENU
+            g2.setFont(titleFont);
+
+            text = "PLAY AGAIN";
+            int x = getXForCenteredText(g2, text);
+            int y = (int) (GamePanel.tileSize*3.5f);
+            g2.drawString(text, x, y);
+            if(commandNum == 1){
+                g2.drawString(">", x-GamePanel.tileSize, y);
+            }
+
+            text = "EXIT";
+            x = getXForCenteredText(g2, text);
+            y += GamePanel.tileSize*0.5f;
+            g2.drawString(text, x, y);
+            if(commandNum == 2){
+                g2.drawString(">", x-GamePanel.tileSize, y);
+            }
+        }
     }
 
         // g2.drawString("Michael Vs Lalapan", 100, 100);

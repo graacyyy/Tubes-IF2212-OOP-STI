@@ -50,6 +50,10 @@ public class GamePanel extends JPanel implements Runnable{
     public static int gameState;
     public final static int titleState = 0;
     public final static int playState = 1;
+    public final static int loseState = 2;
+    public final static int winState = 3;
+    public final static int plantState = 4;
+    public final static int zombieState = 5;
     
     // SCREEN SETTINGS
     final static int originalTileSize = 16; // 16x16
@@ -82,6 +86,7 @@ public class GamePanel extends JPanel implements Runnable{
     TileSelector tileSelector = new TileSelector();
     CollisionChecker collisionChecker = new CollisionChecker(this);
     Deck deck = new Deck(new Plant[6], true);
+    boolean isPlanted = false;
 
     public GamePanel(){
 
@@ -91,6 +96,7 @@ public class GamePanel extends JPanel implements Runnable{
         this.addMouseListener(mh);
         this.addKeyListener(kh);
         this.setFocusable(true);
+        gameState = titleState;
         // moveZombie();
         // moveBullet();
     }
@@ -99,7 +105,6 @@ public class GamePanel extends JPanel implements Runnable{
         System.out.println("thread");
         gameThread = new Thread(this);
         gameThread.start();
-        gameState = titleState;
     }
 
     @Override
@@ -143,25 +148,39 @@ public class GamePanel extends JPanel implements Runnable{
             int plantIndex = kh.numKey;
             switch (plantIndex) {
                 case 1:
-                PlantSpawner.spawn(new Cactus(selectedX, selectedY));
+                if (!isPlanted){
+                    PlantSpawner.spawn(new Cactus(selectedX, selectedY));
+                }
                     break;
                 case 2:
-                PlantSpawner.spawn(new IceShroom(selectedX, selectedY));
+                if (!isPlanted){
+                    PlantSpawner.spawn(new IceShroom(selectedX, selectedY));
+                }
                     break;
                 case 3:
-                PlantSpawner.spawn(new Jalapeno(selectedX, selectedY));
+                if (!isPlanted){
+                    PlantSpawner.spawn(new Jalapeno(selectedX, selectedY));
+                }
                     break;
                 case 4:
-                PlantSpawner.spawn(new Lilypad(selectedX, selectedY));
+                if (!isPlanted){
+                    PlantSpawner.spawn(new Lilypad(selectedX, selectedY));
+                }
                     break;
                 case 5:
-                PlantSpawner.spawn(new PeaShooter(selectedX, selectedY));
+                if (!isPlanted){
+                    PlantSpawner.spawn(new PeaShooter(selectedX, selectedY));
+                }
                     break;
                 case 6:
-                PlantSpawner.spawn(new SnowPea(selectedX, selectedY));
+                if (!isPlanted){
+                    PlantSpawner.spawn(new SnowPea(selectedX, selectedY));
+                }
                     break;
                 case 7:
-                GameMap.plants.removeIf(plant -> plant.getX() == selectedX && plant.getY() == selectedY);
+                if (isPlanted){
+                    GameMap.plants.removeIf(plant -> plant.getX() == selectedX && plant.getY() == selectedY);
+                }
                     break;
             }
         }
@@ -249,6 +268,9 @@ public class GamePanel extends JPanel implements Runnable{
             selectedX = tileSelector.getX();
             selectedY = tileSelector.getY();
             System.out.println("X: " + selectedX + " Y: " + selectedY);
+            // if (kh.numPressed == true){
+            //     isPlanted = true;
+            // }
         }           
         else if (kh.upPressed == true){
             kh.upPressed = false;
@@ -283,6 +305,23 @@ public class GamePanel extends JPanel implements Runnable{
         else if (kh.numPressed == true){
             kh.numPressed = false;
             System.out.println("Number pressed: " + kh.numKey);
+        }
+
+        if (gametime >= 200){
+            if (GameMap.zombies.size() <= 0){
+                gameState = winState;
+            } else {
+                gameState = loseState;
+                UI.commandNum = 1;
+            }
+        } else {
+            for (Zombie zombie : GameMap.zombies) {
+                if (zombie.getX() == 0) {
+                    gameState = loseState;
+                    UI.commandNum = 1;
+                    break; 
+                }
+            }
         }
 
         // for (Zombie zombie : GameMap.zombies) {
@@ -338,7 +377,11 @@ public class GamePanel extends JPanel implements Runnable{
 
         if (gameState == titleState){
             UI.drawTitle(g2);
-        } else {
+        } else if (gameState == loseState) {
+            UI.drawLose(g2);
+        } else if (gameState == winState) {
+            UI.drawWin(g2);
+        }else {
             gameMap.draw(g2);
 
             for (int i = 0; i < GameMap.plants.size(); i++) {
