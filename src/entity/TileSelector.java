@@ -23,7 +23,7 @@ public class TileSelector {
     public void setDefaultValues(){
 
         x = 0;
-        y = 0;
+        y = GamePanel.tileSize;
     }
 
     public int getX(){

@@ -63,7 +63,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     public final static int tileSize = originalTileSize * scale; // 64x64
     public final static int maxScreenCol = 11;
-    public final static int maxScreenRow = 6; // jadiin 7 buat deck diatas
+    public final static int maxScreenRow = 7; // jadiin 7 buat deck diatas
     public final static int screenWidth = tileSize * maxScreenCol; // 704 pixels
     public final static int screenHeight = tileSize * maxScreenRow; // 448 pixels
 
@@ -81,14 +81,12 @@ public class GamePanel extends JPanel implements Runnable{
     int timer = 0;
     public static int gametime = 0;
     int selectedX, selectedY;
-    // double speed = 2;
-    // int xz, xb;
     Zombie zb;
     Plant pl;
     TileSelector tileSelector = new TileSelector();
     CollisionChecker collisionChecker = new CollisionChecker(this);
     Deck deck = new Deck(new Plant[6], true);
-    boolean isPlanted = false;
+    boolean plantable;
 
     public GamePanel(){
 
@@ -104,6 +102,7 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void startGameThread() {
+        
         System.out.println("thread");
         gameThread = new Thread(this);
         gameThread.start();
@@ -138,14 +137,28 @@ public class GamePanel extends JPanel implements Runnable{
                 drawCount = 0;
                 timer = 0;
                 gametime++;
+                System.out.println("Game Time:" + gametime + "s");
             }
         }
     }
 
     public void update(){
+
         repaint();
+
         // SPAWN PLANT
-        if (kh.numPressed == true){
+        plantable = true;
+        for (Plant plant : GameMap.plants) {
+            if (selectedX == plant.getX() && selectedY == plant.getY()){
+                plantable = false;
+            }
+        }
+
+        if (kh.numPressed == true && kh.numKey == 7){
+            plantable = true;
+        }
+
+        if (kh.numPressed == true && plantable){
             kh.numPressed = false;
             int plantIndex = kh.numKey;
             switch (plantIndex) {
@@ -175,55 +188,57 @@ public class GamePanel extends JPanel implements Runnable{
         }
 
         // SPAWN ZOMBIE
-        if (timer >= 60 && GameMap.zombies.size() < 10){
-            int y = randomize.nextInt(0,6);
-
-            if (y == 2 || y == 3){
-                int x = randomize.nextInt(1,3);
-                switch (x) {
-                    case 1:
-                    ZombieSpawner.spawn(new DolphinRiderZombie(10*tileSize, y*tileSize));
-                        break;
-                    case 2:
-                    ZombieSpawner.spawn(new DuckyTubeZombie(10*tileSize, y*tileSize));
-                        break;
+        if (gametime >= 20 && gametime <= 160){
+            if (timer >= 60 && GameMap.zombies.size() < 10){
+                int y = randomize.nextInt(1,7);
+    
+                if (y == 3 || y == 4){
+                    int x = randomize.nextInt(1,3);
+                    switch (x) {
+                        case 1:
+                        ZombieSpawner.spawn(new DolphinRiderZombie(10*tileSize, y*tileSize));
+                            break;
+                        case 2:
+                        ZombieSpawner.spawn(new DuckyTubeZombie(10*tileSize, y*tileSize));
+                            break;
+                    }
                 }
-            }
-            else {
-                int x = randomize.nextInt(1,9);
-                switch (x) {
-                    case 1:
-                    ZombieSpawner.spawn(new BalloonZombie(10*tileSize, y*tileSize));
-                        break;
-                    case 2:
-                    ZombieSpawner.spawn(new BucketHead(10*tileSize, y*tileSize));
-                        break;
-                    case 3:
-                    ZombieSpawner.spawn(new ConeHead(10*tileSize, y*tileSize));
-                        break;
-                    case 4:
-                    ZombieSpawner.spawn(new FootballZombie(10*tileSize, y*tileSize));
-                        break;
-                    case 5:
-                    ZombieSpawner.spawn(new Gargantuar(10*tileSize, y*tileSize));
-                        break;
-                    case 6:
-                    ZombieSpawner.spawn(new ImpZombie(10*tileSize, y*tileSize));
-                        break;
-                    case 7:
-                    ZombieSpawner.spawn(new NormalZombie(10*tileSize, y*tileSize));
-                        break;
-                    case 8:
-                    ZombieSpawner.spawn(new PoleVaulting(10*tileSize, y*tileSize));
-                        break;
+                else {
+                    int x = randomize.nextInt(1,9);
+                    switch (x) {
+                        case 1:
+                        ZombieSpawner.spawn(new BalloonZombie(10*tileSize, y*tileSize));
+                            break;
+                        case 2:
+                        ZombieSpawner.spawn(new BucketHead(10*tileSize, y*tileSize));
+                            break;
+                        case 3:
+                        ZombieSpawner.spawn(new ConeHead(10*tileSize, y*tileSize));
+                            break;
+                        case 4:
+                        ZombieSpawner.spawn(new FootballZombie(10*tileSize, y*tileSize));
+                            break;
+                        case 5:
+                        ZombieSpawner.spawn(new Gargantuar(10*tileSize, y*tileSize));
+                            break;
+                        case 6:
+                        ZombieSpawner.spawn(new ImpZombie(10*tileSize, y*tileSize));
+                            break;
+                        case 7:
+                        ZombieSpawner.spawn(new NormalZombie(10*tileSize, y*tileSize));
+                            break;
+                        case 8:
+                        ZombieSpawner.spawn(new PoleVaulting(10*tileSize, y*tileSize));
+                            break;
+                    }
                 }
-            }
-
-            timer = 0;
-        } else {
-            timer++;
+    
+                timer = 0;
+            } 
+            else timer++;
         }
 
+        // ITERATOR 
         Iterator<Bullet> bulletIterator = GameMap.bullets.iterator();
         while (bulletIterator.hasNext()){
             Bullet bullet = bulletIterator.next();
@@ -263,7 +278,7 @@ public class GamePanel extends JPanel implements Runnable{
         }           
         else if (kh.upPressed == true){
             kh.upPressed = false;
-            if (tileSelector.getY() == 0){
+            if (tileSelector.getY() == tileSize){
                 tileSelector.setY((maxScreenRow-1)*tileSize);
             }
             else tileSelector.setY(tileSelector.getY()-tileSize);
@@ -272,7 +287,7 @@ public class GamePanel extends JPanel implements Runnable{
         else if (kh.downPressed == true){
             kh.downPressed = false;
             if (tileSelector.getY() == (maxScreenRow-1)*tileSize){
-                tileSelector.setY(0);
+                tileSelector.setY(tileSize);
             }
             else tileSelector.setY(tileSelector.getY()+tileSize);
         }
@@ -296,7 +311,8 @@ public class GamePanel extends JPanel implements Runnable{
             System.out.println("Number pressed: " + kh.numKey);
         }
 
-        if (gametime >= 200){
+        // GAME STATE HANDLER
+        if (gametime >= 160){
             if (GameMap.zombies.size() <= 0){
                 gameState = winState;
             } else {
@@ -312,50 +328,6 @@ public class GamePanel extends JPanel implements Runnable{
                 }
             }
         }
-
-        // for (Zombie zombie : GameMap.zombies) {
-        //     for (Plant plant : GameMap.plants) {
-        //         collisionChecker.isColliding(zombie);
-        //         if (!zombie.collisionOn){
-        //             zombie.actionPerformed();
-        //         }
-        //         else{
-        //             zombie.attack(plant);
-        //             System.out.printf("healt:%d",plant.getHealth());
-        //         }
-        //         zombie.collisionOn = false;
-        //     }
-        // }
-
-        // if(timer>=60){
-        //     // xz-=speed;
-        //     xb+=speed;
-        // }
-        // else{
-        //     timer++;
-        // }
-
-        // int mouseX = mh.getX();
-        // int mouseY = mh.getY();
-
-        // if (mh.getMouseClicked()){
-
-        //     System.out.println(String.format("Mouse clicked at position x:%d y:%d", mouseX, mouseY));
-        //     mh.clearMouseClick();
-        // }
-        // if(timer>=60){
-        //     ZombieSpawner.spawn(new Zombie());
-        //     timer=0;
-
-        // int y = randomize.nextInt(1,7);
-        // Zombie zb = new Zombie(10*GamePanel.tileSize, y*GamePanel.tileSize);    
-        // ZombieSpawner.spawn(zb);
-        // cl.actionPerformed();
-        
-        // }else{
-        //     timer++;
-        // }
-        // repaint();
     }
 
     public void paintComponent(Graphics g){
@@ -366,11 +338,14 @@ public class GamePanel extends JPanel implements Runnable{
 
         if (gameState == titleState){
             UI.drawTitle(g2);
-        } else if (gameState == loseState) {
+        } 
+        else if (gameState == loseState) {
             UI.drawLose(g2);
-        } else if (gameState == winState) {
+        } 
+        else if (gameState == winState) {
             UI.drawWin(g2);
-        }else {
+        }
+        else {
             gameMap.draw(g2);
 
             for (int i = 0; i < GameMap.bullets.size(); i++) {
@@ -392,66 +367,11 @@ public class GamePanel extends JPanel implements Runnable{
             }
 
             tileSelector.draw(g2);
-        
-            // drawBullet(g2);
             
-            // pl.draw(g2);
-
+            gameMap.drawDeck(g2);
+        
             g2.dispose();
         }
     }
-
-    // public void moveZombie(){
-    //     loadImageZombie();
-    //     xz = 10*tileSize;
-    // }
-
-    // public void moveBullet(){
-
-    //     loadImageBullet();
-    //     xb = 0*tileSize;
-    // }
-
-    // public void loadImageZombie(){
-    //     try {
-    //         image1 = ImageIO.read(new File("././res/zombie/orc_left_1.png"));
-    //     } catch (IOException e) {
-    //             e.printStackTrace();
-    //         }
-    // }
-
-    // public void drawZombie(Graphics2D g2){
-    //     try {
-    //         image1 = ImageIO.read(new File("././res/zombie/orc_left_1.png"));
-    //     } catch (IOException e) {
-    //         e.printStackTrace();
-    //     }
-
-    //     g2.drawImage(image1, xz, 1*tileSize, tileSize, tileSize, this);
-    // }
-
-    // public void drawPlant(Graphics2D g2){
-
-    //     try {
-    //         image2 = ImageIO.read(new File("././res/plant/peashooter_0.png"));
-    //     } catch (IOException e) {
-    //             e.printStackTrace();
-    //         }
-
-    //     g2.drawImage(image2, 0*tileSize, 1*tileSize, tileSize, tileSize, this);
-    // }
-
-    // public void loadImageBullet(){
-    //     try {
-    //         image3 = ImageIO.read(new File("././res/bullet/pea.png"));
-    //     } catch (IOException e) {
-    //             e.printStackTrace();
-    //         }
-    // }
-
-    // public void drawBullet(Graphics2D g2){
-
-    //     g2.drawImage(image3, xb, 1*tileSize, tileSize, tileSize, this);
-    // }
 }
 

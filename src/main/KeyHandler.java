@@ -38,7 +38,10 @@ public class KeyHandler implements KeyListener{
 
             if(code == KeyEvent.VK_ENTER){
                 if (UI.commandNum == 1){
+                    GamePanel.pause = true;
                     GamePanel.gameState = GamePanel.playState;
+                    GamePanel.pause = false;
+                    Main.startThread();
                 } else if (UI.commandNum == 5){
                     System.exit(0); 
                 }
