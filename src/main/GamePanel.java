@@ -345,11 +345,14 @@ public class GamePanel extends JPanel implements Runnable{
             UI.drawLose(g2);
         } else if (gameState == winState) {
             UI.drawWin(g2);
-        } else if (gameState == helpState) {
+        } 
+        else if (gameState == helpState) {
             UI.drawHelp(g2);
-        } else if (gameState == stepState) {
+        } 
+        else if (gameState == stepState) {
             UI.drawStep(g2);
-        } else {
+        } 
+        else {
             gameMap.draw(g2);
 
             for (int i = 0; i < GameMap.bullets.size(); i++) {
