@@ -20,10 +20,12 @@ import main.GamePanel;
 import tile.GameMap;
 
 public class Zombie extends Entity implements CustomListener{
-
+    
     protected boolean is_aquatic;
     protected boolean isMoving = true;
     protected boolean isSlowed = false;
+    int timer = 0;
+    protected Plant target = null;
 
     public Zombie(int x, int y){ 
       
@@ -188,18 +190,23 @@ public class Zombie extends Entity implements CustomListener{
 
     @Override
     public void actionPerformed() {
+        isMoving = true;
         for (Plant plant : GameMap.plants){
-            if (plant.getX() >= x && plant.getY() == y){
+            if (plant.getX() >= x - GamePanel.tileSize && plant.getX() <= x && plant.getY() == y){
+                target = plant;
                 isMoving = false;
-                plant.takeDamage(attack_damage);
-            }
-            else{
-                isMoving = true;
             }
         }
 
         if (isMoving){
             moveZombie();
+        }else{
+            if (timer >= 60){
+                target.takeDamage(attack_damage);
+                timer = 0;
+            }else{
+                timer++;
+            }
         }
     }
 }
