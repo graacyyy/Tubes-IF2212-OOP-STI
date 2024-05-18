@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.plaf.basic.BasicComboBoxUI.KeyHandler;
 
 import main.GamePanel;
 
@@ -14,7 +15,7 @@ public class UI {
     static Font titleFont;
     static Font heading2;
     static String text;
-    private static BufferedImage titleImage, loseImage, winImage, pauseImage;
+    private static BufferedImage titleImage, loseImage, winImage, pauseImage, helpImage1, helpImage2;
     public static int commandNum = 1;
 
     static {
@@ -23,6 +24,8 @@ public class UI {
             loseImage = ImageIO.read(new File("./res/menu/gameover.png"));
             winImage = ImageIO.read(new File("./res/menu/winPage.png"));
             pauseImage = ImageIO.read(new File("./res/menu/pause.png"));
+            helpImage1 = ImageIO.read(new File("./res/menu/help_1.png"));
+            helpImage2 = ImageIO.read(new File("./res/menu/help_2.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -57,7 +60,7 @@ public class UI {
 
             text = "START";
             int x = getXForCenteredText(g2, text);
-            int y = (int) (GamePanel.tileSize*2.7f);
+            int y = (int) (GamePanel.tileSize*3.2f);
             g2.drawString(text, x, y);
             if(commandNum == 1){
                 g2.drawString(">", x-GamePanel.tileSize, y);
@@ -128,7 +131,7 @@ public class UI {
 
             text = "PLAY AGAIN";
             int x = getXForCenteredText(g2, text);
-            int y = (int) (GamePanel.tileSize*2.7f);
+            int y = (int) (GamePanel.tileSize*3.2f);
             g2.drawString(text, x, y);
             if(commandNum == 1){
                 g2.drawString(">", x-GamePanel.tileSize, y);
@@ -168,7 +171,7 @@ public class UI {
 
             text = "PLAY AGAIN";
             int x = getXForCenteredText(g2, text);
-            int y = (int) (GamePanel.tileSize*3.5f);
+            int y = (int) (GamePanel.tileSize*4f);
             g2.drawString(text, x, y);
             if(commandNum == 1){
                 g2.drawString(">", x-GamePanel.tileSize, y);
@@ -187,6 +190,48 @@ public class UI {
     public static void drawPause(Graphics2D g2) {
         if (pauseImage != null) {
             g2.drawImage(pauseImage, 0, 0, GamePanel.screenWidth, GamePanel.screenHeight,null);
+        }
+    }
+
+    public static void drawHelp(Graphics2D g2) {
+        if (helpImage1 != null) {
+            g2.drawImage(helpImage1, 0, 0, GamePanel.screenWidth, GamePanel.screenHeight,null);
+        }
+
+        g2.setFont(titleFont);
+        g2.setColor(Color.white);
+
+        if(GamePanel.gameState == GamePanel.helpState) {
+
+            // MENU
+            g2.setFont(titleFont);
+
+            text = "NEXT";
+            int x = getXForCenteredText(g2, text);
+            int y = (int) (GamePanel.tileSize*5.5f);
+            g2.drawString(text, x, y);
+            g2.drawString(">", x-GamePanel.tileSize, y);
+        }
+    }
+
+    public static void drawStep(Graphics2D g2) {
+        if (helpImage2 != null) {
+            g2.drawImage(helpImage2, 0, 0, GamePanel.screenWidth, GamePanel.screenHeight,null);
+        }
+
+        g2.setFont(titleFont);
+        g2.setColor(Color.white);
+
+        if(GamePanel.gameState == GamePanel.stepState) {
+
+            // MENU
+            g2.setFont(titleFont);
+
+            text = "MENU";
+            int x = getXForCenteredText(g2, text);
+            int y = (int) (GamePanel.tileSize*5.5f);
+            g2.drawString(text, x, y);
+            g2.drawString(">", x-GamePanel.tileSize, y);
         }
     }
 

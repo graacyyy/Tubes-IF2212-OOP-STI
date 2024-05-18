@@ -55,6 +55,9 @@ public class GamePanel extends JPanel implements Runnable{
     public final static int winState = 3;
     public final static int plantState = 4;
     public final static int zombieState = 5;
+    public final static int helpState = 6;
+    public final static int stepState = 7;
+
     public static boolean pause = false;
     
     // SCREEN SETTINGS
@@ -344,7 +347,13 @@ public class GamePanel extends JPanel implements Runnable{
         } 
         else if (gameState == winState) {
             UI.drawWin(g2);
-        }
+        } 
+        else if (gameState == helpState) {
+            UI.drawHelp(g2);
+        } 
+        else if (gameState == stepState) {
+            UI.drawStep(g2);
+        } 
         else {
             gameMap.draw(g2);
 
