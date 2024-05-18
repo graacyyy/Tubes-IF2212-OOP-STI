@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 import java.awt.Graphics2D;
 // import java.awt.image.BufferedImage;
@@ -40,7 +41,23 @@ public abstract class Plant extends Entity implements CustomListener{
         // getPlantImage();
     }
 
+    
+
     // GETTER SETTER
+
+    public Plant(String name, ImageIcon image) {
+        //TODO Auto-generated constructor stub
+    }
+
+
+
+    public String getName(){
+        return this.name;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
 
     public void setCooldown(int cooldown){
 
@@ -77,26 +94,26 @@ public abstract class Plant extends Entity implements CustomListener{
         return solidArea.y;
     }
 
-    // public void setCost(int cost){
+    public void setCost(int cost){
 
-    //     this.cost = cost;
-    // }
+         this.cost = cost;
+     }
 
-    // public int getCost(){
+    public int getCost(){
 
 
-    //     return this.cost;
-    // }
+         return this.cost;
+     }
 
-    // public void setRange(int range){
+     public void setRange(int range){
 
-    //     this.range = range;
-    // }
+         this.range = range;
+     }
 
-    // public int getRange(){
+    public int getRange(){
 
-    //     return this.range;
-    // }
+         return this.range;
+    }
 
 
     // public void setIsWaterPlant(boolean is_waterplant){

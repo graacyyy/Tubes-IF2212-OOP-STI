@@ -39,6 +39,7 @@ import entity.zombies.Zombie;
 import entity.ZombieSpawner;
 import entity.Deck;
 import entity.PlantSpawner;
+import entity.Inventory;
 
 import tile.GameMap;
 import tile.UI;
