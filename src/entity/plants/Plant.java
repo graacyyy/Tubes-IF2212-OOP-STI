@@ -31,7 +31,6 @@ public abstract class Plant extends Entity implements CustomListener{
 
         this.x = x;
         this.y = y;
-
         this.solidArea = new Rectangle();
         this.solidArea.x = 8;
         this.solidArea.y = 16;

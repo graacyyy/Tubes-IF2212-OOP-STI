@@ -28,12 +28,12 @@ public class Main {
 
         window.setLocationRelativeTo(null);
         window.setVisible(true);
-        gamePanel.startGameThread();
+        // gamePanel.startGameThread();
         
         playBackSound("res/audio/backsoundMichaelVsLalapan.wav");
     }
   
- private static void playBackSound(String soundFilePath) {
+    private static void playBackSound(String soundFilePath) {
         try {
             File soundFile = new File(soundFilePath);
             // System.out.println("Alamat file asli: " + soundFile.getAbsolutePath());
@@ -60,6 +60,7 @@ public class Main {
             e.printStackTrace();
         }
     }
+    
     public static void startThread(){
         gamePanel.startGameThread();
     }
