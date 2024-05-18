@@ -15,7 +15,7 @@ public class IceShroom extends Plant{
         range = -1;
         cooldown = 20;
         is_waterplant = false;
-        fileimage = "././res/plant/IceShroom.png";
+        fileimage = "././res/plants/iceshroom.png";
     }
 
     public void freeze(Zombie zombie){

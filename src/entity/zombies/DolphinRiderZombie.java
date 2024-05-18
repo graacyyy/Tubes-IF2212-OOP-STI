@@ -10,6 +10,6 @@ public class DolphinRiderZombie extends Zombie {
         attack_damage = 100;
         attack_speed = 1;
         is_aquatic = true;
-        fileimage = "././res/zombie/DolphinRiderZombie/DolphinRiderZombie_1.png";
+        fileimage = "././res/zombies/dolphinrider.png";
     }
 }

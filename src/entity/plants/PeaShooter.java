@@ -19,7 +19,7 @@ public class PeaShooter extends Plant {
         range = -1;
         cooldown = 10;
         is_waterplant = false;
-        fileimage = "././res/plant/PeaShooter/PeaShooter_1.png";
+        fileimage = "././res/plants/peashooter.png";
     }
 
     public void shootPea(){

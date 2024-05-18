@@ -182,6 +182,7 @@ public class GamePanel extends JPanel implements Runnable{
                 if (isPlanted){
                     GameMap.plants.removeIf(plant -> plant.getX() == selectedX && plant.getY() == selectedY);
                 }
+                isPlanted = false;
                     break;
             }
         }
@@ -385,15 +386,15 @@ public class GamePanel extends JPanel implements Runnable{
         }else {
             gameMap.draw(g2);
 
-            for (int i = 0; i < GameMap.plants.size(); i++) {
-                if(GameMap.plants.get(i)!=null){
-                    GameMap.plants.get(i).draw(g2);
-                }
-            }
-
             for (int i = 0; i < GameMap.bullets.size(); i++) {
                 if(GameMap.bullets.get(i)!=null){
                     GameMap.bullets.get(i).draw(g2);
+                }
+            }
+
+            for (int i = 0; i < GameMap.plants.size(); i++) {
+                if(GameMap.plants.get(i)!=null){
+                    GameMap.plants.get(i).draw(g2);
                 }
             }
             
