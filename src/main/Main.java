@@ -28,7 +28,7 @@ public class Main {
 
         window.setLocationRelativeTo(null);
         window.setVisible(true);
-        // gamePanel.startGameThread();
+        gamePanel.startGameThread();
         
         playBackSound("res/audio/backsoundMichaelVsLalapan.wav");
     }
