@@ -22,6 +22,7 @@ import entity.plants.Lilypad;
 import entity.plants.PeaShooter;
 import entity.plants.Plant;
 import entity.plants.SnowPea;
+import entity.plants.TangleKelp;
 // import entity.plants.Squash;
 // import entity.plants.Sunflower;
 // import entity.plants.Wallnut;
@@ -149,46 +150,32 @@ public class GamePanel extends JPanel implements Runnable{
             int plantIndex = kh.numKey;
             switch (plantIndex) {
                 case 1:
-                if (!isPlanted){
-                    PlantSpawner.spawn(new Cactus(selectedX, selectedY));
-                }
+                PlantSpawner.spawn(new Cactus(selectedX, selectedY));
                     break;
                 case 2:
-                if (!isPlanted){
-                    PlantSpawner.spawn(new IceShroom(selectedX, selectedY));
-                }
+                PlantSpawner.spawn(new TangleKelp(selectedX, selectedY));
                     break;
                 case 3:
-                if (!isPlanted){
-                    PlantSpawner.spawn(new Jalapeno(selectedX, selectedY));
-                }
+                PlantSpawner.spawn(new Jalapeno(selectedX, selectedY));
                     break;
                 case 4:
-                if (!isPlanted){
-                    PlantSpawner.spawn(new Lilypad(selectedX, selectedY));
-                }
+                PlantSpawner.spawn(new IceShroom(selectedX, selectedY));
+
                     break;
                 case 5:
-                if (!isPlanted){
-                    PlantSpawner.spawn(new PeaShooter(selectedX, selectedY));
-                }
+                PlantSpawner.spawn(new PeaShooter(selectedX, selectedY));
                     break;
                 case 6:
-                if (!isPlanted){
-                    PlantSpawner.spawn(new SnowPea(selectedX, selectedY));
-                }
+                PlantSpawner.spawn(new SnowPea(selectedX, selectedY));
                     break;
                 case 7:
-                if (isPlanted){
-                    GameMap.plants.removeIf(plant -> plant.getX() == selectedX && plant.getY() == selectedY);
-                }
-                isPlanted = false;
+                GameMap.plants.removeIf(plant -> plant.getX() == selectedX && plant.getY() == selectedY);
                     break;
             }
         }
 
         // SPAWN ZOMBIE
-        if (timer >= 60){
+        if (timer >= 60 && GameMap.zombies.size() < 10){
             int y = randomize.nextInt(0,6);
 
             if (y == 2 || y == 3){

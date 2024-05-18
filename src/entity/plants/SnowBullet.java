@@ -11,7 +11,7 @@ public class SnowBullet extends Bullet {
     }
 
     public void hit(Zombie zombie){
-      
         zombie.setIsSlowed(true);
+        zombie.setFreezeTime(0);
     }
 }

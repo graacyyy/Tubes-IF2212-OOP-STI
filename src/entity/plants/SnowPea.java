@@ -22,10 +22,6 @@ public class SnowPea extends Plant {
         fileimage = "././res/plants/snowpea.png";
     }
 
-    public void delaySpeed(Zombie zombie){
-        zombie.setIsSlowed(true);
-    }
-
     public void shootPea(){
       
         SnowBullet bullet = new SnowBullet(x, y, attack_damage);
@@ -37,13 +33,17 @@ public class SnowPea extends Plant {
 
     @Override
     public void actionPerformed() {
-        if (timer >= 60){
+        shootable = true;
+        if (timer >= 90){
             for (Zombie zombie : GameMap.zombies) {
                 if (zombie.getY() == y){
-                    shootPea();
+                    if (shootable){
+                        shootPea();
+                        shootable = false;
+                        timer = 0;
+                    }
                 }
             }
-            timer = 0;
         }
         else {
             timer++;

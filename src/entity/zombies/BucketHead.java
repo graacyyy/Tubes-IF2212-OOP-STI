@@ -11,4 +11,5 @@ public class BucketHead extends Zombie {
         is_aquatic = false;
         fileimage = "././res/zombies/buckethead.png";
     }
+
 }
