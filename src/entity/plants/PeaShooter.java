@@ -32,14 +32,17 @@ public class PeaShooter extends Plant {
 
     @Override
     public void actionPerformed() {
-
+        shootable = true;
         if (timer >= 60){
             for (Zombie zombie : GameMap.zombies) {
                 if (zombie.getY() == y){
-                    shootPea();
+                    if (shootable){
+                        shootPea();
+                        shootable = false;
+                        timer = 0;
+                    }
                 }
             }
-            timer = 0;
         }
         else {
             timer++;

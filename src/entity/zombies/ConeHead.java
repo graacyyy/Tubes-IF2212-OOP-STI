@@ -11,4 +11,5 @@ public class ConeHead extends Zombie {
         is_aquatic = false;
         fileimage = "././res/zombies/conehead.png";
     }
+
 }

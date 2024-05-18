@@ -9,7 +9,7 @@ import tile.GameMap;
 public class KeyHandler implements KeyListener{
 
     public boolean upPressed, downPressed, leftPressed, rightPressed, numPressed, enterPressed, pausePressed;
-    public boolean pause;
+    public boolean pause = true;
     public int numKey;
 
     @Override
