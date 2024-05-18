@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -22,6 +23,7 @@ import entity.plants.Lilypad;
 import entity.plants.PeaShooter;
 import entity.plants.Plant;
 import entity.plants.SnowPea;
+import entity.plants.Sunflower;
 import entity.plants.TangleKelp;
 // import entity.plants.Squash;
 // import entity.plants.Sunflower;
@@ -40,7 +42,7 @@ import entity.zombies.Zombie;
 import entity.ZombieSpawner;
 import entity.Deck;
 import entity.PlantSpawner;
-
+import entity.Sun;
 import tile.GameMap;
 import tile.UI;
 
@@ -70,7 +72,6 @@ public class GamePanel extends JPanel implements Runnable{
     public final static int screenWidth = tileSize * maxScreenCol; // 704 pixels
     public final static int screenHeight = tileSize * maxScreenRow; // 448 pixels
 
-    
     //FPS
     int FPS = 60;
     
@@ -79,7 +80,7 @@ public class GamePanel extends JPanel implements Runnable{
     MouseHandler mh = new MouseHandler();
     KeyHandler kh = new KeyHandler();
     Random randomize = new Random();
-    Thread gameThread;
+    Thread gameThread, titleThread;
     BufferedImage image3;
     int timer = 0;
     public static int gametime = 0;
@@ -90,6 +91,10 @@ public class GamePanel extends JPanel implements Runnable{
     CollisionChecker collisionChecker = new CollisionChecker(this);
     Deck deck = new Deck(new Plant[6], true);
     boolean plantable;
+    // int sun = 50;
+    Font font = new Font("Terminal", Font.BOLD, 14);
+    int suntimer=0;
+    int suninterval=5;
 
     public GamePanel(){
 
@@ -108,6 +113,13 @@ public class GamePanel extends JPanel implements Runnable{
         
         System.out.println("thread");
         gameThread = new Thread(this);
+        gameThread.start();
+    }
+
+    public void startTitle() {
+        
+        System.out.println("thread");
+        titleThread = new Thread(this);
         gameThread.start();
     }
 
@@ -148,189 +160,200 @@ public class GamePanel extends JPanel implements Runnable{
     public void update(){
 
         repaint();
-
-        // SPAWN PLANT
-        plantable = true;
-        for (Plant plant : GameMap.plants) {
-            if (selectedX == plant.getX() && selectedY == plant.getY()){
-                plantable = false;
+            if(gametime <= 100){
+                if(suntimer>=suninterval*60){
+                    Sun.addsun(25);
+                    System.out.println("Sun otomatis");
+                    suninterval = randomize.nextInt(5,11) ;
+                    suntimer=0;
+                }else{
+                    suntimer++;
+                }
             }
-        }
-
-        if (kh.numPressed == true && kh.numKey == 7){
+            // SPAWN PLANT
             plantable = true;
-        }
-
-        if (kh.numPressed == true && plantable){
-            kh.numPressed = false;
-            int plantIndex = kh.numKey;
-            switch (plantIndex) {
-                case 1:
-                PlantSpawner.spawn(new Cactus(selectedX, selectedY));
-                    break;
-                case 2:
-                PlantSpawner.spawn(new TangleKelp(selectedX, selectedY));
-                    break;
-                case 3:
-                PlantSpawner.spawn(new Jalapeno(selectedX, selectedY));
-                    break;
-                case 4:
-                PlantSpawner.spawn(new IceShroom(selectedX, selectedY));
-
-                    break;
-                case 5:
-                PlantSpawner.spawn(new PeaShooter(selectedX, selectedY));
-                    break;
-                case 6:
-                PlantSpawner.spawn(new SnowPea(selectedX, selectedY));
-                    break;
-                case 7:
-                GameMap.plants.removeIf(plant -> plant.getX() == selectedX && plant.getY() == selectedY);
-                    break;
-            }
-        }
-
-        // SPAWN ZOMBIE
-        if (gametime >= 20 && gametime <= 160){
-            if (timer >= 60 && GameMap.zombies.size() < 10){
-                int y = randomize.nextInt(1,7);
-    
-                if (y == 3 || y == 4){
-                    int x = randomize.nextInt(1,3);
-                    switch (x) {
-                        case 1:
-                        ZombieSpawner.spawn(new DolphinRiderZombie(10*tileSize, y*tileSize));
-                            break;
-                        case 2:
-                        ZombieSpawner.spawn(new DuckyTubeZombie(10*tileSize, y*tileSize));
-                            break;
-                    }
+            for (Plant plant : GameMap.plants) {
+                if (selectedX == plant.getX() && selectedY == plant.getY()){
+                    plantable = false;
                 }
-                else {
-                    int x = randomize.nextInt(1,9);
-                    switch (x) {
-                        case 1:
-                        ZombieSpawner.spawn(new BalloonZombie(10*tileSize, y*tileSize));
-                            break;
-                        case 2:
-                        ZombieSpawner.spawn(new BucketHead(10*tileSize, y*tileSize));
-                            break;
-                        case 3:
-                        ZombieSpawner.spawn(new ConeHead(10*tileSize, y*tileSize));
-                            break;
-                        case 4:
-                        ZombieSpawner.spawn(new FootballZombie(10*tileSize, y*tileSize));
-                            break;
-                        case 5:
-                        ZombieSpawner.spawn(new Gargantuar(10*tileSize, y*tileSize));
-                            break;
-                        case 6:
-                        ZombieSpawner.spawn(new ImpZombie(10*tileSize, y*tileSize));
-                            break;
-                        case 7:
-                        ZombieSpawner.spawn(new NormalZombie(10*tileSize, y*tileSize));
-                            break;
-                        case 8:
-                        ZombieSpawner.spawn(new PoleVaulting(10*tileSize, y*tileSize));
-                            break;
-                    }
-                }
+            }
     
-                timer = 0;
-            } 
-            else timer++;
-        }
-
-        // ITERATOR 
-        Iterator<Bullet> bulletIterator = GameMap.bullets.iterator();
-        while (bulletIterator.hasNext()){
-            Bullet bullet = bulletIterator.next();
-            bullet.actionPerformed();
-            if (bullet.isHit()){
-                bulletIterator.remove();
+            if (kh.numPressed == true && kh.numKey == 7){
+                plantable = true;
             }
-        }
-
-        Iterator<Plant> planIterator = GameMap.plants.iterator();
-        while (planIterator.hasNext()){
-            Plant plant = planIterator.next();
-            plant.actionPerformed();
-            if (plant.isDead()){
-                planIterator.remove();
+    
+            if (kh.numPressed == true && plantable){
+                kh.numPressed = false;
+                int plantIndex = kh.numKey;
+                switch (plantIndex) {
+                    case 1:
+                    PlantSpawner.spawn(new Sunflower(selectedX, selectedY));
+                        break;
+                    case 2:
+                    PlantSpawner.spawn(new TangleKelp(selectedX, selectedY));
+                        break;
+                    case 3:
+                    PlantSpawner.spawn(new Jalapeno(selectedX, selectedY));
+                        break;
+                    case 4:
+                    PlantSpawner.spawn(new IceShroom(selectedX, selectedY));
+    
+                        break;
+                    case 5:
+                    PlantSpawner.spawn(new PeaShooter(selectedX, selectedY));
+                        break;
+                    case 6:
+                    PlantSpawner.spawn(new SnowPea(selectedX, selectedY));
+                        break;
+                    case 7:
+                    GameMap.plants.removeIf(plant -> plant.getX() == selectedX && plant.getY() == selectedY);
+                        break;
+                }
             }
-        }
-
-        Iterator<Zombie> zombieIterator = GameMap.zombies.iterator();
-        while (zombieIterator.hasNext()){
-            Zombie zombie = zombieIterator.next();
-            zombie.actionPerformed();
-            if (zombie.isDead()){
-                zombieIterator.remove();
+    
+            // SPAWN ZOMBIE
+            if (gametime >= 20 && gametime <= 160){
+                if (timer >= 60 && GameMap.zombies.size() < 10){
+                    int y = randomize.nextInt(1,7);
+        
+                    if (y == 3 || y == 4){
+                        int x = randomize.nextInt(1,3);
+                        switch (x) {
+                            case 1:
+                            ZombieSpawner.spawn(new DolphinRiderZombie(10*tileSize, y*tileSize));
+                                break;
+                            case 2:
+                            ZombieSpawner.spawn(new DuckyTubeZombie(10*tileSize, y*tileSize));
+                                break;
+                        }
+                    }
+                    else {
+                        int x = randomize.nextInt(1,9);
+                        switch (x) {
+                            case 1:
+                            ZombieSpawner.spawn(new BalloonZombie(10*tileSize, y*tileSize));
+                                break;
+                            case 2:
+                            ZombieSpawner.spawn(new BucketHead(10*tileSize, y*tileSize));
+                                break;
+                            case 3:
+                            ZombieSpawner.spawn(new ConeHead(10*tileSize, y*tileSize));
+                                break;
+                            case 4:
+                            ZombieSpawner.spawn(new FootballZombie(10*tileSize, y*tileSize));
+                                break;
+                            case 5:
+                            ZombieSpawner.spawn(new Gargantuar(10*tileSize, y*tileSize));
+                                break;
+                            case 6:
+                            ZombieSpawner.spawn(new ImpZombie(10*tileSize, y*tileSize));
+                                break;
+                            case 7:
+                            ZombieSpawner.spawn(new NormalZombie(10*tileSize, y*tileSize));
+                                break;
+                            case 8:
+                            ZombieSpawner.spawn(new PoleVaulting(10*tileSize, y*tileSize));
+                                break;
+                        }
+                    }
+        
+                    timer = 0;
+                } 
+                else timer++;
             }
-        }
-
-        // TILESELECTOR HANDLER
-        if (kh.enterPressed == true){
-            kh.enterPressed = false;
-            selectedX = tileSelector.getX();
-            selectedY = tileSelector.getY();
-            System.out.println("X: " + selectedX + " Y: " + selectedY);
-            // if (kh.numPressed == true){
-            //     isPlanted = true;
-            // }
-        }           
-        else if (kh.upPressed == true){
-            kh.upPressed = false;
-            if (tileSelector.getY() == tileSize){
-                tileSelector.setY((maxScreenRow-1)*tileSize);
+    
+            // ITERATOR 
+            Iterator<Bullet> bulletIterator = GameMap.bullets.iterator();
+            while (bulletIterator.hasNext()){
+                Bullet bullet = bulletIterator.next();
+                bullet.actionPerformed();
+                if (bullet.isHit()){
+                    bulletIterator.remove();
+                }
             }
-            else tileSelector.setY(tileSelector.getY()-tileSize);
-        }
-
-        else if (kh.downPressed == true){
-            kh.downPressed = false;
-            if (tileSelector.getY() == (maxScreenRow-1)*tileSize){
-                tileSelector.setY(tileSize);
+    
+            Iterator<Plant> planIterator = GameMap.plants.iterator();
+            while (planIterator.hasNext()){
+                Plant plant = planIterator.next();
+                plant.actionPerformed();
+                if (plant.isDead()){
+                    planIterator.remove();
+                }
             }
-            else tileSelector.setY(tileSelector.getY()+tileSize);
-        }
-
-        else if (kh.leftPressed == true){
-            kh.leftPressed = false;
-            if (tileSelector.getX() == 0){
-                tileSelector.setX((maxScreenCol-1)*tileSize);
+    
+            Iterator<Zombie> zombieIterator = GameMap.zombies.iterator();
+            while (zombieIterator.hasNext()){
+                Zombie zombie = zombieIterator.next();
+                zombie.actionPerformed();
+                if (zombie.isDead()){
+                    zombieIterator.remove();
+                }
             }
-            else tileSelector.setX(tileSelector.getX()-tileSize);
-        }
-        else if (kh.rightPressed == true){
-            kh.rightPressed = false;
-            if (tileSelector.getX() == (maxScreenCol-1)*tileSize){
-                tileSelector.setX(0);
+    
+            // TILESELECTOR HANDLER
+            if (kh.enterPressed == true){
+                kh.enterPressed = false;
+                selectedX = tileSelector.getX();
+                selectedY = tileSelector.getY();
+                System.out.println("X: " + selectedX + " Y: " + selectedY);
+                // if (kh.numPressed == true){
+                //     isPlanted = true;
+                // }
+            }           
+            else if (kh.upPressed == true){
+                kh.upPressed = false;
+                if (tileSelector.getY() == tileSize){
+                    tileSelector.setY((maxScreenRow-1)*tileSize);
+                }
+                else tileSelector.setY(tileSelector.getY()-tileSize);
             }
-            else tileSelector.setX(tileSelector.getX()+tileSize);
-        }
-        else if (kh.numPressed == true){
-            kh.numPressed = false;
-            System.out.println("Number pressed: " + kh.numKey);
-        }
-
-        // GAME STATE HANDLER
-        if (gametime >= 160){
-            if (GameMap.zombies.size() <= 0){
-                gameState = winState;
-            } else {
-                gameState = loseState;
-                UI.commandNum = 1;
+    
+            else if (kh.downPressed == true){
+                kh.downPressed = false;
+                if (tileSelector.getY() == (maxScreenRow-1)*tileSize){
+                    tileSelector.setY(tileSize);
+                }
+                else tileSelector.setY(tileSelector.getY()+tileSize);
             }
-        } else {
-            for (Zombie zombie : GameMap.zombies) {
-                if (zombie.getX() == 0) {
+    
+            else if (kh.leftPressed == true){
+                kh.leftPressed = false;
+                if (tileSelector.getX() == 0){
+                    tileSelector.setX((maxScreenCol-1)*tileSize);
+                }
+                else tileSelector.setX(tileSelector.getX()-tileSize);
+            }
+            else if (kh.rightPressed == true){
+                kh.rightPressed = false;
+                if (tileSelector.getX() == (maxScreenCol-1)*tileSize){
+                    tileSelector.setX(0);
+                }
+                else tileSelector.setX(tileSelector.getX()+tileSize);
+            }
+            else if (kh.numPressed == true){
+                kh.numPressed = false;
+                System.out.println("Number pressed: " + kh.numKey);
+            }
+            
+            // GAME STATE HANDLER
+            if (gametime >= 200){
+                if (GameMap.zombies.size() <= 0){
+                    gameState = winState;
+                } else {
                     gameState = loseState;
                     UI.commandNum = 1;
-                    break; 
+                }
+            } else {
+                for (Zombie zombie : GameMap.zombies) {
+                    if (zombie.getX() == 0) {
+                        gameState = loseState;
+                        UI.commandNum = 1;
+                        break; 
+                    }
                 }
             }
-        }
+        // }
+        
     }
 
     public void paintComponent(Graphics g){
@@ -341,11 +364,9 @@ public class GamePanel extends JPanel implements Runnable{
 
         if (gameState == titleState){
             UI.drawTitle(g2);
-        } 
-        else if (gameState == loseState) {
+        } else if (gameState == loseState) {
             UI.drawLose(g2);
-        } 
-        else if (gameState == winState) {
+        } else if (gameState == winState) {
             UI.drawWin(g2);
         } 
         else if (gameState == helpState) {
@@ -374,13 +395,25 @@ public class GamePanel extends JPanel implements Runnable{
                     GameMap.zombies.get(i).draw(g2);
                 }
             }
-
+            
             tileSelector.draw(g2);
             
             gameMap.drawDeck(g2);
-        
+            
+            drawSun(g2);
             g2.dispose();
         }
+    }
+
+    public void drawSun(Graphics2D g2){
+        g2.setFont(font);
+        g2.setColor(Color.RED);
+
+        String text = ""+ Sun.sun_amount;
+        int x = 10;
+        int y = tileSize-8;
+
+        g2.drawString(text, x, y);
     }
 }
 
