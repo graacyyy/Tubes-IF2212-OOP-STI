@@ -39,6 +39,8 @@ public class KeyHandler implements KeyListener{
             if(code == KeyEvent.VK_ENTER){
                 if (UI.commandNum == 1){
                     GamePanel.gameState = GamePanel.playState;
+                } else if (UI.commandNum == 2) { 
+                    GamePanel.gameState = GamePanel.helpState;
                 } else if (UI.commandNum == 5){
                     System.exit(0); 
                 }
@@ -92,6 +94,14 @@ public class KeyHandler implements KeyListener{
                 } else {
                     System.exit(0); 
                 }
+            } 
+        } else if (GamePanel.gameState == GamePanel.stepState){
+            if(code == KeyEvent.VK_ENTER) {
+                GamePanel.gameState = GamePanel.titleState;
+            }
+        } else if (GamePanel.gameState == GamePanel.helpState){
+            if(code == KeyEvent.VK_ENTER){
+                GamePanel.gameState = GamePanel.stepState;
             } 
         } else if (GamePanel.gameState == GamePanel.playState){
             if(code == KeyEvent.VK_ENTER){
