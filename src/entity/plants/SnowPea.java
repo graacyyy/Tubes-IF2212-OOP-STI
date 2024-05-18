@@ -19,7 +19,7 @@ public class SnowPea extends Plant {
         range = -1;
         cooldown = 10;
         is_waterplant = false;
-        fileimage = "././res/plant/SnowPeaShooter/SnowPeaShooter_1.png";
+        fileimage = "././res/plants/snowpea.png";
     }
 
     public void delaySpeed(Zombie zombie){

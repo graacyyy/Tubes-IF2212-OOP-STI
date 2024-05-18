@@ -7,7 +7,7 @@ public class SnowBullet extends Bullet {
     public SnowBullet(int x, int y, int damage){
 
         super(x,y,damage);
-        fileimage = "././res/bullet/SnowPea.png";
+        fileimage = "././res/bullet/snowpea.png";
     }
 
     public void hit(Zombie zombie){

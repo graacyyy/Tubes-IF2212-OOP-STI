@@ -10,6 +10,6 @@ public class ImpZombie extends Zombie {
         attack_damage = 80;
         attack_speed = 1;
         is_aquatic = false;
-        fileimage = "././res/zombie/ImpZombie/ImpZombie_1.png";
+        fileimage = "././res/zombies/impzombie.png";
     }
 }

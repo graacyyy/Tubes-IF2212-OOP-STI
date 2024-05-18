@@ -245,6 +245,6 @@ public abstract class Plant extends Entity implements CustomListener{
                 e.printStackTrace();
             }
 
-        g2.drawImage(image, x, y+16, GamePanel.tileSize-16, GamePanel.tileSize-16, null);
+        g2.drawImage(image, x, y, GamePanel.tileSize-16, GamePanel.tileSize-16, null);
     }
 }
