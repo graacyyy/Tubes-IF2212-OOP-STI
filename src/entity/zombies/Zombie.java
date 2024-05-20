@@ -43,9 +43,6 @@ public class Zombie extends Entity implements CustomListener{
         this.solidArea.y = y;
         this.solidArea.width = 48;
         this.solidArea.height = 48;
-
-        // setDefaultValues();
-        // getZombieImage();
     }
 
     // GETTER SETTER

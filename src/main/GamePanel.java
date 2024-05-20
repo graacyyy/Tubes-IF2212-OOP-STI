@@ -6,11 +6,14 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Iterator;
 // import java.io.File;
 // import java.io.IOException;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 // import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -91,11 +94,10 @@ public class GamePanel extends JPanel implements Runnable{
     Plant pl;
     TileSelector tileSelector = new TileSelector();
     CollisionChecker collisionChecker = new CollisionChecker(this);
-    Deck deck = new Deck(new Plant[6], true);
     boolean plantable;
     // int sun = 50;
     Font font = new Font("Terminal", Font.BOLD, 14);
-    Font font2 = new Font("Terminal", Font.PLAIN, 14);
+    Font font2 = new Font("Terminal", Font.BOLD, 12);
 
     int suntimer=0;
     int suninterval=5;
@@ -426,6 +428,7 @@ public class GamePanel extends JPanel implements Runnable{
             
             drawSun(g2);
             drawGameTime(g2);
+            drawTime(g2);
             g2.dispose();
         }
     }
@@ -442,11 +445,20 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void drawGameTime(Graphics2D g2){
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(new File("./res/deck/gametime.png"));
+        } catch (IOException e) {}
+
+        g2.drawImage(image, 8*tileSize, 0, tileSize*3, tileSize, null);
+    }
+    
+    public void drawTime(Graphics2D g2){
         g2.setFont(font2);
         g2.setColor(Color.WHITE);
 
-        String text = "Game Time: "+ gametime + "s";
-        int x = (maxScreenCol-1)*tileSize-64;
+        String text = ""+ gametime + "s";
+        int x = (maxScreenCol-1)*tileSize-30;
         int y = tileSize-20;
 
         g2.drawString(text, x, y);
