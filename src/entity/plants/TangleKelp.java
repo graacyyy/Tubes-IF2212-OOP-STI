@@ -1,6 +1,8 @@
 package entity.plants;
 
 import entity.zombies.*;
+import main.GamePanel;
+import tile.GameMap;
 
 public class TangleKelp extends Plant{
 
@@ -15,7 +17,7 @@ public class TangleKelp extends Plant{
         range = -1;
         cooldown = 20;
         is_waterplant = true;
-        fileimage = "././res/plant/TangledKelp.png";
+        fileimage = "././res/plants/tanglekelp.png";
     }
 
     @Override
@@ -25,5 +27,15 @@ public class TangleKelp extends Plant{
     }
 
     @Override
-    public void actionPerformed() {}
+    public void actionPerformed() {
+        if (timer >= 3){
+            for (Zombie zombie : GameMap.zombies) {
+                if (zombie.getX() <= x + GamePanel.tileSize && zombie.getX() >= x && zombie.getY() == y){
+                    instantKill(zombie);
+                    health = 0;
+                }
+            }
+        }
+        else timer++;
+    }
 }

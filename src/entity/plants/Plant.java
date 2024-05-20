@@ -25,6 +25,8 @@ public abstract class Plant extends Entity implements CustomListener{
     protected int cooldown;
     protected boolean is_waterplant;
     protected static boolean is_cooldown = true;
+    protected boolean shootable;
+    int timer = 0;
 
     public Plant(int x, int y){
 
@@ -72,6 +74,10 @@ public abstract class Plant extends Entity implements CustomListener{
     public int getHealth(){
         
         return health;
+    }
+
+    public void setHealth(int health){
+        this.health = health;
     }
 
     public int getX(){
@@ -262,6 +268,6 @@ public abstract class Plant extends Entity implements CustomListener{
                 e.printStackTrace();
             }
 
-        g2.drawImage(image, x, y+16, GamePanel.tileSize-16, GamePanel.tileSize-16, null);
+        g2.drawImage(image, x, y, GamePanel.tileSize-16, GamePanel.tileSize-16, null);
     }
 }

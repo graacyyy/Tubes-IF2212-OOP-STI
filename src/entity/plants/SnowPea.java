@@ -19,11 +19,7 @@ public class SnowPea extends Plant {
         range = -1;
         cooldown = 10;
         is_waterplant = false;
-        fileimage = "././res/plant/SnowPeaShooter/SnowPeaShooter_1.png";
-    }
-
-    public void delaySpeed(Zombie zombie){
-        zombie.setIsSlowed(true);
+        fileimage = "././res/plants/snowpea.png";
     }
 
     public void shootPea(){
@@ -37,13 +33,17 @@ public class SnowPea extends Plant {
 
     @Override
     public void actionPerformed() {
-        if (timer >= 60){
+        shootable = true;
+        if (timer >= 90){
             for (Zombie zombie : GameMap.zombies) {
                 if (zombie.getY() == y){
-                    shootPea();
+                    if (shootable){
+                        shootPea();
+                        shootable = false;
+                        timer = 0;
+                    }
                 }
             }
-            timer = 0;
         }
         else {
             timer++;

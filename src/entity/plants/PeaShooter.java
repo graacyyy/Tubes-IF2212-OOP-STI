@@ -19,7 +19,7 @@ public class PeaShooter extends Plant {
         range = -1;
         cooldown = 10;
         is_waterplant = false;
-        fileimage = "././res/plant/PeaShooter/PeaShooter_1.png";
+        fileimage = "././res/plants/peashooter.png";
     }
 
     public void shootPea(){
@@ -32,14 +32,17 @@ public class PeaShooter extends Plant {
 
     @Override
     public void actionPerformed() {
-
+        shootable = true;
         if (timer >= 60){
             for (Zombie zombie : GameMap.zombies) {
                 if (zombie.getY() == y){
-                    shootPea();
+                    if (shootable){
+                        shootPea();
+                        shootable = false;
+                        timer = 0;
+                    }
                 }
             }
-            timer = 0;
         }
         else {
             timer++;

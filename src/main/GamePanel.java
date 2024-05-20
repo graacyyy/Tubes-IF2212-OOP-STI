@@ -22,6 +22,7 @@ import entity.plants.Lilypad;
 import entity.plants.PeaShooter;
 import entity.plants.Plant;
 import entity.plants.SnowPea;
+import entity.plants.TangleKelp;
 // import entity.plants.Squash;
 // import entity.plants.Sunflower;
 // import entity.plants.Wallnut;
@@ -55,6 +56,9 @@ public class GamePanel extends JPanel implements Runnable{
     public final static int winState = 3;
     public final static int plantState = 4;
     public final static int zombieState = 5;
+    public final static int helpState = 6;
+    public final static int stepState = 7;
+
     public static boolean pause = false;
     
     // SCREEN SETTINGS
@@ -63,7 +67,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     public final static int tileSize = originalTileSize * scale; // 64x64
     public final static int maxScreenCol = 11;
-    public final static int maxScreenRow = 6; // jadiin 7 buat deck diatas
+    public final static int maxScreenRow = 7; // jadiin 7 buat deck diatas
     public final static int screenWidth = tileSize * maxScreenCol; // 704 pixels
     public final static int screenHeight = tileSize * maxScreenRow; // 448 pixels
 
@@ -150,45 +154,32 @@ public class GamePanel extends JPanel implements Runnable{
             int plantIndex = kh.numKey;
             switch (plantIndex) {
                 case 1:
-                if (!isPlanted){
-                    PlantSpawner.spawn(new Cactus(selectedX, selectedY));
-                }
+                PlantSpawner.spawn(new Cactus(selectedX, selectedY));
                     break;
                 case 2:
-                if (!isPlanted){
-                    PlantSpawner.spawn(new IceShroom(selectedX, selectedY));
-                }
+                PlantSpawner.spawn(new TangleKelp(selectedX, selectedY));
                     break;
                 case 3:
-                if (!isPlanted){
-                    PlantSpawner.spawn(new Jalapeno(selectedX, selectedY));
-                }
+                PlantSpawner.spawn(new Jalapeno(selectedX, selectedY));
                     break;
                 case 4:
-                if (!isPlanted){
-                    PlantSpawner.spawn(new Lilypad(selectedX, selectedY));
-                }
+                PlantSpawner.spawn(new IceShroom(selectedX, selectedY));
+
                     break;
                 case 5:
-                if (!isPlanted){
-                    PlantSpawner.spawn(new PeaShooter(selectedX, selectedY));
-                }
+                PlantSpawner.spawn(new PeaShooter(selectedX, selectedY));
                     break;
                 case 6:
-                if (!isPlanted){
-                    PlantSpawner.spawn(new SnowPea(selectedX, selectedY));
-                }
+                PlantSpawner.spawn(new SnowPea(selectedX, selectedY));
                     break;
                 case 7:
-                if (isPlanted){
-                    GameMap.plants.removeIf(plant -> plant.getX() == selectedX && plant.getY() == selectedY);
-                }
+                GameMap.plants.removeIf(plant -> plant.getX() == selectedX && plant.getY() == selectedY);
                     break;
             }
         }
 
         // SPAWN ZOMBIE
-        if (timer >= 60){
+        if (timer >= 60 && GameMap.zombies.size() < 10){
             int y = randomize.nextInt(0,6);
 
             if (y == 2 || y == 3){
@@ -383,18 +374,22 @@ public class GamePanel extends JPanel implements Runnable{
             UI.drawLose(g2);
         } else if (gameState == winState) {
             UI.drawWin(g2);
-        }else {
+        } else if (gameState == helpState) {
+            UI.drawHelp(g2);
+        } else if (gameState == stepState) {
+            UI.drawStep(g2);
+        } else {
             gameMap.draw(g2);
-
-            for (int i = 0; i < GameMap.plants.size(); i++) {
-                if(GameMap.plants.get(i)!=null){
-                    GameMap.plants.get(i).draw(g2);
-                }
-            }
 
             for (int i = 0; i < GameMap.bullets.size(); i++) {
                 if(GameMap.bullets.get(i)!=null){
                     GameMap.bullets.get(i).draw(g2);
+                }
+            }
+
+            for (int i = 0; i < GameMap.plants.size(); i++) {
+                if(GameMap.plants.get(i)!=null){
+                    GameMap.plants.get(i).draw(g2);
                 }
             }
             

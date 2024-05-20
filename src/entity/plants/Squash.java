@@ -1,6 +1,8 @@
 package entity.plants;
 
 import entity.zombies.*;
+import main.GamePanel;
+import tile.GameMap;
 
 public class Squash extends Plant {
 
@@ -15,7 +17,7 @@ public class Squash extends Plant {
         range = -1;
         cooldown = 20;
         is_waterplant = false; 
-        fileimage = "././res/plant/Squash/Squash_1.png";       
+        fileimage = "././res/plants/squash.png";       
     }
 
     @Override
@@ -25,6 +27,16 @@ public class Squash extends Plant {
     }
 
     @Override
-    public void actionPerformed() {}
+    public void actionPerformed() {
+        if (timer >= 3){
+            for (Zombie zombie : GameMap.zombies) {
+                if (zombie.getX() <= x + GamePanel.tileSize && zombie.getX() >= x && zombie.getY() == y){
+                    instantKill(zombie);
+                    health = 0;
+                }
+            }
+        }
+        else timer++;
+    }
 
 }

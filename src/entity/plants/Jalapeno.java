@@ -1,6 +1,7 @@
 package entity.plants;
 
 import entity.zombies.*;
+import tile.GameMap;
 
 public class Jalapeno extends Plant{
     
@@ -15,7 +16,7 @@ public class Jalapeno extends Plant{
         range = -1;
         cooldown = 20;
         is_waterplant = false;
-        fileimage = "././res/plant/Jalapeno.png";
+        fileimage = "././res/plants/jalapeno.png";
     }
 
     @Override
@@ -25,5 +26,15 @@ public class Jalapeno extends Plant{
     }
 
     @Override
-    public void actionPerformed() {}
+    public void actionPerformed() {
+        if (timer >= 3){
+            for (Zombie zombie : GameMap.zombies) {
+                if (zombie.getY() == y){
+                    instantKill(zombie);
+                }
+            }
+            health = 0;
+        }   
+        else timer++;
+    }
 }

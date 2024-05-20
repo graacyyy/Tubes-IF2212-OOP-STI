@@ -15,7 +15,7 @@ public class Wallnut extends Plant{
         range = 0;
         cooldown = 20;
         is_waterplant = false;
-        fileimage = "././res/plant/Wallnut/Wallnut_1.png";
+        fileimage = "././res/plants/wallnut.png";
     }
 
     @Override
