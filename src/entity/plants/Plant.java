@@ -46,11 +46,6 @@ public abstract class Plant extends Entity implements CustomListener{
 
     // GETTER SETTER
 
-    public Plant(String name, ImageIcon image) {
-        //TODO Auto-generated constructor stub
-    }
-
-
 
     public String getName(){
         return this.name;
@@ -105,13 +100,7 @@ public abstract class Plant extends Entity implements CustomListener{
     }
     // public void setCost(int cost){
 
-    public int getCost(){
-
-
-         return this.cost;
-     }
-
-     public void setRange(int range){
+    public void setRange(int range){
 
          this.range = range;
      }

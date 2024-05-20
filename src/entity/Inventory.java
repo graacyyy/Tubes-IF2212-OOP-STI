@@ -14,6 +14,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import main.GamePanel;
 
@@ -104,7 +105,7 @@ public class Inventory extends JPanel {
     private void handleMouseClick(int x, int y) {
         if (x >= 550 && x <= 650 && y >= 10 && y <= 40) {
             if (finaldeck.size() == 6) {
-                gamePanel.startGameThread();
+                switchToGamePanel();
             } else {
                 JOptionPane.showMessageDialog(this, "You must select exactly 6 plants to start the game.");
             }
@@ -172,6 +173,15 @@ public class Inventory extends JPanel {
             repaint();
             displaySelectedPlants();
         }
+    }
+
+    private void switchToGamePanel() {
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        frame.remove(this);
+        frame.add(gamePanel);
+        frame.revalidate();
+        frame.repaint();
+        gamePanel.startGameThread();
     }
 
     @Override

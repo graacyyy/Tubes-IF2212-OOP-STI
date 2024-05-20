@@ -35,10 +35,10 @@ public class GameMap {
             tile[0].image = ImageIO.read(new File("./res/tiles/grass.png"));
 
             tile[1] = new Tile();
-            tile[1].image = ImageIO.read(new File("./res/tiles/floor01.png"));
+            tile[1].image = ImageIO.read(new File("./res/tiles/home.png"));
 
             tile[2] = new Tile();
-            tile[2].image = ImageIO.read(new File("./res/tiles/water01.png"));
+            tile[2].image = ImageIO.read(new File("./res/tiles/pool.png"));
 
             tile[3] = new Tile();
             tile[3].image = ImageIO.read(new File("./res/tiles/spawn.png"));
@@ -91,7 +91,11 @@ public class GameMap {
         }
 
         // Zombie Spawn Area
-            g2.drawImage(tile[3].image, 10*GamePanel.tileSize, 0*GamePanel.tileSize, GamePanel.tileSize, GamePanel.tileSize*(GamePanel.maxScreenRow), null);
+        g2.drawImage(tile[3].image, 10*GamePanel.tileSize, 0*GamePanel.tileSize, GamePanel.tileSize, GamePanel.tileSize*(GamePanel.maxScreenRow), null);
+
+        // Pool Area
+        g2.drawImage(tile[2].image, 1*GamePanel.tileSize, 3*GamePanel.tileSize, GamePanel.tileSize*(GamePanel.maxScreenCol-2), GamePanel.tileSize*2, null);
+
     }
 
     public void drawDeck(Graphics2D g2){
