@@ -116,10 +116,10 @@ public class Zombie extends Entity implements CustomListener{
         return health <= 0;
     }
 
-    public void attack(Plant plant){
+    //public void attack(Plant plant){
         
-        plant.takeDamage(attack_damage);
-    }
+    //    plant.takeDamage(attack_damage);
+    //}
 
     // public void setDefaultValues(){
 
@@ -181,10 +181,10 @@ public class Zombie extends Entity implements CustomListener{
     //     g2.drawImage(image, x, y, GamePanel.tileSize, GamePanel.tileSize, null);
     // }
 
-    public void hit(Plant plant){
+    //public void hit(Plant plant){
 
-        plant.takeDamage(attack_damage);
-    }
+    //    plant.takeDamage(attack_damage);
+    //}
 
     public void moveZombie(){
         if(jumped){
