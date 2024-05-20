@@ -33,6 +33,7 @@ public class Inventory extends JPanel {
         "././res/deck/wallnut.png",
     };
     private int[] imagePositions = new int[10];
+    private int[] originalPositions = new int[10];
     public static ArrayList<Integer> finaldeck = new ArrayList<>();
     public static List<String> selectedPlants = new ArrayList<>();
     private BufferedImage playButton;
@@ -45,6 +46,7 @@ public class Inventory extends JPanel {
         initializePanel();
         loadImages();
         calculateImagePositions();
+        storeOriginalPositions();
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -62,7 +64,7 @@ public class Inventory extends JPanel {
     private void loadImages() {
         try {
             playButton = ImageIO.read(new File("././res/play.png"));
-            clearAllButton = ImageIO.read(new File("././res/clear.png")); // Gambar tombol Clear All
+            clearAllButton = ImageIO.read(new File("././res/clear.png"));
             for (int i = 0; i < imagePaths.length; i++) {
                 images[i] = ImageIO.read(new File(imagePaths[i]));
             }
@@ -78,6 +80,12 @@ public class Inventory extends JPanel {
             for (int x = 0; x < 5; x++) {
                 imagePositions[index++] = x * 90 + y * 90 * 1000;
             }
+        }
+    }
+
+    private void storeOriginalPositions() {
+        for (int i = 0; i < imagePositions.length; i++) {
+            originalPositions[i] = imagePositions[i];
         }
     }
 
@@ -112,7 +120,7 @@ public class Inventory extends JPanel {
             return;
         }
 
-        if (x >= 550 && x <= 650 && y >= 50 && y <= 80) { // Area untuk tombol Clear All
+        if (x >= 550 && x <= 650 && y >= 50 && y <= 80) {
             clearAllPlants();
             return;
         }
@@ -133,8 +141,9 @@ public class Inventory extends JPanel {
         }
 
         for (int i = 0; i < imagePositions.length; i++) {
-            int imgX = imagePositions[i] % 1000;
-            int imgY = imagePositions[i] / 1000;
+            int pos = imagePositions[i];
+            int imgX = pos % 1000;
+            int imgY = pos/ 1000;
             if (x >= imgX && x <= imgX + 90 && y >= imgY && y <= imgY + 90) {
                 String plantPath = imagePaths[i];
                 if (finaldeck.contains(i)) {
@@ -158,7 +167,7 @@ public class Inventory extends JPanel {
     }
 
     private void addPlantToInventory(int index) {
-        imagePositions[index] = index * 90 + 2 * 90 * 1000;
+        imagePositions[index] = originalPositions[index];
     }
 
     private void removePlantFromInventory(int index) {
@@ -167,6 +176,9 @@ public class Inventory extends JPanel {
 
     private void clearAllPlants() {
         if (!finaldeck.isEmpty()) {
+            for (int index : finaldeck) {
+                addPlantToInventory(index);
+            }
             finaldeck.clear();
             selectedPlants.clear();
             JOptionPane.showMessageDialog(this, "All plants removed from deck");
@@ -200,12 +212,11 @@ public class Inventory extends JPanel {
             g.drawImage(images[finaldeck.get(i)], x, 0, 90, 90, null);
         }
         g.drawImage(playButton, 570, 10, 80, 30, null);
-        g.drawImage(clearAllButton, 570, 50, 80, 30, null); // Gambar tombol Clear All
+        g.drawImage(clearAllButton, 570, 50, 80, 30, null); 
 
-        // Indikasi untuk play button jika jumlah tanaman di deck tidak 6
         if (finaldeck.size() != 6) {
-            g.setColor(new Color(255, 0, 0, 128)); // Set semi-transparan merah
-            g.fillRect(570, 10, 80, 30); // Overlay di atas play button
+            g.setColor(new Color(255, 0, 0, 128)); 
+            g.fillRect(570, 10, 80, 30);
         }
     }
 
