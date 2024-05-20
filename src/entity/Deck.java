@@ -1,60 +1,56 @@
 package entity;
 
-import entity.plants.Plant;
-
 public class Deck {
-    private Plant[] deck;
-    public int size;
-    public boolean recharged; 
+    private String[] deck ;
 
-    public Deck(Plant[] deck, boolean recharged){
-        this.deck = new Plant[6];
-        size = 0;
-        this.recharged = recharged;
-    }
+    public Deck(){
 
-    public boolean isEmpty(){
-        return size == 0;
-    }
-
-    public boolean isFull(){
-        return size == 6;
-    }
-
-    public int indexOf(Plant plant){
-        for (int i = 0; i < size; i++){
-            if (deck[i] == plant){
-                return i;
+        for (int i = 0; i < Inventory.selectedPlants.size(); i++){
+            for (String plant : Inventory.selectedPlants) {
+                if (plant == "././res/deck/cactus.png"){
+                    deck[i] = "Cactus";
+                }
+                else if (plant == "././res/deck/iceshroom.png"){
+                    deck[i] = "Ice Shroom";
+                }
+                else if (plant == "././res/deck/jalapeno.png"){
+                    deck[i] = "Jalapeno";
+                }
+                else if (plant == "././res/deck/lilypad.png"){
+                    deck[i] = "Lilypad";
+                }
+                else if (plant == "././res/deck/peashooter.png"){
+                    deck[i] = "Peashooter";
+                }
+                else if (plant == "././res/deck/snowpea.png"){
+                    deck[i] = "Snow Pea";
+                }
+                else if (plant == "././res/deck/squash.png"){
+                    deck[i] = "Squash";
+                }
+                else if (plant == "././res/deck/sunflower.png"){
+                    deck[i] = "Sunflower";
+                }
+                else if (plant == "././res/deck/tanglekelp.png"){
+                    deck[i] = "Tangle Kelp";
+                }
+                else if (plant == "././res/deck/wallnut.png"){
+                    deck[i] = "Wallnut";
+                }
             }
-        } return -1;
-    }
-
-    public void addPlant(Plant plant){
-        if (!isFull()) {
-            deck[size] = plant;
-            size ++;
         }
     }
 
-    public void removePlant(Plant plant){
-        int index = indexOf(plant);
-        if (index >= 0) {
-            for (int i = index; i < size - 1; i++) {
-                deck[i] = deck[i + 1];
-            }
-            size--;
-        }
-    }
+    // public boolean isEmpty(){
+    //     return size == 0;
+    // }
 
-    public void swapPlant(Plant plantA, Plant plantB){
-        int index1 = indexOf(plantA);
-        int index2 = indexOf(plantB);
+    // public boolean isFull(){
+    //     return size == 6;
+    // }
 
-        if (index1 >= 0 && index2 >= 0){
-            Plant temp = deck[index1];
-            deck[index1] = deck[index2];
-            deck[index2] = temp;
-        }
+    public String plant(int index){
+        return deck[index];
     }
 
     public void startRecharge(){

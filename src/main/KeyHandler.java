@@ -159,8 +159,41 @@ public class KeyHandler implements KeyListener{
                     Main.startThread();
                 }
                 
-            }    
-        } 
+            }  
+
+        } /* else if (GamePanel.gameState == GamePanel.inventoryState){
+            if(code == KeyEvent.VK_I){
+
+            }
+            if(code == KeyEvent.VK_W){
+                if(UI.slotRow != 0){
+                    UI.slotRow--;
+                }
+                // GamePanel.ui.slotRow++;
+
+            }
+            if(code == KeyEvent.VK_A){
+                if(UI.slotCol != 0){
+                    UI.slotCol--;
+                }
+                // GamePanel.ui.slotCol--;
+            }
+            if(code == KeyEvent.VK_S){
+                if(UI.slotRow != 0){
+                    UI.slotRow++;
+                }
+                // GamePanel.ui.slotRow++;
+            }
+            if(code == KeyEvent.VK_D){
+                if(UI.slotCol != 0){
+                    UI.slotCol++;
+                }
+                // GamePanel.ui.slotCol++;
+
+            }
+
+        }
+        */
     }
 
     @Override

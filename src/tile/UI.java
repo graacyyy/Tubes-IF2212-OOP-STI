@@ -1,7 +1,9 @@
 package tile;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -234,6 +236,39 @@ public class UI {
             g2.drawString(">", x-GamePanel.tileSize, y);
         }
     }
+/* 
+    public static void drawInventory(Graphics g2){
+        if (GamePanel.gameState == GamePanel.inventoryState){
+        
+            // FRAME
+        int frameX = GamePanel.tileSize*9;
+        int frameY = GamePanel.tileSize;
+        int frameWidth = GamePanel.tileSize*6;
+        int frameHeight = GamePanel.tileSize*5;
+
+        drawSubWindow(frameX, frameY, frameHeight, frameWidth);
+
+        // SLOT
+        final int slotXstart = frameX + 20;
+        final int slotYstart = frameY + 20;
+        int slotX = slotXstart;
+        int slotY = slotYstart;
+        }
+
+        // CURSOR
+        int cursorX = slotXstart + (GamePanel.tileSize * slotCol);
+        int cursorY = slotYstart + (GamePanel.tileSize * slotRow);
+        int cursorHeight = GamePanel.tileSize;
+        int cursorWidth = GamePanel.tileSize;
+
+        // DRAW CURSOR
+        g2.setColor(Color.white);
+        ((Graphics2D) g2).setStroke(new BasicStroke(3));
+        g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
+
+    }
+
+    public static void drawSubWindow(int x, int y, int width, int height){}; */
 
         // g2.drawString("Michael Vs Lalapan", 100, 100);
         
