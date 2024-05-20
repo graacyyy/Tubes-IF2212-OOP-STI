@@ -11,6 +11,7 @@ import java.util.Iterator;
 // import java.io.IOException;
 import java.util.Random;
 
+import javax.swing.JFrame;
 // import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
@@ -59,6 +60,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final static int zombieState = 5;
     public final static int helpState = 6;
     public final static int stepState = 7;
+    public final static int inventoryState = 8;
 
     public static boolean pause = false;
     
@@ -374,8 +376,9 @@ public class GamePanel extends JPanel implements Runnable{
         } 
         else if (gameState == stepState) {
             UI.drawStep(g2);
-        } 
-        else {
+        } else if (gameState == inventoryState){
+            UI.drawHelp(g2);
+        } else {
             gameMap.draw(g2);
 
             for (int i = 0; i < GameMap.bullets.size(); i++) {
