@@ -2,13 +2,20 @@ package entity;
 
 public class Sun {
     
-    public static int sun_amount;
+    protected static int sun_amount;
 
     public Sun(){
         sun_amount = 50;
     }
+
     public static void addsun(int amount){
+
         sun_amount += amount;   
+    }
+
+    public static void reducesun(int amount){
+
+        sun_amount -= amount;
     }
     // public void addSunPeriodically() {
     //     new Timer().scheduleAtFixedRate(new TimerTask() {
@@ -20,7 +27,7 @@ public class Sun {
     //     }, 5000, (random.nextInt(5000) + 5000)); // Interval waktu acak antara 5 - 10 detik
     // }
 
-    public int getSunAmount() {
+    public static int getSunAmount() {
         return sun_amount;
     }
 

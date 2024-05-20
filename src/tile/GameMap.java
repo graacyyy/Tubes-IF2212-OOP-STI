@@ -32,7 +32,7 @@ public class GameMap {
         try{
             // Game Area
             tile[0] = new Tile();
-            tile[0].image = ImageIO.read(new File("./res/tiles/grass01.png"));
+            tile[0].image = ImageIO.read(new File("./res/tiles/grass.png"));
 
             tile[1] = new Tile();
             tile[1].image = ImageIO.read(new File("./res/tiles/floor01.png"));
@@ -41,7 +41,7 @@ public class GameMap {
             tile[2].image = ImageIO.read(new File("./res/tiles/water01.png"));
 
             tile[3] = new Tile();
-            tile[3].image = ImageIO.read(new File("./res/tiles/earth.png"));
+            tile[3].image = ImageIO.read(new File("./res/tiles/spawn.png"));
 
             // Deck 
             tile[4] = new Tile();
@@ -80,20 +80,18 @@ public class GameMap {
         }
 
         // Plantable Area
-        for (int i = 0; i < GamePanel.maxScreenCol; i++){
+        for (int i = 1; i < GamePanel.maxScreenCol; i++){
             g2.drawImage(tile[0].image, i*GamePanel.tileSize, 0*GamePanel.tileSize, GamePanel.tileSize, GamePanel.tileSize, null);
             g2.drawImage(tile[0].image, i*GamePanel.tileSize, 1*GamePanel.tileSize, GamePanel.tileSize, GamePanel.tileSize, null);
             g2.drawImage(tile[0].image, i*GamePanel.tileSize, 2*GamePanel.tileSize, GamePanel.tileSize, GamePanel.tileSize, null);
-            g2.drawImage(tile[2].image, i*GamePanel.tileSize, 3*GamePanel.tileSize, GamePanel.tileSize, GamePanel.tileSize, null);
-            g2.drawImage(tile[2].image, i*GamePanel.tileSize, 4*GamePanel.tileSize, GamePanel.tileSize, GamePanel.tileSize, null);
+            g2.drawImage(tile[0].image, i*GamePanel.tileSize, 3*GamePanel.tileSize, GamePanel.tileSize, GamePanel.tileSize, null);
+            g2.drawImage(tile[0].image, i*GamePanel.tileSize, 4*GamePanel.tileSize, GamePanel.tileSize, GamePanel.tileSize, null);
             g2.drawImage(tile[0].image, i*GamePanel.tileSize, 5*GamePanel.tileSize, GamePanel.tileSize, GamePanel.tileSize, null);
             g2.drawImage(tile[0].image, i*GamePanel.tileSize, 6*GamePanel.tileSize, GamePanel.tileSize, GamePanel.tileSize, null);
         }
 
         // Zombie Spawn Area
-        for (int i = 0; i < GamePanel.maxScreenRow; i++){
-            g2.drawImage(tile[3].image, 10*GamePanel.tileSize, i*GamePanel.tileSize, GamePanel.tileSize, GamePanel.tileSize, null);
-        }
+            g2.drawImage(tile[3].image, 10*GamePanel.tileSize, 0*GamePanel.tileSize, GamePanel.tileSize, GamePanel.tileSize*(GamePanel.maxScreenRow), null);
     }
 
     public void drawDeck(Graphics2D g2){

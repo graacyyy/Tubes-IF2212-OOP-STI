@@ -16,6 +16,7 @@ public class DolphinRiderZombie extends Zombie {
         attack_speed = 1;
         is_aquatic = true;
         fileimage = "././res/zombies/dolphinrider.png";
+        jumped = false;
     }
 
     public void actionPerformed() {

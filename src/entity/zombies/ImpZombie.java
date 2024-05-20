@@ -15,6 +15,7 @@ public class ImpZombie extends Zombie {
         attack_speed = 1;
         is_aquatic = false;
         fileimage = "././res/zombies/impzombie.png";
+        jumped = false;
     }
 
     public void actionPerformed() {

@@ -6,8 +6,6 @@ import tile.GameMap;
 
 public class BalloonZombie extends Zombie{
 
-    protected boolean isPopped = false;
-
     public BalloonZombie(int x, int y){
 
         super(x,y);
@@ -17,15 +15,13 @@ public class BalloonZombie extends Zombie{
         attack_speed = 1;
         is_aquatic = false;
         fileimage = "././res/zombie/ballonzombie.png";
+        jumped = false;
     }
 
-    public boolean getIsPopped(){
-        return isPopped;
-    }
-
-    public void setIsPopped(boolean isPopped){
-        
-        this.isPopped = isPopped;
+    public void popped(){
+        if (!isPopped){
+            health =  (int) (health*0.5);
+        }
     }
 
     public void actionPerformed() {
@@ -85,7 +81,8 @@ public class BalloonZombie extends Zombie{
                 } else{
                     timer++;
                 }
-            }else{
+            }
+            else{
                 if (timer >= 60){
                     target.takeDamage(attack_damage);
                     timer = 0;

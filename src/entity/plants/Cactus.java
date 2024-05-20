@@ -1,6 +1,7 @@
 package entity.plants;
 
 import entity.zombies.Zombie;
+import tile.GameMap;
 
 public class Cactus extends Plant{
     
@@ -18,10 +19,31 @@ public class Cactus extends Plant{
         fileimage = "././res/plants/cactus.png";
     }
 
+    public void shootPea(){
+        CactusBullet bullet = new CactusBullet (x, y, attack_damage);
+        GameMap.bullets.add(bullet);
+    }
+
     @Override
     public void instantKill(Zombie zombie){}
 
     @Override
-    public void actionPerformed() {}
+    public void actionPerformed() {
+        shootable = true;
+        if (timer >= 60){
+            for (Zombie zombie : GameMap.zombies) {
+                if (zombie.getY() == y){
+                    if (shootable){
+                        shootPea();
+                        shootable = false;
+                        timer = 0;
+                    }
+                }
+            }
+        }
+        else {
+            timer++;
+        }
+    }
     
 }

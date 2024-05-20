@@ -95,6 +95,8 @@ public class GamePanel extends JPanel implements Runnable{
     boolean plantable;
     // int sun = 50;
     Font font = new Font("Terminal", Font.BOLD, 14);
+    Font font2 = new Font("Terminal", Font.PLAIN, 14);
+
     int suntimer=0;
     int suninterval=5;
 
@@ -189,23 +191,40 @@ public class GamePanel extends JPanel implements Runnable{
                 int plantIndex = kh.numKey;
                 switch (plantIndex) {
                     case 1:
-                    PlantSpawner.spawn(new Sunflower(selectedX, selectedY));
+                    if (Sun.getSunAmount() >= Sunflower.getCost()){
+                        PlantSpawner.spawn(new Sunflower(selectedX, selectedY));
+                        Sun.reducesun(Sunflower.getCost());
+                    }
                         break;
                     case 2:
-                    PlantSpawner.spawn(new TangleKelp(selectedX, selectedY));
+                    if (Sun.getSunAmount() >= TangleKelp.getCost()){
+                        PlantSpawner.spawn(new TangleKelp(selectedX, selectedY));
+                        Sun.reducesun(TangleKelp.getCost());
+                    }
                         break;
                     case 3:
-                    PlantSpawner.spawn(new Jalapeno(selectedX, selectedY));
+                    if (Sun.getSunAmount() >= Jalapeno.getCost()){
+                        PlantSpawner.spawn(new Jalapeno(selectedX, selectedY));
+                        Sun.reducesun(Jalapeno.getCost());
+                    }
                         break;
                     case 4:
-                    PlantSpawner.spawn(new IceShroom(selectedX, selectedY));
-    
+                    if (Sun.getSunAmount() >= IceShroom.getCost()){
+                        PlantSpawner.spawn(new IceShroom(selectedX, selectedY));
+                        Sun.reducesun(IceShroom.getCost());
+                    }  
                         break;
                     case 5:
-                    PlantSpawner.spawn(new PeaShooter(selectedX, selectedY));
+                    if (Sun.getSunAmount() >= PeaShooter.getCost()){
+                        PlantSpawner.spawn(new PeaShooter(selectedX, selectedY));
+                        Sun.reducesun(PeaShooter.getCost());
+                    }
                         break;
                     case 6:
-                    PlantSpawner.spawn(new SnowPea(selectedX, selectedY));
+                    if (Sun.getSunAmount() >= SnowPea.getCost()){
+                        PlantSpawner.spawn(new SnowPea(selectedX, selectedY));
+                        Sun.reducesun(SnowPea.getCost());
+                    }
                         break;
                     case 7:
                     GameMap.plants.removeIf(plant -> plant.getX() == selectedX && plant.getY() == selectedY);
@@ -215,53 +234,55 @@ public class GamePanel extends JPanel implements Runnable{
     
             // SPAWN ZOMBIE
             if (gametime >= 20 && gametime <= 160){
-                if (timer >= 60 && GameMap.zombies.size() < 10){
-                    int y = randomize.nextInt(1,7);
-        
-                    if (y == 3 || y == 4){
-                        int x = randomize.nextInt(1,3);
-                        switch (x) {
-                            case 1:
-                            ZombieSpawner.spawn(new DolphinRiderZombie(10*tileSize, y*tileSize));
-                                break;
-                            case 2:
-                            ZombieSpawner.spawn(new DuckyTubeZombie(10*tileSize, y*tileSize));
-                                break;
+                int chances = randomize.nextInt(1,10);
+                if (chances == 3 || chances == 5 || chances == 7){
+                    if (timer >= 60 && GameMap.zombies.size() < 10){
+                        int y = randomize.nextInt(1,7);
+                        if (y == 3 || y == 4){
+                            int x = randomize.nextInt(1,3);
+                            switch (x) {
+                                case 1:
+                                ZombieSpawner.spawn(new DolphinRiderZombie(10*tileSize, y*tileSize));
+                                    break;
+                                case 2:
+                                ZombieSpawner.spawn(new DuckyTubeZombie(10*tileSize, y*tileSize));
+                                    break;
+                            }
                         }
-                    }
-                    else {
-                        int x = randomize.nextInt(1,9);
-                        switch (x) {
-                            case 1:
-                            ZombieSpawner.spawn(new BalloonZombie(10*tileSize, y*tileSize));
-                                break;
-                            case 2:
-                            ZombieSpawner.spawn(new BucketHead(10*tileSize, y*tileSize));
-                                break;
-                            case 3:
-                            ZombieSpawner.spawn(new ConeHead(10*tileSize, y*tileSize));
-                                break;
-                            case 4:
-                            ZombieSpawner.spawn(new FootballZombie(10*tileSize, y*tileSize));
-                                break;
-                            case 5:
-                            ZombieSpawner.spawn(new Gargantuar(10*tileSize, y*tileSize));
-                                break;
-                            case 6:
-                            ZombieSpawner.spawn(new ImpZombie(10*tileSize, y*tileSize));
-                                break;
-                            case 7:
-                            ZombieSpawner.spawn(new NormalZombie(10*tileSize, y*tileSize));
-                                break;
-                            case 8:
-                            ZombieSpawner.spawn(new PoleVaulting(10*tileSize, y*tileSize));
-                                break;
+                        else {
+                            int x = randomize.nextInt(1,9);
+                            switch (x) {
+                                case 1:
+                                ZombieSpawner.spawn(new BalloonZombie(10*tileSize, y*tileSize));
+                                    break;
+                                case 2:
+                                ZombieSpawner.spawn(new BucketHead(10*tileSize, y*tileSize));
+                                    break;
+                                case 3:
+                                ZombieSpawner.spawn(new ConeHead(10*tileSize, y*tileSize));
+                                    break;
+                                case 4:
+                                ZombieSpawner.spawn(new FootballZombie(10*tileSize, y*tileSize));
+                                    break;
+                                case 5:
+                                ZombieSpawner.spawn(new Gargantuar(10*tileSize, y*tileSize));
+                                    break;
+                                case 6:
+                                ZombieSpawner.spawn(new ImpZombie(10*tileSize, y*tileSize));
+                                    break;
+                                case 7:
+                                ZombieSpawner.spawn(new NormalZombie(10*tileSize, y*tileSize));
+                                    break;
+                                case 8:
+                                ZombieSpawner.spawn(new PoleVaulting(10*tileSize, y*tileSize));
+                                    break;
+                            }
                         }
-                    }
-        
-                    timer = 0;
-                } 
-                else timer++;
+            
+                        timer = 0;
+                    } 
+                    else timer++;
+                }
             }
     
             // ITERATOR 
@@ -320,15 +341,15 @@ public class GamePanel extends JPanel implements Runnable{
     
             else if (kh.leftPressed == true){
                 kh.leftPressed = false;
-                if (tileSelector.getX() == 0){
-                    tileSelector.setX((maxScreenCol-1)*tileSize);
+                if (tileSelector.getX() == tileSize){
+                    tileSelector.setX((maxScreenCol-2)*tileSize);
                 }
                 else tileSelector.setX(tileSelector.getX()-tileSize);
             }
             else if (kh.rightPressed == true){
                 kh.rightPressed = false;
-                if (tileSelector.getX() == (maxScreenCol-1)*tileSize){
-                    tileSelector.setX(0);
+                if (tileSelector.getX() == (maxScreenCol-2)*tileSize){
+                    tileSelector.setX(tileSize);
                 }
                 else tileSelector.setX(tileSelector.getX()+tileSize);
             }
@@ -404,6 +425,7 @@ public class GamePanel extends JPanel implements Runnable{
             gameMap.drawDeck(g2);
             
             drawSun(g2);
+            drawGameTime(g2);
             g2.dispose();
         }
     }
@@ -412,11 +434,21 @@ public class GamePanel extends JPanel implements Runnable{
         g2.setFont(font);
         g2.setColor(Color.RED);
 
-        String text = ""+ Sun.sun_amount;
+        String text = ""+ Sun.getSunAmount();
         int x = 10;
         int y = tileSize-8;
 
         g2.drawString(text, x, y);
     }
-}
 
+    public void drawGameTime(Graphics2D g2){
+        g2.setFont(font2);
+        g2.setColor(Color.WHITE);
+
+        String text = "Game Time: "+ gametime + "s";
+        int x = (maxScreenCol-1)*tileSize-64;
+        int y = tileSize-20;
+
+        g2.drawString(text, x, y);
+    }
+}

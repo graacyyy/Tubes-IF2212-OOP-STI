@@ -11,6 +11,7 @@ public class NormalZombie extends Zombie{
         attack_speed = 1;
         is_aquatic = false;
         fileimage = "././res/zombies/normalzombie.png";
+        jumped = false;
     }
     
 }

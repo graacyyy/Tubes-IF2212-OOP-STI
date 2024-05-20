@@ -6,7 +6,5 @@ public class PeaBullet extends Bullet {
 
         super(x,y,damage);
         fileimage = "././res/bullet/pea.png";
-    }
-
-    
+    }    
 }
