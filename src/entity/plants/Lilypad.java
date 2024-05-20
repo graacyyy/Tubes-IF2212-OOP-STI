@@ -7,7 +7,7 @@ public class Lilypad extends Plant {
     public Lilypad(int x, int y) {
 
         super(x, y);
-        name = "Pea Shooter";
+        name = "Lilypad";
         cost = 25;
         health = 100;
         attack_damage = 0;
