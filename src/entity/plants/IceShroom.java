@@ -1,7 +1,7 @@
 package entity.plants;
 
 import entity.zombies.*;
-import main.GamePanel;
+// import main.GamePanel;
 import tile.GameMap;
 
 public class IceShroom extends Plant{

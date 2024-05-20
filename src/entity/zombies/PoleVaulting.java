@@ -15,6 +15,7 @@ public class PoleVaulting extends Zombie {
         attack_speed = 1;
         is_aquatic = false;
         fileimage = "././res/zombies/polevault.png";
+        jumped = false;
     }
 
     public void actionPerformed() {
@@ -36,7 +37,6 @@ public class PoleVaulting extends Zombie {
                     isMoving = false;
                 }
             }
-            
             if (isMoving){
                 if (timer >= 6){
                     moveZombie();
@@ -45,7 +45,8 @@ public class PoleVaulting extends Zombie {
                     timer++;
                 }
                 freeze_timer++;
-            }else{
+            }
+            else{
                 if (timer >= 60){
                     target.takeDamage(attack_damage);
                     timer = 0;

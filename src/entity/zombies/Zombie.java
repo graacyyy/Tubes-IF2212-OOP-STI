@@ -25,6 +25,9 @@ public class Zombie extends Entity implements CustomListener{
     protected boolean isMoving = true;
     protected boolean isSlowed = false;
     protected boolean isFreezed = false;
+    protected boolean isPopped = false;
+    protected boolean jumped;
+
     int timer = 0;
     int freeze_timer = 0;
     int delay_timer = 0;
@@ -187,7 +190,17 @@ public class Zombie extends Entity implements CustomListener{
     }
 
     public void moveZombie(){
-        x--;
+        if(jumped){
+            for (Plant plant : GameMap.plants) {
+                if (plant.getX() >= x - GamePanel.tileSize && plant.getX() <= x && plant.getY() == y){
+                    x -= GamePanel.tileSize;
+                    plant.setHealth(0);
+                }
+            }
+        }
+        else{
+            x--;
+        }
         // solidArea.x = x;
     }
 
@@ -197,7 +210,7 @@ public class Zombie extends Entity implements CustomListener{
         } catch (IOException e) {
         }
         
-        g2.drawImage(image, x, y, GamePanel.tileSize, GamePanel.tileSize, null);
+        g2.drawImage(image, x, y, GamePanel.tileSize+10, GamePanel.tileSize+10, null);
     }
 
     @Override

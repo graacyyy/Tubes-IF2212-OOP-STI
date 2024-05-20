@@ -14,6 +14,7 @@ public class Gargantuar extends Zombie {
         attack_speed = 1;
         is_aquatic = false;
         fileimage = "././res/zombies/gargantuar.png";
+        jumped = false;
     }
 
     public void actionPerformed() {

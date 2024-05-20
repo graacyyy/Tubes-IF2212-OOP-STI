@@ -10,6 +10,6 @@ public class BucketHead extends Zombie {
         attack_speed = 1;
         is_aquatic = false;
         fileimage = "././res/zombies/buckethead.png";
+        jumped = false;
     }
-
 }
