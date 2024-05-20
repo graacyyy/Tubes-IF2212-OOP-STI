@@ -39,14 +39,19 @@ public class KeyHandler implements KeyListener{
             if(code == KeyEvent.VK_ENTER){
                 if (UI.commandNum == 1){
                     GamePanel.gameState = GamePanel.playState;
+                    GameMap.zombies.clear();
+                    GameMap.plants.clear();
+                    GameMap.bullets.clear();
+                    GamePanel.gametime = 0;
                 } else if (UI.commandNum == 2) { 
                     GamePanel.gameState = GamePanel.helpState;
                 } else if (UI.commandNum == 5){
                     System.exit(0); 
                 }
             }
-
-        } else if (GamePanel.gameState == GamePanel.loseState){
+        } 
+        
+        else if (GamePanel.gameState == GamePanel.loseState){
             if(code == KeyEvent.VK_UP){
                 UI.commandNum--;
                 if (UI.commandNum < 1){
@@ -73,7 +78,9 @@ public class KeyHandler implements KeyListener{
                     System.exit(0); 
                 }
             }
-        } else if (GamePanel.gameState == GamePanel.winState){
+        } 
+        
+        else if (GamePanel.gameState == GamePanel.winState){
             if(code == KeyEvent.VK_UP){
                 UI.commandNum--;
                 if (UI.commandNum < 1){
@@ -95,15 +102,21 @@ public class KeyHandler implements KeyListener{
                     System.exit(0); 
                 }
             } 
-        } else if (GamePanel.gameState == GamePanel.stepState){
+        } 
+        
+        else if (GamePanel.gameState == GamePanel.stepState){
             if(code == KeyEvent.VK_ENTER) {
                 GamePanel.gameState = GamePanel.titleState;
             }
-        } else if (GamePanel.gameState == GamePanel.helpState){
+        } 
+        
+        else if (GamePanel.gameState == GamePanel.helpState){
             if(code == KeyEvent.VK_ENTER){
                 GamePanel.gameState = GamePanel.stepState;
             } 
-        } else if (GamePanel.gameState == GamePanel.playState){
+        } 
+        
+        else if (GamePanel.gameState == GamePanel.playState){
             if(code == KeyEvent.VK_ENTER){
                 enterPressed = true;
             }

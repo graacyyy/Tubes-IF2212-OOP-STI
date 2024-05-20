@@ -14,7 +14,7 @@ import javax.swing.plaf.basic.BasicComboBoxUI.KeyHandler;
 import main.GamePanel;
 
 public class UI {
-    static Font titleFont;
+    public static Font titleFont;
     static Font heading2;
     static String text;
     private static BufferedImage titleImage, loseImage, winImage, pauseImage, helpImage1, helpImage2;

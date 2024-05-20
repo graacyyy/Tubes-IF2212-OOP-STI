@@ -1,9 +1,13 @@
 package entity.plants;
 
+import entity.Sun;
 import entity.zombies.*;
 // import game.Sun;
 
 public class Sunflower extends Plant {
+
+    int timer = 0;
+    int sec = 0;
     
     public Sunflower(int x, int y) {
 
@@ -24,9 +28,20 @@ public class Sunflower extends Plant {
     }
 
     @Override
-    public void actionPerformed() {}
+    public void actionPerformed() {
+        if (timer >= 60){
+            sec++;
+            timer = 0;
+        } else timer++;
+        
+        if (sec == 3) {
+            Sun.addsun(25);
+            System.out.println("Sun dari sunflower");
+            sec = 0;
+        }
+    }
+}
 
     // public void produceSun(Sun sun){
     //     sun.setSunAmount(sun.getSunAmount() + 25);
     // }
-}
