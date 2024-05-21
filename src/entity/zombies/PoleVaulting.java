@@ -14,6 +14,17 @@ public class PoleVaulting extends Zombie {
         attack_damage = 100;
         attack_speed = 1;
         is_aquatic = false;
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+        fileimage = "././res/zombie/PoleVaulZombie/PoleVaultZombie_1.png";
+=======
+        fileimage = "././res/zombie/PoleVaultZombie/PoleVaultZombie_1.png";
+>>>>>>> origin/main
+=======
+        fileimage = "././res/zombie/PoleVaultZombie/PoleVaultZombie_1.png";
+>>>>>>> aa491725be7e0cc5fdf981fd0cb8a0f29146f91e
+=======
         fileimage = "././res/zombies/polevault.png";
         jumped = false;
     }
@@ -111,5 +122,6 @@ public class PoleVaulting extends Zombie {
                 isMoving = true;
             }
         }
+>>>>>>> 99ce55be5f76d414ce047341f0f806ca01c111ab
     }
 }

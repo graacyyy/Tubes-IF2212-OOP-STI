@@ -16,7 +16,18 @@ public class Jalapeno extends Plant{
         range = -1;
         cooldown = 20;
         is_waterplant = false;
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+        fileimage = "././res/plant/Jalapeno.png";
+>>>>>>> origin/main
+=======
+        fileimage = "././res/plant/Jalapeno.png";
+>>>>>>> aa491725be7e0cc5fdf981fd0cb8a0f29146f91e
+=======
         fileimage = "././res/plants/jalapeno.png";
+>>>>>>> 99ce55be5f76d414ce047341f0f806ca01c111ab
     }
 
     @Override

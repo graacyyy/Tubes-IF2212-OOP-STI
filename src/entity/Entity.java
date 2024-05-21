@@ -21,5 +21,61 @@ public class Entity {
     protected int attack_damage;
     protected double attack_speed;
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+    // Setter dan Getter 
+
+    public void setName(String name){
+        
+        this.name = name;
+    }
+
+    public String getName(){
+        
+        return this.name;
+    }
+
+    public void setHealth(int health){
+        
+        this.health = health;
+    }
+
+    public int getHealth(){
+        
+        return this.health;
+    }
+
+    public void setAD(int attack_damage){
+        
+        this.attack_damage = attack_damage;
+    }
+
+    public int getAD(){
+        
+        return this.attack_damage;
+    }
+
+    public void setAS(double attack_speed){
+        
+        this.attack_speed = attack_speed;
+    }
+
+    public double getAS(){
+        
+        return this.attack_speed;
+    }
+
+}
+=======
     public Rectangle solidArea;
 }
+>>>>>>> 955d6d875befc0e87d6f9e1c6654bc5b89b57ba7
+=======
+    public Rectangle solidArea;
+}
+>>>>>>> origin/main
+=======
+    public Rectangle solidArea;
+}
+>>>>>>> aa491725be7e0cc5fdf981fd0cb8a0f29146f91e
