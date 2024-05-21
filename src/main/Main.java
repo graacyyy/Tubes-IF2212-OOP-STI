@@ -14,10 +14,6 @@ import javax.swing.JFrame;
 
 public class Main {
     static GamePanel gamePanel;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> aa491725be7e0cc5fdf981fd0cb8a0f29146f91e
 
     public static void main(String[] args) {
         JFrame window = new JFrame();
@@ -64,34 +60,8 @@ public class Main {
             e.printStackTrace();
         }
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/main
-    public static void main(String[] args) {
-        JFrame window = new JFrame();
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(false);
-        window.setTitle("MichaelVSLalapan");
-
-        gamePanel = new GamePanel();
-        window.add(gamePanel);
-
-        window.pack();
-
-        window.setLocationRelativeTo(null);
-        window.setVisible(true);
-        gamePanel.startGameThread();
-        
-        playBackSound("res/audio/backsoundMichaelVsLalapan.wav");
-    }
-=======
->>>>>>> aa491725be7e0cc5fdf981fd0cb8a0f29146f91e
-=======
     
     public static void startThread(){
         gamePanel.startGameThread();
     }
->>>>>>> 99ce55be5f76d414ce047341f0f806ca01c111ab
 }
