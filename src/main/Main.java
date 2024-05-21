@@ -37,7 +37,7 @@ public class Main {
         playBackSound("res/audio/backsoundMichaelVsLalapan.wav");
     }
   
- private static void playBackSound(String soundFilePath) {
+    private static void playBackSound(String soundFilePath) {
         try {
             File soundFile = new File(soundFilePath);
             // System.out.println("Alamat file asli: " + soundFile.getAbsolutePath());
@@ -65,6 +65,7 @@ public class Main {
         }
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> origin/main
@@ -87,4 +88,10 @@ public class Main {
     }
 =======
 >>>>>>> aa491725be7e0cc5fdf981fd0cb8a0f29146f91e
+=======
+    
+    public static void startThread(){
+        gamePanel.startGameThread();
+    }
+>>>>>>> 99ce55be5f76d414ce047341f0f806ca01c111ab
 }

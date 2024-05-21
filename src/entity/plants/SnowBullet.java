@@ -19,11 +19,11 @@ public class SnowBullet extends Bullet {
 >>>>>>> aa491725be7e0cc5fdf981fd0cb8a0f29146f91e
 
         super(x,y,damage);
-        fileimage = "././res/bullet/SnowPea.png";
+        fileimage = "././res/bullet/snowpea.png";
     }
 
     public void hit(Zombie zombie){
-      
         zombie.setIsSlowed(true);
+        zombie.setFreezeTime(0);
     }
 }

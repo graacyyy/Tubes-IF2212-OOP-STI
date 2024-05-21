@@ -22,8 +22,8 @@ public class TileSelector {
 
     public void setDefaultValues(){
 
-        x = 0;
-        y = 0;
+        x = GamePanel.tileSize;
+        y = GamePanel.tileSize;
     }
 
     public int getX(){

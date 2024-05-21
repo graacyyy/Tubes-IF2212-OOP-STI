@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 import java.awt.Graphics2D;
 // import java.awt.image.BufferedImage;
@@ -19,17 +20,18 @@ import main.CustomListener;
 import main.GamePanel;
 
 public abstract class Plant extends Entity implements CustomListener{
-    protected int cost;
+    protected static int cost;
     protected int range;
     protected int cooldown;
     protected boolean is_waterplant;
     protected static boolean is_cooldown = true;
+    protected boolean shootable;
+    int timer = 0;
 
     public Plant(int x, int y){
 
         this.x = x;
         this.y = y;
-
         this.solidArea = new Rectangle();
         this.solidArea.x = 8;
         this.solidArea.y = 16;
@@ -47,7 +49,18 @@ public abstract class Plant extends Entity implements CustomListener{
         // getPlantImage();
     }
 
+    
+
     // GETTER SETTER
+
+
+    public String getName(){
+        return this.name;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
 
     public void setCooldown(int cooldown){
 
@@ -62,6 +75,10 @@ public abstract class Plant extends Entity implements CustomListener{
     public int getHealth(){
         
         return health;
+    }
+
+    public void setHealth(int health){
+        this.health = health;
     }
 
     public int getX(){
@@ -84,26 +101,21 @@ public abstract class Plant extends Entity implements CustomListener{
         return solidArea.y;
     }
 
+    public static int getCost(){
+        
+        return cost;
+    }
     // public void setCost(int cost){
 
-    //     this.cost = cost;
-    // }
+    public void setRange(int range){
 
-    // public int getCost(){
+         this.range = range;
+     }
 
+    public int getRange(){
 
-    //     return this.cost;
-    // }
-
-    // public void setRange(int range){
-
-    //     this.range = range;
-    // }
-
-    // public int getRange(){
-
-    //     return this.range;
-    // }
+         return this.range;
+    }
 
 
     // public void setIsWaterPlant(boolean is_waterplant){
@@ -127,7 +139,7 @@ public abstract class Plant extends Entity implements CustomListener{
         health = health - attack_damage;
     }
 
-    public boolean isDead(int health){
+    public boolean isDead(){
         
         return health <= 0;
     }
@@ -252,6 +264,6 @@ public abstract class Plant extends Entity implements CustomListener{
                 e.printStackTrace();
             }
 
-        g2.drawImage(image, x, y+16, GamePanel.tileSize-16, GamePanel.tileSize-16, null);
+        g2.drawImage(image, x, y, GamePanel.tileSize-16, GamePanel.tileSize-16, null);
     }
 }

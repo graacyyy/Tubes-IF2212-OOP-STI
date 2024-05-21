@@ -5,18 +5,22 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+// import entity.zombies.BalloonZombie;
 import entity.zombies.Zombie;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import main.CustomListener;
 import main.GamePanel;
+import tile.GameMap;
 
-public class Bullet {
+public class Bullet implements CustomListener{
     protected int x;
     protected int y;
     protected int damage;
     protected String fileimage;
+    protected boolean hit;
 
     public Bullet(int x, int y, int damage){
         this.x = x;
@@ -38,7 +42,7 @@ public class Bullet {
     }
 
 
-    public void drawBullet(Graphics2D g2){
+    public void draw(Graphics2D g2){
 
         BufferedImage image = null;
         try {
@@ -51,7 +55,22 @@ public class Bullet {
     }
 
     public void hit(Zombie zombie) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'hit'");
+        zombie.takeDamage(damage);
     }
+
+    public boolean isHit(){
+        return hit;
+    }
+
+    @Override
+    public void actionPerformed() {
+        moveBullet();
+        for (Zombie zombie : GameMap.zombies){
+            if (zombie.getX() >= x&&zombie.getX() <= x+GamePanel.tileSize && zombie.getY() == y){
+                hit(zombie);
+                hit = true;
+            }
+        }
+    }
+
 }

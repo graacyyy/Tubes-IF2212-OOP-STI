@@ -17,12 +17,21 @@ import entity.Entity;
 import entity.plants.Plant;
 import main.CustomListener;
 import main.GamePanel;
+import tile.GameMap;
 
 public class Zombie extends Entity implements CustomListener{
-
+    
     protected boolean is_aquatic;
     protected boolean isMoving = true;
     protected boolean isSlowed = false;
+    protected boolean isFreezed = false;
+    protected boolean isPopped = false;
+    protected boolean jumped;
+
+    int timer = 0;
+    int freeze_timer = 0;
+    int delay_timer = 0;
+    protected Plant target = null;
 
     public Zombie(int x, int y){ 
 <<<<<<< HEAD
@@ -70,9 +79,6 @@ public class Zombie extends Entity implements CustomListener{
         this.solidArea.y = y;
         this.solidArea.width = 48;
         this.solidArea.height = 48;
-
-        // setDefaultValues();
-        // getZombieImage();
     }
 
     // GETTER SETTER
@@ -100,6 +106,11 @@ public class Zombie extends Entity implements CustomListener{
         this.isSlowed = isSlowed;
     }
     
+    public void setIsFreezed(boolean isFreezed){
+        
+        this.isFreezed = isFreezed;
+    }
+    
     public int getX(){
 
         return x;
@@ -108,6 +119,10 @@ public class Zombie extends Entity implements CustomListener{
     public int getY(){
 
         return y;
+    }
+    
+    public void setFreezeTime(int time){
+        freeze_timer = time;
     }
 
     // public void setIsAquatic(boolean is_aquatic){
@@ -141,10 +156,10 @@ public class Zombie extends Entity implements CustomListener{
         return health <= 0;
     }
 
-    public void attack(Plant plant){
+    //public void attack(Plant plant){
         
-        plant.takeDamage(attack_damage);
-    }
+    //    plant.takeDamage(attack_damage);
+    //}
 
     // public void setDefaultValues(){
 
@@ -206,9 +221,24 @@ public class Zombie extends Entity implements CustomListener{
     //     g2.drawImage(image, x, y, GamePanel.tileSize, GamePanel.tileSize, null);
     // }
 
+    //public void hit(Plant plant){
+
+    //    plant.takeDamage(attack_damage);
+    //}
+
     public void moveZombie(){
-        x--;
-        solidArea.x = x;
+        if(jumped){
+            for (Plant plant : GameMap.plants) {
+                if (plant.getX() >= x - GamePanel.tileSize && plant.getX() <= x && plant.getY() == y){
+                    x -= GamePanel.tileSize;
+                    plant.setHealth(0);
+                }
+            }
+        }
+        else{
+            x--;
+        }
+        // solidArea.x = x;
     }
 
     public void draw(Graphics2D g2){
@@ -224,11 +254,77 @@ public class Zombie extends Entity implements CustomListener{
 >>>>>>> aa491725be7e0cc5fdf981fd0cb8a0f29146f91e
         }
         
-        g2.drawImage(image, x, y, GamePanel.tileSize, GamePanel.tileSize, null);
+        g2.drawImage(image, x, y, GamePanel.tileSize+10, GamePanel.tileSize+10, null);
     }
 
     @Override
     public void actionPerformed() {
-        moveZombie();
+        if (isFreezed){
+            System.out.println("test");
+            if (freeze_timer >= 120){
+                isFreezed = false;
+                freeze_timer = 0;
+                isMoving = true;
+            }
+            else {
+                freeze_timer++;
+            }
+        }
+        else if(isSlowed){
+            for (Plant plant : GameMap.plants){
+                if (plant.getX() >= x - GamePanel.tileSize && plant.getX() <= x && plant.getY() == y){
+                    target = plant;
+                    isMoving = false;
+                }
+            }
+            
+            if (isMoving){
+                if (timer >= 10){
+                    moveZombie();
+                    timer = 0;
+                } else{
+                    timer++;
+                }
+                freeze_timer++;
+            }else{
+                if (timer >= 60){
+                    target.takeDamage(attack_damage);
+                    timer = 0;
+                }else{
+                    timer++;
+                }
+                isMoving = true;
+                freeze_timer++;
+            }
+            if(freeze_timer>=180){
+                freeze_timer=0;
+                isSlowed=false;
+            }
+        }
+        else{
+            for (Plant plant : GameMap.plants){
+                if (plant.getX() >= x - GamePanel.tileSize && plant.getX() <= x && plant.getY() == y){
+                    target = plant;
+                    isMoving = false;
+                }
+            }
+    
+            if (isMoving){
+                if (timer >= 5){
+                    moveZombie();
+                    timer = 0;
+                } else{
+                    timer++;
+                }
+            }else{
+                if (timer >= 60){
+                    target.takeDamage(attack_damage);
+                    timer = 0;
+                }else{
+                    timer++;
+                }
+                isMoving = true;
+            }
+        }
     }
 }
