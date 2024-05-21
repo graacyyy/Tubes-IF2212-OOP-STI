@@ -11,9 +11,13 @@ public class PoleVaulting extends Zombie {
         attack_speed = 1;
         is_aquatic = false;
 <<<<<<< HEAD
+<<<<<<< HEAD
         fileimage = "././res/zombie/PoleVaulZombie/PoleVaultZombie_1.png";
 =======
         fileimage = "././res/zombie/PoleVaultZombie/PoleVaultZombie_1.png";
 >>>>>>> origin/main
+=======
+        fileimage = "././res/zombie/PoleVaultZombie/PoleVaultZombie_1.png";
+>>>>>>> aa491725be7e0cc5fdf981fd0cb8a0f29146f91e
     }
 }

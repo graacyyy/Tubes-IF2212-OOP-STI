@@ -36,9 +36,13 @@ public abstract class Plant extends Entity implements CustomListener{
         this.solidArea.width = 48;
         this.solidArea.height = 48;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> origin/main
+=======
+
+>>>>>>> aa491725be7e0cc5fdf981fd0cb8a0f29146f91e
         // setDefaultValues();
         // getPlantImage();
     }
@@ -86,6 +90,7 @@ public abstract class Plant extends Entity implements CustomListener{
     // }
 
     // public int getCost(){
+
 
     //     return this.cost;
     // }

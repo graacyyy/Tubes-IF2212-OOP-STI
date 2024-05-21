@@ -15,8 +15,29 @@ import javax.swing.JFrame;
 public class Main {
     static GamePanel gamePanel;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> aa491725be7e0cc5fdf981fd0cb8a0f29146f91e
 
-    private static void playBackSound(String soundFilePath) {
+    public static void main(String[] args) {
+        JFrame window = new JFrame();
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setResizable(false);
+        window.setTitle("MichaelVSLalapan");
+
+        gamePanel = new GamePanel();
+        window.add(gamePanel);
+
+        window.pack();
+
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
+        gamePanel.startGameThread();
+        
+        playBackSound("res/audio/backsoundMichaelVsLalapan.wav");
+    }
+  
+ private static void playBackSound(String soundFilePath) {
         try {
             File soundFile = new File(soundFilePath);
             // System.out.println("Alamat file asli: " + soundFile.getAbsolutePath());
@@ -43,6 +64,7 @@ public class Main {
             e.printStackTrace();
         }
     }
+<<<<<<< HEAD
 
 =======
 >>>>>>> origin/main
@@ -63,4 +85,6 @@ public class Main {
         
         playBackSound("res/audio/backsoundMichaelVsLalapan.wav");
     }
+=======
+>>>>>>> aa491725be7e0cc5fdf981fd0cb8a0f29146f91e
 }

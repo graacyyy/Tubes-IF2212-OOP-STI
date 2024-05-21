@@ -13,10 +13,14 @@ import java.util.Random;
 // import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+<<<<<<< HEAD
 import entity.TileSelector;
 <<<<<<< HEAD
 import entity.plants.Plant;
 =======
+=======
+import entity.TileSelector
+>>>>>>> aa491725be7e0cc5fdf981fd0cb8a0f29146f91e
 import entity.plants.Cactus;
 import entity.plants.IceShroom;
 import entity.plants.Jalapeno;
@@ -27,7 +31,10 @@ import entity.plants.SnowPea;
 // import entity.plants.Squash;
 // import entity.plants.Sunflower;
 // import entity.plants.Wallnut;
+<<<<<<< HEAD
 >>>>>>> origin/main
+=======
+>>>>>>> aa491725be7e0cc5fdf981fd0cb8a0f29146f91e
 import entity.zombies.BalloonZombie;
 import entity.zombies.BucketHead;
 import entity.zombies.ConeHead;
@@ -41,14 +48,26 @@ import entity.zombies.PoleVaulting;
 import entity.zombies.Zombie;
 import entity.ZombieSpawner;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import entity.Deck;
 import entity.PlantSpawner;
 >>>>>>> origin/main
+=======
+import entity.Deck;
+import entity.PlantSpawner;
+>>>>>>> aa491725be7e0cc5fdf981fd0cb8a0f29146f91e
 
 import tile.GameMap;
+import tile.UI;
+
 
 public class GamePanel extends JPanel implements Runnable{
+
+    // STATE
+    public static int gameState;
+    public final static int titleState = 0;
+    public final static int playState = 1;
     
     // SCREEN SETTINGS
     final static int originalTileSize = 16; // 16x16
@@ -80,12 +99,17 @@ public class GamePanel extends JPanel implements Runnable{
     TileSelector tileSelector = new TileSelector();
     CollisionChecker collisionChecker = new CollisionChecker(this);
 <<<<<<< HEAD
+<<<<<<< HEAD
     
 
 =======
     Deck deck = new Deck(new Plant[6], true);
     
 >>>>>>> origin/main
+=======
+    Deck deck = new Deck(new Plant[6], true);
+
+>>>>>>> aa491725be7e0cc5fdf981fd0cb8a0f29146f91e
     public GamePanel(){
 
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -102,6 +126,7 @@ public class GamePanel extends JPanel implements Runnable{
 
         gameThread = new Thread(this);
         gameThread.start();
+        gameState = titleState;
     }
 
     @Override
@@ -140,7 +165,10 @@ public class GamePanel extends JPanel implements Runnable{
     public void update(){
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> aa491725be7e0cc5fdf981fd0cb8a0f29146f91e
         // SPAWN PLANT
         if (kh.numPressed == true){
             kh.numPressed = false;
@@ -170,7 +198,10 @@ public class GamePanel extends JPanel implements Runnable{
             }
         }
 
+<<<<<<< HEAD
 >>>>>>> origin/main
+=======
+>>>>>>> aa491725be7e0cc5fdf981fd0cb8a0f29146f91e
         // SPAWN ZOMBIE
         if (timer >= 60){
             int y = randomize.nextInt(0,6);
@@ -222,6 +253,7 @@ public class GamePanel extends JPanel implements Runnable{
         }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         // COLLISION HANDLER
         Iterator<Zombie> zombieIterator = GameMap.zombies.iterator();
         while (zombieIterator.hasNext()) {
@@ -251,6 +283,8 @@ public class GamePanel extends JPanel implements Runnable{
         }
 
 =======
+=======
+>>>>>>> aa491725be7e0cc5fdf981fd0cb8a0f29146f91e
         for (Zombie zombie : GameMap.zombies) {
             
             zombie.actionPerformed();
@@ -381,8 +415,12 @@ public class GamePanel extends JPanel implements Runnable{
 
         Graphics2D g2 = (Graphics2D)g;
 
-        gameMap.draw(g2);
+        if (gameState == titleState){
+            UI.drawTitle(g2);
+        } else {
+            gameMap.draw(g2);
 
+<<<<<<< HEAD
         for (Plant plant : GameMap.plants) {
             plant.draw(g2);
         }
@@ -399,14 +437,28 @@ public class GamePanel extends JPanel implements Runnable{
         } catch (Exception e) {
 >>>>>>> origin/main
         }
+=======
+            for (Plant plant : GameMap.plants) {
+                plant.draw(g2);
+            }
+            try {
+                
+                for (Zombie zombie : GameMap.zombies) {
+                    
+                    zombie.draw(g2);
+                }
+            } catch (Exception e) {
+            }
+>>>>>>> aa491725be7e0cc5fdf981fd0cb8a0f29146f91e
 
-        tileSelector.draw(g2);
-    
-        // drawBullet(g2);
+            tileSelector.draw(g2);
         
-        // pl.draw(g2);
+            // drawBullet(g2);
+            
+            // pl.draw(g2);
 
-        g2.dispose();
+            g2.dispose();
+        }
     }
 
     // public void moveZombie(){

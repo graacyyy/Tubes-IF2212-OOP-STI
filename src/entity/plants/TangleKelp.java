@@ -16,9 +16,13 @@ public class TangleKelp extends Plant{
         cooldown = 20;
         is_waterplant = true;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         fileimage = "././res/plant/TangledKelp.png";
 >>>>>>> origin/main
+=======
+        fileimage = "././res/plant/TangledKelp.png";
+>>>>>>> aa491725be7e0cc5fdf981fd0cb8a0f29146f91e
     }
 
     @Override

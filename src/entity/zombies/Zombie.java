@@ -26,6 +26,7 @@ public class Zombie extends Entity implements CustomListener{
 
     public Zombie(int x, int y){ 
 <<<<<<< HEAD
+<<<<<<< HEAD
         
 <<<<<<< HEAD
         super(name, health, attack_damage, attack_speed);
@@ -58,6 +59,9 @@ public class Zombie extends Entity implements CustomListener{
     }
 
 =======
+=======
+      
+>>>>>>> aa491725be7e0cc5fdf981fd0cb8a0f29146f91e
         this.x = x;
         this.y = y;
 
@@ -82,7 +86,10 @@ public class Zombie extends Entity implements CustomListener{
         return health;
     }
 
+<<<<<<< HEAD
 >>>>>>> origin/main
+=======
+>>>>>>> aa491725be7e0cc5fdf981fd0cb8a0f29146f91e
     public void setIsMoving(boolean isMoving){
             
             this.isMoving = isMoving;
@@ -209,9 +216,12 @@ public class Zombie extends Entity implements CustomListener{
             image = ImageIO.read(new File(fileimage));
         } catch (IOException e) {
 <<<<<<< HEAD
+<<<<<<< HEAD
             e.printStackTrace();
 =======
 >>>>>>> origin/main
+=======
+>>>>>>> aa491725be7e0cc5fdf981fd0cb8a0f29146f91e
         }
         
         g2.drawImage(image, x, y, GamePanel.tileSize, GamePanel.tileSize, null);

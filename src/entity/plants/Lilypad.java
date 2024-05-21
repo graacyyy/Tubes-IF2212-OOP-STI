@@ -16,9 +16,13 @@ public class Lilypad extends Plant {
         cooldown = 10;
         is_waterplant = true;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         fileimage = "././res/plant/Lilypad.png";
 >>>>>>> origin/main
+=======
+        fileimage = "././res/plant/Lilypad.png";
+>>>>>>> aa491725be7e0cc5fdf981fd0cb8a0f29146f91e
     }
 
     @Override

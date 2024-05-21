@@ -23,6 +23,7 @@ public class Entity {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     // Setter dan Getter 
 
     public void setName(String name){
@@ -74,3 +75,7 @@ public class Entity {
     public Rectangle solidArea;
 }
 >>>>>>> origin/main
+=======
+    public Rectangle solidArea;
+}
+>>>>>>> aa491725be7e0cc5fdf981fd0cb8a0f29146f91e
