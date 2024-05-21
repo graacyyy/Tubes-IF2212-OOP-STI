@@ -14,7 +14,20 @@ import java.util.Random;
 import javax.swing.JPanel;
 
 import entity.TileSelector;
+<<<<<<< HEAD
 import entity.plants.Plant;
+=======
+import entity.plants.Cactus;
+import entity.plants.IceShroom;
+import entity.plants.Jalapeno;
+import entity.plants.Lilypad;
+import entity.plants.PeaShooter;
+import entity.plants.Plant;
+import entity.plants.SnowPea;
+// import entity.plants.Squash;
+// import entity.plants.Sunflower;
+// import entity.plants.Wallnut;
+>>>>>>> origin/main
 import entity.zombies.BalloonZombie;
 import entity.zombies.BucketHead;
 import entity.zombies.ConeHead;
@@ -27,6 +40,11 @@ import entity.zombies.NormalZombie;
 import entity.zombies.PoleVaulting;
 import entity.zombies.Zombie;
 import entity.ZombieSpawner;
+<<<<<<< HEAD
+=======
+import entity.Deck;
+import entity.PlantSpawner;
+>>>>>>> origin/main
 
 import tile.GameMap;
 
@@ -61,8 +79,13 @@ public class GamePanel extends JPanel implements Runnable{
     Plant pl;
     TileSelector tileSelector = new TileSelector();
     CollisionChecker collisionChecker = new CollisionChecker(this);
+<<<<<<< HEAD
     
 
+=======
+    Deck deck = new Deck(new Plant[6], true);
+    
+>>>>>>> origin/main
     public GamePanel(){
 
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -116,6 +139,38 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void update(){
 
+<<<<<<< HEAD
+=======
+        // SPAWN PLANT
+        if (kh.numPressed == true){
+            kh.numPressed = false;
+            int plantIndex = kh.numKey;
+            switch (plantIndex) {
+                case 1:
+                PlantSpawner.spawn(new Cactus(selectedX, selectedY));
+                    break;
+                case 2:
+                PlantSpawner.spawn(new IceShroom(selectedX, selectedY));
+                    break;
+                case 3:
+                PlantSpawner.spawn(new Jalapeno(selectedX, selectedY));
+                    break;
+                case 4:
+                PlantSpawner.spawn(new Lilypad(selectedX, selectedY));
+                    break;
+                case 5:
+                PlantSpawner.spawn(new PeaShooter(selectedX, selectedY));
+                    break;
+                case 6:
+                PlantSpawner.spawn(new SnowPea(selectedX, selectedY));
+                    break;
+                case 7:
+                GameMap.plants.removeIf(plant -> plant.getX() == selectedX && plant.getY() == selectedY);
+                    break;
+            }
+        }
+
+>>>>>>> origin/main
         // SPAWN ZOMBIE
         if (timer >= 60){
             int y = randomize.nextInt(0,6);
@@ -166,6 +221,7 @@ public class GamePanel extends JPanel implements Runnable{
             timer++;
         }
 
+<<<<<<< HEAD
         // COLLISION HANDLER
         Iterator<Zombie> zombieIterator = GameMap.zombies.iterator();
         while (zombieIterator.hasNext()) {
@@ -194,6 +250,44 @@ public class GamePanel extends JPanel implements Runnable{
             }
         }
 
+=======
+        for (Zombie zombie : GameMap.zombies) {
+            
+            zombie.actionPerformed();
+        }
+
+        // COLLISION HANDLER
+        // Iterator<Zombie> zombieIterator = GameMap.zombies.iterator();
+        // while (zombieIterator.hasNext()) {
+        //     Zombie zombie = zombieIterator.next();
+        //     boolean zombieStopped = false;
+            
+        //     Iterator<Plant> plantIterator = GameMap.plants.iterator();
+        //     while (plantIterator.hasNext()) {
+        //         Plant plant = plantIterator.next();
+        //         if(collisionChecker.isColliding(zombie, plant)){
+        //             zombie.setIsMoving(false);
+        //             zombie.attack(plant);
+                    
+        //             if(plant.isDead(plant.getHealth())){
+        //                 plantIterator.remove();
+        //             }
+
+        //             zombieStopped = true;
+        //             break;
+        //         }
+        //     }
+
+        //     if(!zombieStopped){
+        //         zombie.setIsMoving(true);
+        //         if (zombie.getX() <= 0){
+        //             zombieIterator.remove();
+        //         }
+        //         else zombie.actionPerformed();
+        //     }
+        //}
+
+>>>>>>> origin/main
         // TILESELECTOR HANDLER
         if (kh.enterPressed == true){
             kh.enterPressed = false;
@@ -292,8 +386,18 @@ public class GamePanel extends JPanel implements Runnable{
         for (Plant plant : GameMap.plants) {
             plant.draw(g2);
         }
+<<<<<<< HEAD
         for (Zombie zombie : GameMap.zombies) {
             zombie.draw(g2);
+=======
+        try {
+            
+            for (Zombie zombie : GameMap.zombies) {
+                
+                zombie.draw(g2);
+            }
+        } catch (Exception e) {
+>>>>>>> origin/main
         }
 
         tileSelector.draw(g2);

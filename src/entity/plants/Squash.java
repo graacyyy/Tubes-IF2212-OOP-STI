@@ -14,7 +14,12 @@ public class Squash extends Plant {
         attack_speed = 0;
         range = -1;
         cooldown = 20;
+<<<<<<< HEAD
         is_waterplant = false;        
+=======
+        is_waterplant = false; 
+        fileimage = "././res/plant/Squash/Squash_1.png";       
+>>>>>>> origin/main
     }
 
     @Override

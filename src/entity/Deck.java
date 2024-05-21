@@ -62,6 +62,10 @@ public class Deck {
     }
 
     public void checkArea(){
+<<<<<<< HEAD
         if 
+=======
+        
+>>>>>>> origin/main
     }
 }

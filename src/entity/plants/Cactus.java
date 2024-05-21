@@ -15,6 +15,10 @@ public class Cactus extends Plant{
         range = -1;
         cooldown = 20;
         is_waterplant = false;
+<<<<<<< HEAD
+=======
+        fileimage = "././res/plant/Cactus/Cactus_1.png";
+>>>>>>> origin/main
     }
 
     @Override

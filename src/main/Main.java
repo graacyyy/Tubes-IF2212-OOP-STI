@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 
 public class Main {
     static GamePanel gamePanel;
+<<<<<<< HEAD
 
     private static void playBackSound(String soundFilePath) {
         try {
@@ -43,6 +44,8 @@ public class Main {
         }
     }
 
+=======
+>>>>>>> origin/main
     public static void main(String[] args) {
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

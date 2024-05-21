@@ -22,6 +22,7 @@ public class Entity {
     protected double attack_speed;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     // Setter dan Getter 
 
     public void setName(String name){
@@ -69,3 +70,7 @@ public class Entity {
     public Rectangle solidArea;
 }
 >>>>>>> 955d6d875befc0e87d6f9e1c6654bc5b89b57ba7
+=======
+    public Rectangle solidArea;
+}
+>>>>>>> origin/main
