@@ -3,20 +3,12 @@ package entity;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineEvent;
-import javax.sound.sampled.LineListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -24,7 +16,10 @@ import javax.swing.SwingUtilities;
 
 import main.GamePanel;
 import main.KeyHandler;
+<<<<<<<<< Temporary merge branch 1
+=========
 import main.TitlePanel;
+>>>>>>>>> Temporary merge branch 2
 
 public class Inventory extends JPanel {
     private BufferedImage[] images = new BufferedImage[10];
@@ -40,26 +35,36 @@ public class Inventory extends JPanel {
         "././res/deck/tanglekelp.png",
         "././res/deck/wallnut.png",
     };
-
     private int[] imagePositions = new int[10];
-    private int[] originalPositions = new int[10];
     public static ArrayList<Integer> finaldeck = new ArrayList<>();
     public static List<String> selectedPlants = new ArrayList<>();
     private BufferedImage playButton;
     private BufferedImage clearAllButton;
-    private GamePanel gamePanel;
-    private KeyHandler kh;
-    private int selectedIndex = -1;
+<<<<<<<<< Temporary merge branch 1
+=========
+    // private KeyHandler kh = new KeyHandler();
 
-    public Inventory(GamePanel gamePanel, KeyHandler kh) {
+>>>>>>>>> Temporary merge branch 2
+    private GamePanel gamePanel;
+
+    public Inventory(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
-        this.kh = kh;
         initializePanel();
         loadImages();
         calculateImagePositions();
+<<<<<<<<< Temporary merge branch 1
         storeOriginalPositions();
         setFocusable(true);
         addKeyListener(kh);
+=========
+        // addKeyListener(kh);
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                handleMouseClick(e.getX(), e.getY());
+            }
+        });
+>>>>>>>>> Temporary merge branch 2
     }
 
     private void initializePanel() {
@@ -71,7 +76,7 @@ public class Inventory extends JPanel {
     private void loadImages() {
         try {
             playButton = ImageIO.read(new File("././res/play.png"));
-            clearAllButton = ImageIO.read(new File("././res/clear.png"));
+            clearAllButton = ImageIO.read(new File("././res/clear.png")); // Gambar tombol Clear All
             for (int i = 0; i < imagePaths.length; i++) {
                 images[i] = ImageIO.read(new File(imagePaths[i]));
             }
@@ -87,12 +92,6 @@ public class Inventory extends JPanel {
             for (int x = 0; x < 5; x++) {
                 imagePositions[index++] = x * 90 + y * 90 * 1000;
             }
-        }
-    }
-
-    private void storeOriginalPositions() {
-        for (int i = 0; i < imagePositions.length; i++) {
-            originalPositions[i] = imagePositions[i];
         }
     }
 
@@ -117,98 +116,63 @@ public class Inventory extends JPanel {
         }
     }
 
-    private void handleKeyPress() {
-        if (kh.enterPressed) {
-        kh.enterPressed = false;
-        if (selectedIndex == 10) {
+    private void handleMouseClick(int x, int y) {
+        if (x >= 550 && x <= 650 && y >= 10 && y <= 40) {
             if (finaldeck.size() == 6) {
-                TitlePanel.gameState = TitlePanel.playState;
                 switchToGamePanel();
-            }
-            else {
+            } else {
                 JOptionPane.showMessageDialog(this, "You must select exactly 6 plants to start the game.");
             }
             return;
-        } 
-        else if (selectedIndex == 11) { 
+        }
+
+        if (x >= 550 && x <= 650 && y >= 50 && y <= 80) { // Area untuk tombol Clear All
             clearAllPlants();
             return;
-        } 
-        else if (selectedIndex >= 0 && selectedIndex < 10) { 
-            String plantPath = imagePaths[selectedIndex];
-            if (finaldeck.contains(selectedIndex)) {
-                finaldeck.remove(Integer.valueOf(selectedIndex));
-                addPlantToInventory(selectedIndex);
+        }
+
+        for (int i = 0; i < finaldeck.size(); i++) {
+            int imgX = i * 90;
+            if (x >= imgX && x <= imgX + 90 && y >= 0 && y <= 90) {
+                int index = finaldeck.get(i);
+                String plantPath = imagePaths[index];
+                finaldeck.remove(i);
+                addPlantToInventory(index);
                 removePlantFromDeck(plantPath);
                 JOptionPane.showMessageDialog(this, extractPlantName(plantPath) + " removed from deck");
+                repaint();
+                displaySelectedPlants();
+                return;
             }
-            else if (finaldeck.size() < 6) {
-                finaldeck.add(selectedIndex);
-                removePlantFromInventory(selectedIndex);
-                addPlantToDeck(plantPath);
-                JOptionPane.showMessageDialog(this, extractPlantName(plantPath) + " added to deck");
-            }
-            else {
-                JOptionPane.showMessageDialog(this, "You can only select up to 6 plants for the deck");
-            }
-            repaint();
-            displaySelectedPlants();
         }
-    }
 
-    if (kh.upPressed) {
-        kh.upPressed = false;
-        if (selectedIndex < 5) {
-            selectedIndex = 10; 
-        } else {
-            selectedIndex -= 5;
-        }
-        repaint();
-    }
-
-    if (kh.downPressed) {
-        kh.downPressed = false;
-        if (selectedIndex >= 5) {
-            selectedIndex = 11; 
-        } else {
-            selectedIndex += 5;
-        }
-        repaint();
-    }
-
-    if (kh.leftPressed) {
-        kh.leftPressed = false;
-        selectedIndex = (selectedIndex - 1 + 12) % 12; 
-        repaint();
-    }
-
-    if (kh.rightPressed) {
-        kh.rightPressed = false;
-        selectedIndex = (selectedIndex + 1) % 12; 
-        repaint();
-    }
-
-        if (kh.numPressed) {
-            kh.numPressed = false;
-            int numKey = kh.numKey;
-            if (numKey >= 1 && numKey <= 6) {
-                int index = numKey - 1; 
-                if (finaldeck.size() > index) {
-                    int plantIndex = finaldeck.get(index);
-                    finaldeck.remove(Integer.valueOf(plantIndex));
-                    addPlantToInventory(plantIndex);
-                    String plantPath = imagePaths[plantIndex];
+        for (int i = 0; i < imagePositions.length; i++) {
+            int imgX = imagePositions[i] % 1000;
+            int imgY = imagePositions[i] / 1000;
+            if (x >= imgX && x <= imgX + 90 && y >= imgY && y <= imgY + 90) {
+                String plantPath = imagePaths[i];
+                if (finaldeck.contains(i)) {
+                    finaldeck.remove(Integer.valueOf(i));
+                    addPlantToInventory(i);
                     removePlantFromDeck(plantPath);
                     JOptionPane.showMessageDialog(this, extractPlantName(plantPath) + " removed from deck");
-                    repaint();
-                    displaySelectedPlants();
+                } else if (finaldeck.size() < 6) {
+                    finaldeck.add(i);
+                    removePlantFromInventory(i);
+                    addPlantToDeck(plantPath);
+                    JOptionPane.showMessageDialog(this, extractPlantName(plantPath) + " added to deck");
+                } else {
+                    JOptionPane.showMessageDialog(this, "You can only select up to 6 plants for the deck");
                 }
+                repaint();
+                displaySelectedPlants();
+                break;
             }
         }
     }
 
     private void addPlantToInventory(int index) {
-        imagePositions[index] = originalPositions[index];
+        imagePositions[index] = index * 90 + 2 * 90 * 1000;
     }
 
     private void removePlantFromInventory(int index) {
@@ -217,9 +181,6 @@ public class Inventory extends JPanel {
 
     private void clearAllPlants() {
         if (!finaldeck.isEmpty()) {
-            for (int index : finaldeck) {
-                addPlantToInventory(index);
-            }
             finaldeck.clear();
             selectedPlants.clear();
             JOptionPane.showMessageDialog(this, "All plants removed from deck");
@@ -229,10 +190,8 @@ public class Inventory extends JPanel {
     }
 
     private void switchToGamePanel() {
-
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
         frame.remove(this);
-        GamePanel gamePanel = new GamePanel();
         frame.add(gamePanel);
         frame.revalidate();
         frame.repaint();
@@ -242,6 +201,7 @@ public class Inventory extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+<<<<<<<<< Temporary merge branch 1
 
         try {
         BufferedImage backgroundImage = ImageIO.read(new File("././res/inventory.png"));
@@ -250,6 +210,10 @@ public class Inventory extends JPanel {
             e.printStackTrace();
         }
 
+=========
+        g.setColor(Color.white);
+        g.fillRect(0, 0, getWidth(), getHeight()); 
+>>>>>>>>> Temporary merge branch 2
         for (int i = 0; i < images.length; i++) {
             int pos = imagePositions[i];
             if (pos != -1) {
@@ -263,45 +227,17 @@ public class Inventory extends JPanel {
             g.drawImage(images[finaldeck.get(i)], x, 0, 90, 90, null);
         }
         g.drawImage(playButton, 570, 10, 80, 30, null);
-        g.drawImage(clearAllButton, 570, 50, 80, 30, null);
+        g.drawImage(clearAllButton, 570, 50, 80, 30, null); // Gambar tombol Clear All
 
+        // Indikasi untuk play button jika jumlah tanaman di deck tidak 6
         if (finaldeck.size() != 6) {
-            g.setColor(new Color(255, 0, 0, 128));
-            g.fillRect(570, 10, 80, 30);
+            g.setColor(new Color(255, 0, 0, 128)); // Set semi-transparan merah
+            g.fillRect(570, 10, 80, 30); // Overlay di atas play button
         }
-
-        g.setColor(Color.WHITE);
-        if (selectedIndex >= 0 && selectedIndex < 10) {
-            int pos = imagePositions[selectedIndex];
-            if (pos != -1) {
-                int x = pos % 1000;
-                int y = pos / 1000;
-                g.drawRect(x, y, 90, 90);
-            }
-        } else if (selectedIndex == 10) {
-            g.drawRect(570, 10, 80, 30);
-        } else if (selectedIndex == 11) {
-            g.drawRect(570, 50, 80, 30);
-        }
-    }
-
-    @Override
-    public void addNotify() {
-        super.addNotify();
-        requestFocusInWindow();
-        new Thread(() -> {
-            while (true) {
-                handleKeyPress();
-                try {
-                    Thread.sleep(50);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
     }
 
     public static void main(String[] args) {
+<<<<<<<<< Temporary merge branch 1
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Inventory");
             GamePanel gamePanel = new GamePanel();
@@ -313,6 +249,17 @@ public class Inventory extends JPanel {
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
         });
+=========
+        JFrame frame = new JFrame("Plant Inventory");
+        GamePanel gamePanel = new GamePanel();
+        Inventory inventory = new Inventory(gamePanel);
+        frame.add(inventory);
+        frame.pack();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+
+        playBackSound("res/audio/title.wav");
+>>>>>>>>> Temporary merge branch 2
     }
 
         private static void playBackSound(String soundFilePath) {
