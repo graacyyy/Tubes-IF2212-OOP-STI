@@ -1,17 +1,18 @@
 package tile;
 
-import java.awt.BasicStroke;
+// import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
+// import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.plaf.basic.BasicComboBoxUI.KeyHandler;
+// import javax.swing.plaf.basic.BasicComboBoxUI.KeyHandler;
 
 import main.GamePanel;
+import main.TitlePanel;
 
 public class UI {
     public static Font titleFont;
@@ -46,7 +47,7 @@ public class UI {
         g2.setFont(titleFont);
         g2.setColor(Color.white);
 
-        if(GamePanel.gameState == GamePanel.titleState) {
+        if(TitlePanel.gameState == TitlePanel.titleState) {
             // BACKGROUND
             
             // TITLE NAME
@@ -117,7 +118,7 @@ public class UI {
         g2.setFont(titleFont);
         g2.setColor(Color.white);
 
-        if(GamePanel.gameState == GamePanel.loseState) {
+        if(TitlePanel.gameState == TitlePanel.loseState) {
             // BACKGROUND
             
             // TITLE NAME
@@ -157,7 +158,7 @@ public class UI {
         g2.setFont(titleFont);
         g2.setColor(Color.white);
 
-        if(GamePanel.gameState == GamePanel.winState) {
+        if(TitlePanel.gameState == TitlePanel.winState) {
             // BACKGROUND
             
             // TITLE NAME
@@ -203,7 +204,7 @@ public class UI {
         g2.setFont(titleFont);
         g2.setColor(Color.white);
 
-        if(GamePanel.gameState == GamePanel.helpState) {
+        if(TitlePanel.gameState == TitlePanel.helpState) {
 
             // MENU
             g2.setFont(titleFont);
@@ -224,7 +225,7 @@ public class UI {
         g2.setFont(titleFont);
         g2.setColor(Color.white);
 
-        if(GamePanel.gameState == GamePanel.stepState) {
+        if(TitlePanel.gameState == TitlePanel.stepState) {
 
             // MENU
             g2.setFont(titleFont);

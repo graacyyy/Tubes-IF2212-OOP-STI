@@ -207,7 +207,7 @@ public class Zombie extends Entity implements CustomListener{
         } catch (IOException e) {
         }
         
-        g2.drawImage(image, x, y, GamePanel.tileSize+10, GamePanel.tileSize+10, null);
+        g2.drawImage(image, x, y-20, GamePanel.tileSize+10, GamePanel.tileSize+10, null);
     }
 
     @Override

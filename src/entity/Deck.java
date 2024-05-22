@@ -1,7 +1,7 @@
 package entity;
 
 public class Deck {
-    private String[] deck ;
+    public static String[] deck ;
 
     public Deck(){
 

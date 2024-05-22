@@ -54,16 +54,16 @@ import tile.UI;
 public class GamePanel extends JPanel implements Runnable{
 
     // STATE
-    public static int gameState;
-    public final static int titleState = 0;
-    public final static int playState = 1;
-    public final static int loseState = 2;
-    public final static int winState = 3;
-    public final static int plantState = 4;
-    public final static int zombieState = 5;
-    public final static int helpState = 6;
-    public final static int stepState = 7;
-    public final static int inventoryState = 8;
+    // public static int gameState;
+    // public final static int titleState = 0;
+    // public final static int playState = 1;
+    // public final static int loseState = 2;
+    // public final static int winState = 3;
+    // public final static int plantState = 4;
+    // public final static int zombieState = 5;
+    // public final static int helpState = 6;
+    // public final static int stepState = 7;
+    // public final static int inventoryState = 8;
 
     public static boolean pause = false;
     
@@ -84,6 +84,7 @@ public class GamePanel extends JPanel implements Runnable{
     GameMap gameMap = new GameMap();
     MouseHandler mh = new MouseHandler();
     KeyHandler kh = new KeyHandler();
+    TitlePanel titlePanel;
     Random randomize = new Random();
     Thread gameThread, titleThread;
     BufferedImage image3;
@@ -110,24 +111,26 @@ public class GamePanel extends JPanel implements Runnable{
         this.addMouseListener(mh);
         this.addKeyListener(kh);
         this.setFocusable(true);
-        gameState = titleState;
+
         // moveZombie();
         // moveBullet();
     }
 
     public void startGameThread() {
-        
+
+        TitlePanel.startTitle = false;
+        TitlePanel.gameState = TitlePanel.playState;
         System.out.println("thread");
         gameThread = new Thread(this);
         gameThread.start();
     }
 
-    public void startTitle() {
+    // public void startTitle() {
         
-        System.out.println("thread");
-        titleThread = new Thread(this);
-        gameThread.start();
-    }
+    //     System.out.println("thread");
+    //     titleThread = new Thread(this);
+    //     gameThread.start();
+    // }
 
     @Override
     public void run() {
@@ -191,101 +194,67 @@ public class GamePanel extends JPanel implements Runnable{
             if (kh.numPressed == true && plantable){
                 kh.numPressed = false;
                 int plantIndex = kh.numKey;
-                switch (plantIndex) {
-                    case 1:
-                    if (Sun.getSunAmount() >= Sunflower.getCost()){
-                        PlantSpawner.spawn(new Sunflower(selectedX, selectedY));
-                        Sun.reducesun(Sunflower.getCost());
-                    }
-                        break;
-                    case 2:
-                    if (Sun.getSunAmount() >= TangleKelp.getCost()){
-                        PlantSpawner.spawn(new TangleKelp(selectedX, selectedY));
-                        Sun.reducesun(TangleKelp.getCost());
-                    }
-                        break;
-                    case 3:
-                    if (Sun.getSunAmount() >= Jalapeno.getCost()){
-                        PlantSpawner.spawn(new Jalapeno(selectedX, selectedY));
-                        Sun.reducesun(Jalapeno.getCost());
-                    }
-                        break;
-                    case 4:
-                    if (Sun.getSunAmount() >= IceShroom.getCost()){
-                        PlantSpawner.spawn(new IceShroom(selectedX, selectedY));
-                        Sun.reducesun(IceShroom.getCost());
-                    }  
-                        break;
-                    case 5:
-                    if (Sun.getSunAmount() >= PeaShooter.getCost()){
-                        PlantSpawner.spawn(new PeaShooter(selectedX, selectedY));
-                        Sun.reducesun(PeaShooter.getCost());
-                    }
-                        break;
-                    case 6:
-                    if (Sun.getSunAmount() >= SnowPea.getCost()){
-                        PlantSpawner.spawn(new SnowPea(selectedX, selectedY));
-                        Sun.reducesun(SnowPea.getCost());
-                    }
-                        break;
-                    case 7:
+                if (kh.numKey == 7){
                     GameMap.plants.removeIf(plant -> plant.getX() == selectedX && plant.getY() == selectedY);
-                        break;
                 }
+                else{
+                    PlantSpawner.spawn(plantIndex, selectedX, selectedY);
+                }
+
+                // switch (plantIndex) {
+                //     case 1:
+                //     if (Sun.getSunAmount() >= Sunflower.getCost()){
+                //         PlantSpawner.spawn(plantIndex, selectedX, selectedY);
+                //     }
+                //         break;
+                //     case 2:
+                //     if (Sun.getSunAmount() >= TangleKelp.getCost()){
+                //         PlantSpawner.spawn(plantIndex, selectedX, selectedY);
+                //         Sun.reducesun(TangleKelp.getCost());
+                //     }
+                //         break;
+                //     case 3:
+                //     if (Sun.getSunAmount() >= Jalapeno.getCost()){
+                //         PlantSpawner.spawn(new Jalapeno(selectedX, selectedY));
+                //         Sun.reducesun(Jalapeno.getCost());
+                //     }
+                //         break;
+                //     case 4:
+                //     if (Sun.getSunAmount() >= IceShroom.getCost()){
+                //         PlantSpawner.spawn(new IceShroom(selectedX, selectedY));
+                //         Sun.reducesun(IceShroom.getCost());
+                //     }  
+                //         break;
+                //     case 5:
+                //     if (Sun.getSunAmount() >= PeaShooter.getCost()){
+                //         PlantSpawner.spawn(new PeaShooter(selectedX, selectedY));
+                //         Sun.reducesun(PeaShooter.getCost());
+                //     }
+                //         break;
+                //     case 6:
+                //     if (Sun.getSunAmount() >= SnowPea.getCost()){
+                //         PlantSpawner.spawn(new SnowPea(selectedX, selectedY));
+                //         Sun.reducesun(SnowPea.getCost());
+                //     }
+                //         break;
+                //     case 7:
+                //     GameMap.plants.removeIf(plant -> plant.getX() == selectedX && plant.getY() == selectedY);
+                //         break;
+                // }
             }
     
             // SPAWN ZOMBIE
             if (gametime >= 20 && gametime <= 160){
                 int chances = randomize.nextInt(1,10);
-                if (chances == 3 || chances == 5 || chances == 7){
+                if (chances == 2 || chances == 5 || chances == 9){
                     if (timer >= 60 && GameMap.zombies.size() < 10){
-                        int y = randomize.nextInt(1,7);
-                        if (y == 3 || y == 4){
-                            int x = randomize.nextInt(1,3);
-                            switch (x) {
-                                case 1:
-                                ZombieSpawner.spawn(new DolphinRiderZombie(10*tileSize, y*tileSize));
-                                    break;
-                                case 2:
-                                ZombieSpawner.spawn(new DuckyTubeZombie(10*tileSize, y*tileSize));
-                                    break;
-                            }
-                        }
-                        else {
-                            int x = randomize.nextInt(1,9);
-                            switch (x) {
-                                case 1:
-                                ZombieSpawner.spawn(new BalloonZombie(10*tileSize, y*tileSize));
-                                    break;
-                                case 2:
-                                ZombieSpawner.spawn(new BucketHead(10*tileSize, y*tileSize));
-                                    break;
-                                case 3:
-                                ZombieSpawner.spawn(new ConeHead(10*tileSize, y*tileSize));
-                                    break;
-                                case 4:
-                                ZombieSpawner.spawn(new FootballZombie(10*tileSize, y*tileSize));
-                                    break;
-                                case 5:
-                                ZombieSpawner.spawn(new Gargantuar(10*tileSize, y*tileSize));
-                                    break;
-                                case 6:
-                                ZombieSpawner.spawn(new ImpZombie(10*tileSize, y*tileSize));
-                                    break;
-                                case 7:
-                                ZombieSpawner.spawn(new NormalZombie(10*tileSize, y*tileSize));
-                                    break;
-                                case 8:
-                                ZombieSpawner.spawn(new PoleVaulting(10*tileSize, y*tileSize));
-                                    break;
-                            }
-                        }
-            
+                        ZombieSpawner.spawn();
                         timer = 0;
                     } 
                     else timer++;
                 }
             }
+            
     
             // ITERATOR 
             Iterator<Bullet> bulletIterator = GameMap.bullets.iterator();
@@ -363,22 +332,20 @@ public class GamePanel extends JPanel implements Runnable{
             // GAME STATE HANDLER
             if (gametime >= 200){
                 if (GameMap.zombies.size() <= 0){
-                    gameState = winState;
+                    TitlePanel.gameState = TitlePanel.winState;
                 } else {
-                    gameState = loseState;
+                    TitlePanel.gameState = TitlePanel.loseState;
                     UI.commandNum = 1;
                 }
             } else {
                 for (Zombie zombie : GameMap.zombies) {
                     if (zombie.getX() == 0) {
-                        gameState = loseState;
+                        TitlePanel.gameState = TitlePanel.loseState;
                         UI.commandNum = 1;
                         break; 
                     }
                 }
             }
-        // }
-        
     }
 
     public void paintComponent(Graphics g){
@@ -387,21 +354,13 @@ public class GamePanel extends JPanel implements Runnable{
 
         Graphics2D g2 = (Graphics2D)g;
 
-        if (gameState == titleState){
-            UI.drawTitle(g2);
-        } else if (gameState == loseState) {
+        if (TitlePanel.gameState == TitlePanel.loseState) {
             UI.drawLose(g2);
-        } else if (gameState == winState) {
+        } 
+        else if (TitlePanel.gameState == TitlePanel.winState) {
             UI.drawWin(g2);
         } 
-        else if (gameState == helpState) {
-            UI.drawHelp(g2);
-        } 
-        else if (gameState == stepState) {
-            UI.drawStep(g2);
-        } else if (gameState == inventoryState){
-            UI.drawHelp(g2);
-        } else {
+        else {
             gameMap.draw(g2);
 
             for (int i = 0; i < GameMap.bullets.size(); i++) {

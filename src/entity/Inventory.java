@@ -9,6 +9,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineEvent;
+import javax.sound.sampled.LineListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -16,6 +21,7 @@ import javax.swing.SwingUtilities;
 
 import main.GamePanel;
 import main.KeyHandler;
+import main.TitlePanel;
 
 public class Inventory extends JPanel {
     private BufferedImage[] images = new BufferedImage[10];
@@ -38,6 +44,7 @@ public class Inventory extends JPanel {
     public static List<String> selectedPlants = new ArrayList<>();
     private BufferedImage playButton;
     private BufferedImage clearAllButton;
+
     private GamePanel gamePanel;
     private KeyHandler kh;
     private int selectedIndex = -1;
@@ -48,6 +55,13 @@ public class Inventory extends JPanel {
         initializePanel();
         loadImages();
         calculateImagePositions();
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                handleMouseClick(e.getX(), e.getY());
+            }
+        });
+
         storeOriginalPositions();
         setFocusable(true);
         addKeyListener(kh);
@@ -113,6 +127,7 @@ public class Inventory extends JPanel {
         kh.enterPressed = false;
         if (selectedIndex == 10) {
             if (finaldeck.size() == 6) {
+                TitlePanel.gameState = TitlePanel.playState;
                 switchToGamePanel();
             }
             else {
@@ -219,8 +234,10 @@ public class Inventory extends JPanel {
     }
 
     private void switchToGamePanel() {
+
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
         frame.remove(this);
+        GamePanel gamePanel = new GamePanel();
         frame.add(gamePanel);
         frame.revalidate();
         frame.repaint();
@@ -302,4 +319,34 @@ public class Inventory extends JPanel {
             frame.setVisible(true);
         });
     }
+
+        private static void playBackSound(String soundFilePath) {
+        try {
+            File soundFile = new File(soundFilePath);
+            // System.out.println("Alamat file asli: " + soundFile.getAbsolutePath());
+            if (!soundFile.exists()) {
+                throw new IllegalArgumentException("File not found: " + soundFilePath);
+            }
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioIn);
+
+            clip.addLineListener(new LineListener() {
+                @Override
+                public void update(LineEvent event) {
+                    if (event.getType() == LineEvent.Type.STOP) {
+                        // Biar ngulang lagi
+                        clip.setFramePosition(0);
+                        clip.start();
+                    }
+                }
+            });
+            
+            clip.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+
 }

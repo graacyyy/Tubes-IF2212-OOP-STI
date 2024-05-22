@@ -30,7 +30,7 @@ public class Main {
         window.setVisible(true);
         gamePanel.startGameThread();
         
-        playBackSound("res/audio/backsoundMichaelVsLalapan.wav");
+        playBackSound("res/audio/title.wav");
     }
   
     private static void playBackSound(String soundFilePath) {
