@@ -16,23 +16,12 @@ public class Cactus extends Plant{
         range = -1;
         cooldown = 20;
         is_waterplant = false;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-        fileimage = "././res/plant/Cactus/Cactus_1.png";
->>>>>>> origin/main
-=======
-        fileimage = "././res/plant/Cactus/Cactus_1.png";
->>>>>>> aa491725be7e0cc5fdf981fd0cb8a0f29146f91e
-=======
         fileimage = "././res/plants/cactus.png";
     }
 
     public void shootPea(){
         CactusBullet bullet = new CactusBullet (x, y, attack_damage);
         GameMap.bullets.add(bullet);
->>>>>>> 99ce55be5f76d414ce047341f0f806ca01c111ab
     }
 
     @Override

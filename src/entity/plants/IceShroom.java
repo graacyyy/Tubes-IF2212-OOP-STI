@@ -17,18 +17,7 @@ public class IceShroom extends Plant{
         range = -1;
         cooldown = 20;
         is_waterplant = false;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-        fileimage = "././res/plant/IceShroom.png";
->>>>>>> origin/main
-=======
-        fileimage = "././res/plant/IceShroom.png";
->>>>>>> aa491725be7e0cc5fdf981fd0cb8a0f29146f91e
-=======
         fileimage = "././res/plants/iceshroom.png";
->>>>>>> 99ce55be5f76d414ce047341f0f806ca01c111ab
     }
 
     public void freeze(Zombie zombie){
@@ -43,16 +32,6 @@ public class IceShroom extends Plant{
 
     @Override
     public void actionPerformed() {
-<<<<<<< HEAD
-        // TODO Auto-generated method stub
-<<<<<<< HEAD
-<<<<<<< HEAD
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
-=======
->>>>>>> origin/main
-=======
->>>>>>> aa491725be7e0cc5fdf981fd0cb8a0f29146f91e
-=======
         if (timer >= 3){
             for (Zombie zombie : GameMap.zombies) {
                 freeze(zombie);
@@ -61,6 +40,5 @@ public class IceShroom extends Plant{
             health = 0;
         }   
         else timer++;
->>>>>>> 99ce55be5f76d414ce047341f0f806ca01c111ab
     }
 }

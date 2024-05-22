@@ -2,9 +2,8 @@ package main;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
-import tile.UI;
 import tile.GameMap;
+import tile.UI;
 
 public class KeyHandler implements KeyListener{
 
@@ -39,6 +38,7 @@ public class KeyHandler implements KeyListener{
             if(code == KeyEvent.VK_ENTER){
                 if (UI.commandNum == 1){
                     GamePanel.gameState = GamePanel.playState;
+                    AudioPlayer.playBackSound("res/audio/playstate_sound.wav", true);
                     GameMap.zombies.clear();
                     GameMap.plants.clear();
                     GameMap.bullets.clear();
@@ -69,6 +69,7 @@ public class KeyHandler implements KeyListener{
             if(code == KeyEvent.VK_ENTER){
                 if (UI.commandNum == 1){
                     GamePanel.gameState = GamePanel.playState;
+                    AudioPlayer.playBackSound("res/audio/playstate_sound.wav", true);
                     GameMap.zombies.clear();
                     GameMap.plants.clear();
                     GameMap.bullets.clear();
@@ -98,6 +99,7 @@ public class KeyHandler implements KeyListener{
             if(code == KeyEvent.VK_ENTER){
                 if (UI.commandNum == 1){
                     GamePanel.gameState = GamePanel.playState;
+                    AudioPlayer.playBackSound("res/audio/playstate_sound.wav", true);
                 } else {
                     System.exit(0); 
                 }
@@ -107,6 +109,7 @@ public class KeyHandler implements KeyListener{
         else if (GamePanel.gameState == GamePanel.stepState){
             if(code == KeyEvent.VK_ENTER) {
                 GamePanel.gameState = GamePanel.titleState;
+                AudioPlayer.playBackSound("res/audio/backsoundMichaelVsLalapan.wav", true);
             }
         } 
         
