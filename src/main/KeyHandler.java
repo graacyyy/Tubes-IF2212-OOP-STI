@@ -19,39 +19,8 @@ public class KeyHandler implements KeyListener{
     public void keyPressed(KeyEvent e) {
 
         int code = e.getKeyCode();
-
-        // TITLE STATE
-        if (GamePanel.gameState == GamePanel.titleState){
-            if(code == KeyEvent.VK_UP){
-                UI.commandNum--;
-                if (UI.commandNum < 1){
-                    UI.commandNum = 5;
-                }
-            }
-
-            if(code == KeyEvent.VK_DOWN){
-                UI.commandNum++;
-                if (UI.commandNum > 5){
-                    UI.commandNum = 1;
-                }
-            }
-
-            if(code == KeyEvent.VK_ENTER){
-                if (UI.commandNum == 1){
-                    GamePanel.gameState = GamePanel.playState;
-                    GameMap.zombies.clear();
-                    GameMap.plants.clear();
-                    GameMap.bullets.clear();
-                    GamePanel.gametime = 0;
-                } else if (UI.commandNum == 2) { 
-                    GamePanel.gameState = GamePanel.helpState;
-                } else if (UI.commandNum == 5){
-                    System.exit(0); 
-                }
-            }
-        } 
         
-        else if (GamePanel.gameState == GamePanel.loseState){
+        if (TitlePanel.gameState == TitlePanel.loseState){
             if(code == KeyEvent.VK_UP){
                 UI.commandNum--;
                 if (UI.commandNum < 1){
@@ -68,7 +37,7 @@ public class KeyHandler implements KeyListener{
 
             if(code == KeyEvent.VK_ENTER){
                 if (UI.commandNum == 1){
-                    GamePanel.gameState = GamePanel.playState;
+                    TitlePanel.gameState = TitlePanel.playState;
                     GameMap.zombies.clear();
                     GameMap.plants.clear();
                     GameMap.bullets.clear();
@@ -80,7 +49,7 @@ public class KeyHandler implements KeyListener{
             }
         } 
         
-        else if (GamePanel.gameState == GamePanel.winState){
+        else if (TitlePanel.gameState == TitlePanel.winState){
             if(code == KeyEvent.VK_UP){
                 UI.commandNum--;
                 if (UI.commandNum < 1){
@@ -97,26 +66,26 @@ public class KeyHandler implements KeyListener{
 
             if(code == KeyEvent.VK_ENTER){
                 if (UI.commandNum == 1){
-                    GamePanel.gameState = GamePanel.playState;
+                    TitlePanel.gameState = TitlePanel.playState;
                 } else {
                     System.exit(0); 
                 }
             } 
         } 
         
-        else if (GamePanel.gameState == GamePanel.stepState){
+        else if (TitlePanel.gameState == TitlePanel.stepState){
             if(code == KeyEvent.VK_ENTER) {
-                GamePanel.gameState = GamePanel.titleState;
+                TitlePanel.gameState = TitlePanel.titleState;
             }
         } 
         
-        else if (GamePanel.gameState == GamePanel.helpState){
+        else if (TitlePanel.gameState == TitlePanel.helpState){
             if(code == KeyEvent.VK_ENTER){
-                GamePanel.gameState = GamePanel.stepState;
+                TitlePanel.gameState = TitlePanel.stepState;
             } 
         } 
         
-        else if (GamePanel.gameState == GamePanel.playState){
+        else if (TitlePanel.gameState == TitlePanel.playState){
             if(code == KeyEvent.VK_ENTER){
                 enterPressed = true;
             }
@@ -173,8 +142,8 @@ public class KeyHandler implements KeyListener{
                 }
                 
             }  
-
-        } /* else if (GamePanel.gameState == GamePanel.inventoryState){
+        }
+        /* else if (GamePanel.gameState == GamePanel.inventoryState){
             if(code == KeyEvent.VK_I){
 
             }

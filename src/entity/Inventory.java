@@ -3,6 +3,7 @@ package entity;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -11,12 +12,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineEvent;
+import javax.sound.sampled.LineListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import main.GamePanel;
+import main.KeyHandler;
+import main.TitlePanel;
 
 public class Inventory extends JPanel {
     private BufferedImage[] images = new BufferedImage[10];
@@ -37,6 +45,7 @@ public class Inventory extends JPanel {
     public static List<String> selectedPlants = new ArrayList<>();
     private BufferedImage playButton;
     private BufferedImage clearAllButton;
+    // private KeyHandler kh = new KeyHandler();
 
     private GamePanel gamePanel;
 
@@ -45,6 +54,7 @@ public class Inventory extends JPanel {
         initializePanel();
         loadImages();
         calculateImagePositions();
+        // addKeyListener(kh);
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -105,6 +115,7 @@ public class Inventory extends JPanel {
     private void handleMouseClick(int x, int y) {
         if (x >= 550 && x <= 650 && y >= 10 && y <= 40) {
             if (finaldeck.size() == 6) {
+                TitlePanel.gameState = TitlePanel.playState;
                 switchToGamePanel();
             } else {
                 JOptionPane.showMessageDialog(this, "You must select exactly 6 plants to start the game.");
@@ -176,8 +187,10 @@ public class Inventory extends JPanel {
     }
 
     private void switchToGamePanel() {
+
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
         frame.remove(this);
+        GamePanel gamePanel = new GamePanel();
         frame.add(gamePanel);
         frame.revalidate();
         frame.repaint();
@@ -187,6 +200,8 @@ public class Inventory extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        g.setColor(Color.white);
+        g.fillRect(0, 0, getWidth(), getHeight()); 
         for (int i = 0; i < images.length; i++) {
             int pos = imagePositions[i];
             if (pos != -1) {
@@ -217,5 +232,37 @@ public class Inventory extends JPanel {
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+
+        playBackSound("res/audio/title.wav");
     }
+
+        private static void playBackSound(String soundFilePath) {
+        try {
+            File soundFile = new File(soundFilePath);
+            // System.out.println("Alamat file asli: " + soundFile.getAbsolutePath());
+            if (!soundFile.exists()) {
+                throw new IllegalArgumentException("File not found: " + soundFilePath);
+            }
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioIn);
+
+            clip.addLineListener(new LineListener() {
+                @Override
+                public void update(LineEvent event) {
+                    if (event.getType() == LineEvent.Type.STOP) {
+                        // Biar ngulang lagi
+                        clip.setFramePosition(0);
+                        clip.start();
+                    }
+                }
+            });
+            
+            clip.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+
 }
