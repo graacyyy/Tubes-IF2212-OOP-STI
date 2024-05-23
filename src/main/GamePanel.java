@@ -20,10 +20,12 @@ import javax.swing.JPanel;
 
 import entity.TileSelector;
 import entity.plants.Bullet;
+import entity.plants.Lilypad;
 import entity.plants.Plant;
 import entity.zombies.Zombie;
 import entity.ZombieSpawner;
 import entity.DeckManager;
+import entity.Inventory;
 import entity.PlantSpawner;
 import entity.Sun;
 import tile.GameMap;
@@ -74,6 +76,7 @@ public class GamePanel extends JPanel implements Runnable{
     TileSelector tileSelector;
     CollisionChecker collisionChecker = new CollisionChecker(this);
     boolean plantable;
+    boolean isLilypad;
     // int sun = 50;
     Font font = new Font("Terminal", Font.BOLD, 14);
     Font font2 = new Font("Terminal", Font.BOLD, 12);
@@ -82,7 +85,6 @@ public class GamePanel extends JPanel implements Runnable{
     int suninterval=5;
 
     public GamePanel(){
-        
         
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
@@ -162,8 +164,13 @@ public class GamePanel extends JPanel implements Runnable{
         }
             // SPAWN PLANT
             plantable = true;
+            isLilypad = false;
             for (Plant plant : GameMap.plants) {
                 if (selectedX == plant.getX() && selectedY == plant.getY()){
+                    if (plant instanceof Lilypad){
+                        isLilypad = true;
+                        break;
+                    }
                     plantable = false;
                 }
             }
@@ -173,16 +180,15 @@ public class GamePanel extends JPanel implements Runnable{
             }
         // System.out.println(kh.numPressed);
         // System.out.println(plantable);
-            if (kh.numPressed == true && plantable){
+            if (kh.numPressed == true && (plantable || isLilypad)){
                 if (kh.numKey == 7){
                     GameMap.plants.removeIf(plant -> plant.getX() == selectedX && plant.getY() == selectedY);
                 }
                 else{
-                    PlantSpawner.spawn(kh.numKey, selectedX, selectedY);
+                    PlantSpawner.spawn(kh.numKey, selectedX, selectedY, isLilypad);
                     System.out.println("test");
                 }
-
-                
+                isLilypad = false;
             }
     
             // SPAWN ZOMBIE
@@ -414,11 +420,26 @@ public class GamePanel extends JPanel implements Runnable{
             
             gameMap.drawDeck(g2);
             
+            for (int i = 0; i < Inventory.selectedPlants.size(); i++) {
+                if(Inventory.selectedPlants.get(i)!=null){
+                    try {
+                        BufferedImage image = ImageIO.read(new File(Inventory.selectedPlants.get(i)));
+                        g2.drawImage(image, (i+1)*tileSize, 2, tileSize, tileSize-10, null);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            
             drawSun(g2);
             drawGameTime(g2);
             drawTime(g2);
             g2.dispose();
         }
+    }
+
+    public void drawDeck(Graphics2D g2){
+
     }
 
     public void drawSun(Graphics2D g2){
