@@ -12,7 +12,7 @@ import entity.zombies.Gargantuar;
 import entity.zombies.ImpZombie;
 import entity.zombies.NormalZombie;
 import entity.zombies.PoleVaulting;
-import entity.zombies.Zombie;
+// import entity.zombies.Zombie;
 import main.GamePanel;
 import tile.GameMap;
 

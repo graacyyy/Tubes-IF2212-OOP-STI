@@ -17,11 +17,11 @@ import javax.swing.SwingUtilities;
 import main.GamePanel;
 // import main.TitlePanel;
 import main.KeyHandler;
-import tile.GameMap;
-import entity.zombies.BalloonZombie;
-import entity.zombies.DolphinRiderZombie;
-import entity.zombies.PoleVaulting;
-import entity.zombies.Zombie;
+// import tile.GameMap;
+// import entity.zombies.BalloonZombie;
+// import entity.zombies.DolphinRiderZombie;
+// import entity.zombies.PoleVaulting;
+// import entity.zombies.Zombie;
 
 public class Inventory extends JPanel {
     private BufferedImage[] images = new BufferedImage[10];
@@ -138,13 +138,11 @@ public class Inventory extends JPanel {
                 finaldeck.remove(Integer.valueOf(selectedIndex));
                 addPlantToInventory(selectedIndex);
                 removePlantFromDeck(plantPath);
-                JOptionPane.showMessageDialog(this, extractPlantName(plantPath) + " removed from deck");
             }
             else if (finaldeck.size() < 6) {
                 finaldeck.add(selectedIndex);
                 removePlantFromInventory(selectedIndex);
                 addPlantToDeck(plantPath);
-                JOptionPane.showMessageDialog(this, extractPlantName(plantPath) + " added to deck");
             }
             else {
                 JOptionPane.showMessageDialog(this, "You can only select up to 6 plants for the deck");
