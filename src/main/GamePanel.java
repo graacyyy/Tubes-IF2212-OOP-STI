@@ -71,7 +71,6 @@ public class GamePanel extends JPanel implements Runnable{
     Zombie zb;
     Plant pl;
     TileSelector tileSelector = new TileSelector();
-    CollisionChecker collisionChecker = new CollisionChecker(this);
     Font font = new Font("Terminal", Font.BOLD, 14);
     Font font2 = new Font("Terminal", Font.BOLD, 12);
     boolean plantable;
@@ -130,8 +129,6 @@ public class GamePanel extends JPanel implements Runnable{
 
             if(delta >= 1){
                 update();
-                System.out.println("update");
-                repaint();
                 delta--;
                 drawCount++;
             }
@@ -147,8 +144,9 @@ public class GamePanel extends JPanel implements Runnable{
     }
     
     public void update(){
-        System.out.println("test");
-
+        
+        repaint();
+        
         // SUN OTOMATIS
         if(gametime <= 100){
             if(suntimer>=suninterval*60){
@@ -176,15 +174,14 @@ public class GamePanel extends JPanel implements Runnable{
             if (kh.numPressed == true && kh.numKey == 7){
                 plantable = true;
             }
-        // System.out.println(kh.numPressed);
-        // System.out.println(plantable);
+        //  System.out.println(kh.numPressed);
+        //  System.out.println(plantable);
             if (kh.numPressed == true && (plantable || isLilypad)){
                 if (kh.numKey == 7){
                     GameMap.plants.removeIf(plant -> plant.getX() == selectedX && plant.getY() == selectedY);
                 }
                 else{
                     PlantSpawner.spawn(kh.numKey, selectedX, selectedY, isLilypad);
-                    System.out.println("test");
                 }
                 isLilypad = false;
             }
@@ -289,7 +286,7 @@ public class GamePanel extends JPanel implements Runnable{
                     tileSelector.setX(tileSelector.getX() - tileSize);
                 }
             }
-    
+            
             if (kh.rightPressed) {
                 kh.rightPressed = false;
                 if (tileSelector.getX() == (maxScreenCol - 2) * tileSize) {
@@ -298,7 +295,12 @@ public class GamePanel extends JPanel implements Runnable{
                     tileSelector.setX(tileSelector.getX() + tileSize);
                 }
             }
-                // if(kh.upPressed == true){
+
+            if (kh.numPressed == true){
+                kh.numPressed = false;
+                System.out.println("Number pressed: " + kh.numKey);
+            }
+            // if(kh.upPressed == true){
                 //     kh.upPressed = false;
                 //     UI.commandNum--;
                 //     if (UI.commandNum < 1){
@@ -375,10 +377,6 @@ public class GamePanel extends JPanel implements Runnable{
                 //         tileSelector.setX(tileSelector.getX()+tileSize);
                 //         System.out.println("Tile X " + tileSelector.getX() + "Tile Y: " + tileSelector.getY());
                 //     }
-                // }
-                // if (kh.numPressed == true){
-                //     kh.numPressed = false;
-                //     System.out.println("Number pressed: " + kh.numKey);
                 // }
     } 
     
