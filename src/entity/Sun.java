@@ -2,7 +2,7 @@ package entity;
 
 public class Sun {
     
-    protected static int sun_amount = 50;;
+    protected static int sun_amount = 10000;
 
     public static void addsun(int amount){
 

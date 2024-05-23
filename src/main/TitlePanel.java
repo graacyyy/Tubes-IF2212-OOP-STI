@@ -4,13 +4,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.io.File;
+// import java.awt.event.KeyEvent;
+// import java.io.File;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineEvent;
-import javax.sound.sampled.LineListener;
+// import javax.sound.sampled.AudioInputStream;
+// import javax.sound.sampled.AudioSystem;
+// import javax.sound.sampled.Clip;
+// import javax.sound.sampled.LineEvent;
+// import javax.sound.sampled.LineListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -31,24 +32,23 @@ public class TitlePanel extends JPanel implements Runnable{
     
     Thread titleThread;
     int FPS = 60;
-    KeyHandlerUI kh = new KeyHandlerUI(this);
+    KeyHandler kh = new KeyHandler();
     JFrame window = new JFrame();
     Inventory inventoryPanel;
     GamePanel gamePanel;
-    static boolean startTitle = true;
+    private static boolean running = true;
     
     public TitlePanel(JFrame window, GamePanel gamePanel){
 
         this.window = window;
+        this.gamePanel = gamePanel;
         this.setPreferredSize(new Dimension(GamePanel.screenWidth, GamePanel.screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         this.addKeyListener(kh);
         this.setFocusable(true);
-        this.gamePanel = gamePanel;
         gameState = titleState;
-        // moveZombie();
-        // moveBullet();
+  
     }
 
     public void startTitle() {
@@ -67,7 +67,7 @@ public class TitlePanel extends JPanel implements Runnable{
         long timer = 0;
         int drawCount = 0;
 
-        while(startTitle){
+        while(running){
 
             currentTime = System.nanoTime();
 
@@ -91,8 +91,62 @@ public class TitlePanel extends JPanel implements Runnable{
 
     public void update(){
         repaint();
+        if (TitlePanel.gameState == TitlePanel.titleState){
+            if(kh.enterPressed){
+                kh.enterPressed = true;
+                if (UI.commandNum == 1){
+                    // Switch to InventoryPanel
+                    switchToInventoryPanel();
+                    removeKeyListener(kh);
+                } else if (UI.commandNum == 2) { 
+                    TitlePanel.gameState = TitlePanel.helpState;
+                } else if (UI.commandNum == 5){
+                    System.exit(0); 
+                }     
+            }
+            if(kh.upPressed){
+                kh.upPressed = false;
+                UI.commandNum--;
+                if (UI.commandNum < 1){
+                    UI.commandNum = 5;
+                }
+            }
 
-    }
+            if(kh.downPressed){
+                kh.downPressed = false;
+                UI.commandNum++;
+                if (UI.commandNum > 5){
+                    UI.commandNum = 1;
+                }
+            }
+
+            if(kh.enterPressed){
+                kh.enterPressed = false;
+                if (UI.commandNum == 1){
+                    TitlePanel.gameState = TitlePanel.playState;
+                } else if (UI.commandNum == 2) { 
+                    TitlePanel.gameState = TitlePanel.helpState;
+                } else if (UI.commandNum == 5){
+                    System.exit(0); 
+                }
+            }
+        }
+
+        else if (TitlePanel.gameState == TitlePanel.stepState){
+            if(kh.enterPressed) {
+                kh.enterPressed = false;
+                TitlePanel.gameState = TitlePanel.titleState;
+            }
+        } 
+            
+        else if (TitlePanel.gameState == TitlePanel.helpState){
+            if(kh.enterPressed){
+                kh.enterPressed = false;
+                TitlePanel.gameState = TitlePanel.stepState;
+            } 
+        }
+    } 
+
 
     public void paintComponent(Graphics g){
 
@@ -113,62 +167,67 @@ public class TitlePanel extends JPanel implements Runnable{
 
     public void switchToInventoryPanel() {
         if (inventoryPanel == null) {
-            inventoryPanel = new Inventory(gamePanel);
+            inventoryPanel = new Inventory(gamePanel, kh);
         }
         window.remove(this);
         window.add(inventoryPanel);
         window.revalidate();
         window.repaint();
-        startTitle = false;
+        stopThread();
+        inventoryPanel.requestFocusInWindow();
+    }
+    
+    public static void stopThread() {
+        running = false;
     }
 
-    public static void main(String[] args){
+    // public static void main(String[] args){
 
-        JFrame window = new JFrame();
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(false);
-        window.setTitle("MichaelVSLalapan");
+    //     JFrame window = new JFrame();
+    //     window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    //     window.setResizable(false);
+    //     window.setTitle("MichaelVSLalapan");
 
-        GamePanel gamePanel = new GamePanel();
-        TitlePanel titlePanel = new TitlePanel(window, gamePanel);
-        window.add(titlePanel);
+    //     GamePanel gamePanel = new GamePanel();
+    //     TitlePanel titlePanel = new TitlePanel(window, gamePanel);
+    //     window.add(titlePanel);
         
-        window.pack();
+    //     window.pack();
 
-        window.setLocationRelativeTo(null);
-        window.setVisible(true);
+    //     window.setLocationRelativeTo(null);
+    //     window.setVisible(true);
 
-        titlePanel.startTitle();
+    //     titlePanel.startTitle();
 
-        playBackSound("res/audio/title.wav");
-    }
+    //     playBackSound("res/audio/title.wav");
+    // }
 
-        private static void playBackSound(String soundFilePath) {
-        try {
-            File soundFile = new File(soundFilePath);
-            // System.out.println("Alamat file asli: " + soundFile.getAbsolutePath());
-            if (!soundFile.exists()) {
-                throw new IllegalArgumentException("File not found: " + soundFilePath);
-            }
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioIn);
+    //     private static void playBackSound(String soundFilePath) {
+    //     try {
+    //         File soundFile = new File(soundFilePath);
+    //         // System.out.println("Alamat file asli: " + soundFile.getAbsolutePath());
+    //         if (!soundFile.exists()) {
+    //             throw new IllegalArgumentException("File not found: " + soundFilePath);
+    //         }
+    //         AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+    //         Clip clip = AudioSystem.getClip();
+    //         clip.open(audioIn);
 
-            clip.addLineListener(new LineListener() {
-                @Override
-                public void update(LineEvent event) {
-                    if (event.getType() == LineEvent.Type.STOP) {
-                        // Biar ngulang lagi
-                        clip.setFramePosition(0);
-                        clip.start();
-                    }
-                }
-            });
+    //         clip.addLineListener(new LineListener() {
+    //             @Override
+    //             public void update(LineEvent event) {
+    //                 if (event.getType() == LineEvent.Type.STOP) {
+    //                     // Biar ngulang lagi
+    //                     clip.setFramePosition(0);
+    //                     clip.start();
+    //                 }
+    //             }
+    //         });
             
-            clip.start();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+    //         clip.start();
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 
 }

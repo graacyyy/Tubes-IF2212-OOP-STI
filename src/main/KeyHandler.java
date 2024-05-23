@@ -3,8 +3,8 @@ package main;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import tile.UI;
-import tile.GameMap;
+// import tile.UI;
+// import tile.GameMap;
 
 public class KeyHandler implements KeyListener{
 
@@ -20,73 +20,99 @@ public class KeyHandler implements KeyListener{
     public void keyPressed(KeyEvent e) {
 
         int code = e.getKeyCode();
-        
-        if (TitlePanel.gameState == TitlePanel.loseState){
-            if(code == KeyEvent.VK_UP){
-                UI.commandNum--;
-                if (UI.commandNum < 1){
-                    UI.commandNum = 2;
-                }
-            }
 
-            if(code == KeyEvent.VK_DOWN){
-                UI.commandNum++;
-                if (UI.commandNum > 2){
-                    UI.commandNum = 1;
-                }
-            }
+        // TITLE STATE
+        // if (TitlePanel.gameState == TitlePanel.titleState){
+        //     if(code == KeyEvent.VK_UP){
+        //         UI.commandNum--;
+        //         if (UI.commandNum < 1){
+        //             UI.commandNum = 5;
+        //         }
+        //     }
 
-            if(code == KeyEvent.VK_ENTER){
-                if (UI.commandNum == 1){
-                    TitlePanel.gameState = TitlePanel.playState;
-                    GameMap.zombies.clear();
-                    GameMap.plants.clear();
-                    GameMap.bullets.clear();
-                    GamePanel.gametime = 0;
-                    // Sun nya = 0
-                } else {
-                    System.exit(0); 
-                }
-            }
-        } 
-        
-        else if (TitlePanel.gameState == TitlePanel.winState){
-            if(code == KeyEvent.VK_UP){
-                UI.commandNum--;
-                if (UI.commandNum < 1){
-                    UI.commandNum = 2;
-                }
-            }
+        //     if(code == KeyEvent.VK_DOWN){
+        //         UI.commandNum++;
+        //         if (UI.commandNum > 5){
+        //             UI.commandNum = 1;
+        //         }
+        //     }
 
-            if(code == KeyEvent.VK_DOWN){
-                UI.commandNum++;
-                if (UI.commandNum > 2){
-                    UI.commandNum = 1;
-                }
-            }
+        //     if(code == KeyEvent.VK_ENTER){
+        //         if (UI.commandNum == 1){
+        //             TitlePanel.gameState = TitlePanel.playState;
+        //         } else if (UI.commandNum == 2) { 
+        //             TitlePanel.gameState = TitlePanel.helpState;
+        //         } else if (UI.commandNum == 5){
+        //             System.exit(0); 
+        //         }
+        //     }
+        
+        // if (TitlePanel.gameState == TitlePanel.loseState){
+        //     if(code == KeyEvent.VK_UP){
+        //         UI.commandNum--;
+        //         if (UI.commandNum < 1){
+        //             UI.commandNum = 2;
+        //         }
+        //     }
 
-            if(code == KeyEvent.VK_ENTER){
-                if (UI.commandNum == 1){
-                    TitlePanel.gameState = TitlePanel.playState;
-                } else {
-                    System.exit(0); 
-                }
-            } 
-        } 
+        //     if(code == KeyEvent.VK_DOWN){
+        //         UI.commandNum++;
+        //         if (UI.commandNum > 2){
+        //             UI.commandNum = 1;
+        //         }
+        //     }
+
+        //     if(code == KeyEvent.VK_ENTER){
+        //         if (UI.commandNum == 1){
+        //             TitlePanel.gameState = TitlePanel.playState;
+        //             GameMap.zombies.clear();
+        //             GameMap.plants.clear();
+        //             GameMap.bullets.clear();
+        //             GamePanel.gametime = 0;
+        //             // Sun nya = 0
+        //         } else {
+        //             System.exit(0); 
+        //         }
+        //     }
+        // } 
         
-        else if (TitlePanel.gameState == TitlePanel.stepState){
-            if(code == KeyEvent.VK_ENTER) {
-                TitlePanel.gameState = TitlePanel.titleState;
-            }
-        } 
+        // else if (TitlePanel.gameState == TitlePanel.winState){
+        //     if(code == KeyEvent.VK_UP){
+        //         UI.commandNum--;
+        //         if (UI.commandNum < 1){
+        //             UI.commandNum = 2;
+        //         }
+        //     }
+
+        //     if(code == KeyEvent.VK_DOWN){
+        //         UI.commandNum++;
+        //         if (UI.commandNum > 2){
+        //             UI.commandNum = 1;
+        //         }
+        //     }
+
+        //     if(code == KeyEvent.VK_ENTER){
+        //         if (UI.commandNum == 1){
+        //             TitlePanel.gameState = TitlePanel.playState;
+        //         } else {
+        //             System.exit(0); 
+        //         }
+        //     } 
+        // } 
         
-        else if (TitlePanel.gameState == TitlePanel.helpState){
-            if(code == KeyEvent.VK_ENTER){
-                TitlePanel.gameState = TitlePanel.stepState;
-            } 
-        } 
+        // else if (TitlePanel.gameState == TitlePanel.stepState){
+        //     if(code == KeyEvent.VK_ENTER) {
+        //         TitlePanel.gameState = TitlePanel.titleState;
+        //     }
+        // } 
         
-        else if (TitlePanel.gameState == TitlePanel.playState){
+        // else if (TitlePanel.gameState == TitlePanel.helpState){
+        //     if(code == KeyEvent.VK_ENTER){
+        //         TitlePanel.gameState = TitlePanel.stepState;
+        //     } 
+        // } 
+        
+        // else if (TitlePanel.gameState == TitlePanel.playState){
             if(code == KeyEvent.VK_ENTER){
                 enterPressed = true;
             }
@@ -130,54 +156,22 @@ public class KeyHandler implements KeyListener{
                 numPressed = true;
                 numKey = 7;
             }
-            if (code == KeyEvent.VK_P){
-                if(pause){
-                    pausePressed = false;
-                    pause = false;
-                    GamePanel.pause = true;
-                } else {
-                    pausePressed = false;
-                    pause = true;
-                    GamePanel.pause = false;
-                    Main.startThread();
-                }
+        //     if (code == KeyEvent.VK_P){
+        //         if(pause){
+        //             pausePressed = false;
+        //             pause = false;
+        //             GamePanel.pause = true;
+        //         } else {
+        //             pausePressed = false;
+        //             pause = true;
+        //             GamePanel.pause = false;
+        //             .startThread();
+        //         }
                 
-            }  
-        }
-        /* else if (GamePanel.gameState == GamePanel.inventoryState){
-            if(code == KeyEvent.VK_I){
-
-            }
-            if(code == KeyEvent.VK_W){
-                if(UI.slotRow != 0){
-                    UI.slotRow--;
-                }
-                // GamePanel.ui.slotRow++;
-
-            }
-            if(code == KeyEvent.VK_A){
-                if(UI.slotCol != 0){
-                    UI.slotCol--;
-                }
-                // GamePanel.ui.slotCol--;
-            }
-            if(code == KeyEvent.VK_S){
-                if(UI.slotRow != 0){
-                    UI.slotRow++;
-                }
-                // GamePanel.ui.slotRow++;
-            }
-            if(code == KeyEvent.VK_D){
-                if(UI.slotCol != 0){
-                    UI.slotCol++;
-                }
-                // GamePanel.ui.slotCol++;
-
-            }
-
-        }
-        */
+        //     }  
+        // // }
     }
+
 
     @Override
     public void keyReleased(KeyEvent e) {}
