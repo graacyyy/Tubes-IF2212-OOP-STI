@@ -13,6 +13,7 @@ import main.GamePanel;
 import main.Inventory;
 // import main.GamePanel;
 import entity.plants.PeaShooter;
+import entity.plants.Plant;
 import tile.GameMap;
 public class PlantSpawner {
 
@@ -26,67 +27,139 @@ public class PlantSpawner {
         // }
         if (isLilypad){
             if (Inventory.selectedPlants.get(numKey-1) == "././res/deck/sunflower.png"){
-                if (Sun.sun_amount >= Sunflower.getCost() ){
-                    GameMap.plants.add(new Sunflower(x, y));
+                if (Sun.sun_amount >= Sunflower.getCost()){
+                    Plant plant = new Sunflower(x, y);
+                    plant.setHealth(plant.getHealth() + 100);
+                    GameMap.plants.add(plant);
                     DeckManager.deck.add(new DeckManager(numKey-1, Sunflower.getCooldown(), Inventory.selectedPlants.get(numKey-1)));
                     Inventory.selectedPlants.remove(numKey-1);
                     Inventory.selectedPlants.add(numKey-1, null);
+                    for (int i = 0; i < GameMap.plants.size(); i++) {
+                        if (GameMap.plants.get(i) instanceof Lilypad){
+                            if (x == GameMap.plants.get(i).x && y == GameMap.plants.get(i).y){
+                                GameMap.plants.remove(i);
+                            }
+                        }
+                    }
                 }
             }
             else if (Inventory.selectedPlants.get(numKey-1) == "././res/deck/cactus.png"){
                 if (Sun.sun_amount >= Cactus.getCost()){
-                    GameMap.plants.add(new Cactus(x, y));
+                    Plant plant = new Cactus(x, y);
+                    plant.setHealth(plant.getHealth() + 100);
+                    GameMap.plants.add(plant);
                     DeckManager.deck.add(new DeckManager(numKey-1, Cactus.getCooldown(), Inventory.selectedPlants.get(numKey-1)));
                     Inventory.selectedPlants.remove(numKey-1);
                     Inventory.selectedPlants.add(numKey-1, null);
+                    for (int i = 0; i < GameMap.plants.size(); i++) {
+                        if (GameMap.plants.get(i) instanceof Lilypad){
+                            if (x == GameMap.plants.get(i).x && y == GameMap.plants.get(i).y){
+                                GameMap.plants.remove(i);
+                            }
+                        }
+                    }
                 }
             }
             else if (Inventory.selectedPlants.get(numKey-1) == "././res/deck/iceshroom.png"){
                 if (Sun.sun_amount >= IceShroom.getCost()){
-                    GameMap.plants.add(new IceShroom(x, y));
+                    Plant plant = new IceShroom(x, y);
+                    plant.setHealth(plant.getHealth() + 100);
+                    GameMap.plants.add(plant);
                     DeckManager.deck.add(new DeckManager(numKey-1, IceShroom.getCooldown(), Inventory.selectedPlants.get(numKey-1)));
                     Inventory.selectedPlants.remove(numKey-1);
                     Inventory.selectedPlants.add(numKey-1, null);
+                    for (int i = 0; i < GameMap.plants.size(); i++) {
+                        if (GameMap.plants.get(i) instanceof Lilypad){
+                            if (x == GameMap.plants.get(i).x && y == GameMap.plants.get(i).y){
+                                GameMap.plants.remove(i);
+                            }
+                        }
+                    }
                 }
             }
             else if (Inventory.selectedPlants.get(numKey-1) == "././res/deck/jalapeno.png"){
                 if (Sun.sun_amount >= Jalapeno.getCost()){
-                    GameMap.plants.add(new Jalapeno(x, y));
+                    Plant plant = new Jalapeno(x, y);
+                    plant.setHealth(plant.getHealth() + 100);
+                    GameMap.plants.add(plant);
                     DeckManager.deck.add(new DeckManager(numKey-1, Jalapeno.getCooldown(), Inventory.selectedPlants.get(numKey-1)));
                     Inventory.selectedPlants.remove(numKey-1);
                     Inventory.selectedPlants.add(numKey-1, null);
+                    for (int i = 0; i < GameMap.plants.size(); i++) {
+                        if (GameMap.plants.get(i) instanceof Lilypad){
+                            if (x == GameMap.plants.get(i).x && y == GameMap.plants.get(i).y){
+                                GameMap.plants.remove(i);
+                            }
+                        }
+                    }
                 }
             }
             else if (Inventory.selectedPlants.get(numKey-1) == "././res/deck/peashooter.png"){
                 if (Sun.sun_amount >= PeaShooter.getCost()){
-                    GameMap.plants.add(new PeaShooter(x, y));
+                    Plant plant = new PeaShooter(x, y);
+                    plant.setHealth(plant.getHealth() + 100);
+                    GameMap.plants.add(plant);
                     DeckManager.deck.add(new DeckManager(numKey-1, PeaShooter.getCooldown(), Inventory.selectedPlants.get(numKey-1)));
                     Inventory.selectedPlants.remove(numKey-1);
                     Inventory.selectedPlants.add(numKey-1, null);
+                    for (int i = 0; i < GameMap.plants.size(); i++) {
+                        if (GameMap.plants.get(i) instanceof Lilypad){
+                            if (x == GameMap.plants.get(i).x && y == GameMap.plants.get(i).y){
+                                GameMap.plants.remove(i);
+                            }
+                        }
+                    }
                 }
             }
             else if (Inventory.selectedPlants.get(numKey-1) == "././res/deck/snowpea.png"){
                 if (Sun.sun_amount >= SnowPea.getCost()){
-                    GameMap.plants.add(new SnowPea(x, y));
+                    Plant plant = new SnowPea(x, y);
+                    plant.setHealth(plant.getHealth() + 100);
+                    GameMap.plants.add(plant);
                     DeckManager.deck.add(new DeckManager(numKey-1, SnowPea.getCooldown(), Inventory.selectedPlants.get(numKey-1)));
                     Inventory.selectedPlants.remove(numKey-1);
                     Inventory.selectedPlants.add(numKey-1, null);
+                    for (int i = 0; i < GameMap.plants.size(); i++) {
+                        if (GameMap.plants.get(i) instanceof Lilypad){
+                            if (x == GameMap.plants.get(i).x && y == GameMap.plants.get(i).y){
+                                GameMap.plants.remove(i);
+                            }
+                        }
+                    }
                 }
             }
             else if (Inventory.selectedPlants.get(numKey-1) == "././res/deck/squash.png"){
                 if (Sun.sun_amount >= Squash.getCost()){
-                    GameMap.plants.add(new Squash(x, y));
+                    Plant plant = new Squash(x, y);
+                    plant.setHealth(plant.getHealth() + 100);
+                    GameMap.plants.add(plant);
                     DeckManager.deck.add(new DeckManager(numKey-1, Squash.getCooldown(), Inventory.selectedPlants.get(numKey-1)));
                     Inventory.selectedPlants.remove(numKey-1);
                     Inventory.selectedPlants.add(numKey-1, null);
+                    for (int i = 0; i < GameMap.plants.size(); i++) {
+                        if (GameMap.plants.get(i) instanceof Lilypad){
+                            if (x == GameMap.plants.get(i).x && y == GameMap.plants.get(i).y){
+                                GameMap.plants.remove(i);
+                            }
+                        }
+                    }
                 }
             }
             else if (Inventory.selectedPlants.get(numKey-1) == "././res/deck/wallnut.png"){
                 if (Sun.sun_amount >= Wallnut.getCost()){
-                    GameMap.plants.add(new Wallnut(x, y));
+                    Plant plant = new Wallnut(x, y);
+                    plant.setHealth(plant.getHealth() + 100);
+                    GameMap.plants.add(plant);
                     DeckManager.deck.add(new DeckManager(numKey-1, Wallnut.getCooldown(), Inventory.selectedPlants.get(numKey-1)));
                     Inventory.selectedPlants.remove(numKey-1);
                     Inventory.selectedPlants.add(numKey-1, null);
+                    for (int i = 0; i < GameMap.plants.size(); i++) {
+                        if (GameMap.plants.get(i) instanceof Lilypad){
+                            if (x == GameMap.plants.get(i).x && y == GameMap.plants.get(i).y){
+                                GameMap.plants.remove(i);
+                            }
+                        }
+                    }
                 }
             }
         }

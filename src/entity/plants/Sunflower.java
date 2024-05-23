@@ -36,7 +36,7 @@ public class Sunflower extends Plant {
         
         if (sec == 3) {
             Sun.addsun(25);
-            System.out.println("Sun dari sunflower");
+            // System.out.println("Sun dari sunflower");
             sec = 0;
         }
     }
