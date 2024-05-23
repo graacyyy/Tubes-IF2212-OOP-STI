@@ -10,6 +10,7 @@ import entity.plants.Sunflower;
 import entity.plants.TangleKelp;
 import entity.plants.Wallnut;
 import main.GamePanel;
+import main.Inventory;
 // import main.GamePanel;
 import entity.plants.PeaShooter;
 import tile.GameMap;

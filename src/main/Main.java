@@ -7,29 +7,12 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineEvent;
 import javax.sound.sampled.LineListener;
-import javax.swing.JFrame;
+// import javax.swing.JFrame;
 
 public class Main {
     public static void main(String[] args) {
-        JFrame window = new JFrame("MichaelVSLalapan");
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(false);
 
-        // Create the game panel
-        GamePanel gamePanel = new GamePanel();
-
-        // Create the title panel
-        TitlePanel titlePanel = new TitlePanel(window, gamePanel);
-        window.add(titlePanel);
-
-        // Display the window
-        window.pack();
-        window.setLocationRelativeTo(null); // Center the window
-        window.setVisible(true);
-
-        // Start the title panel
-        titlePanel.startTitle();
-
+        Screen.start();
         playBackSound("res/audio/title.wav");
 
     }

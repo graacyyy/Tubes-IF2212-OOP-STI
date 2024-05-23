@@ -1,5 +1,4 @@
-package entity;
-
+package main;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -10,20 +9,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
+// import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
-
-import main.GamePanel;
-// import main.TitlePanel;
-import main.KeyHandler;
-// import tile.GameMap;
-// import entity.zombies.BalloonZombie;
-// import entity.zombies.DolphinRiderZombie;
-// import entity.zombies.PoleVaulting;
-// import entity.zombies.Zombie;
+// import javax.swing.SwingUtilities;
 
 
 public class Inventory extends JPanel {
@@ -48,14 +37,15 @@ public class Inventory extends JPanel {
     // public static String[] deck = new String[6];
     private BufferedImage playButton;
     private BufferedImage clearAllButton;
-    private GamePanel gamePanel;
-    private KeyHandler kh;
+    // private GamePanel gamePanel;
+    KeyHandler kh = new KeyHandler();
     private int selectedIndex = -1;
     private boolean running = true;
 
-    public Inventory(GamePanel gamePanel, KeyHandler kh) {
-        this.gamePanel = gamePanel;
-        this.kh = kh;
+    // public Inventory(GamePanel gamePanel, KeyHandler kh) {
+    public Inventory() {
+        // this.gamePanel = gamePanel;
+        // this.kh = kh;
         initializePanel();
         loadImages();
         calculateImagePositions();
@@ -112,7 +102,7 @@ public class Inventory extends JPanel {
         selectedPlants.remove(filePath);
     }
 
-    private void displaySelectedPlants() {
+    public void displaySelectedPlants() {
         System.out.println("Selected Plants:");
         for (String plant : selectedPlants) {
             System.out.println(plant);
@@ -124,7 +114,9 @@ public class Inventory extends JPanel {
             kh.enterPressed = false;
         if (selectedIndex == 10) {
             if (finaldeck.size() == 6) {
-                switchToGamePanel();
+                // switchToGamePanel();
+                TitlePanel.gameState = TitlePanel.playState;
+                Screen.play();
             }
             else {
                 JOptionPane.showMessageDialog(this, "You must select exactly 6 plants to start the game.");
@@ -214,29 +206,41 @@ public class Inventory extends JPanel {
         imagePositions[index] = -1;
     }
 
-    private void clearAllPlants() {
+    public void clearAllPlants() {
         if (!finaldeck.isEmpty()) {
             for (int index : finaldeck) {
                 addPlantToInventory(index);
             }
             finaldeck.clear();
             selectedPlants.clear();
-            JOptionPane.showMessageDialog(this, "All plants removed from deck");
+            // JOptionPane.showMessageDialog(this, "All plants removed from deck");
             repaint();
             displaySelectedPlants();
         }
     }
 
-    public void switchToGamePanel() {
-        removeKeyListener(kh);
-        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
-        frame.remove(this);
-        frame.add(gamePanel);
-        frame.revalidate();
-        frame.repaint();
-        running = false;
-        gamePanel.startGameThread();
-    }    
+    public void setRunning(boolean running){
+        this.running = running;
+    }
+
+    public boolean isRunning(){
+        return running;
+    }
+
+    // public void switchToGamePanel() {
+    //     removeKeyListener(kh);
+    //     JFrame frame = Main.window;
+    //     if (frame != null){
+    //         frame.remove(this);
+    //         frame.add(gamePanel);
+    //         frame.invalidate();
+    //         frame.validate();
+    //         frame.repaint();
+    //         running = false;
+    //         gamePanel.startGameThread();
+    //         gamePanel.requestFocusInWindow();
+    //     }
+    // }    
 
     @Override
     protected void paintComponent(Graphics g) {
