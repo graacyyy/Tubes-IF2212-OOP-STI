@@ -14,16 +14,16 @@ import java.util.Iterator;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
+// import javax.swing.JFrame;
 // import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import entity.TileSelector;
 import entity.plants.Bullet;
-import entity.plants.Cactus;
+// import entity.plants.Cactus;
 import entity.plants.IceShroom;
 import entity.plants.Jalapeno;
-import entity.plants.Lilypad;
+// import entity.plants.Lilypad;
 import entity.plants.PeaShooter;
 import entity.plants.Plant;
 import entity.plants.SnowPea;
@@ -44,7 +44,7 @@ import entity.zombies.NormalZombie;
 import entity.zombies.PoleVaulting;
 import entity.zombies.Zombie;
 import entity.ZombieSpawner;
-import entity.Deck;
+// import entity.Deck;
 import entity.PlantSpawner;
 import entity.Sun;
 import tile.GameMap;
