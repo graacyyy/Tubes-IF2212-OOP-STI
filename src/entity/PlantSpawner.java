@@ -17,216 +17,98 @@ public class PlantSpawner {
     int x, y, numKey;
 
     public static void spawn (int numKey, int x, int y){
+        System.out.println("Selected Plants:");
+        for (String plant : Inventory.selectedPlants) {
+            System.out.println(plant);
+        }
+        if (Inventory.selectedPlants.get(numKey-1) == "././res/deck/sunflower.png"){
+            if (Sun.sun_amount >= Sunflower.getCost()){
+                GameMap.plants.add(new Sunflower(x, y));
+                DeckManager.deck.add(new DeckManager(numKey-1, Sunflower.getCooldown(), Inventory.selectedPlants.get(numKey-1)));
+                Inventory.selectedPlants.remove(numKey-1);
+                Inventory.selectedPlants.add(numKey-1, null);
+            }
+        }
+        else if (Inventory.selectedPlants.get(numKey-1) == "././res/deck/cactus.png"){
+            if (Sun.sun_amount >= Cactus.getCost()){
+                GameMap.plants.add(new Cactus(x, y));
+                DeckManager.deck.add(new DeckManager(numKey-1, Cactus.getCooldown(), Inventory.selectedPlants.get(numKey-1)));
+                Inventory.selectedPlants.remove(numKey-1);
+                Inventory.selectedPlants.add(numKey-1, null);
+            }
+        }
+        else if (Inventory.selectedPlants.get(numKey-1) == "././res/deck/iceshroom.png"){
+            if (Sun.sun_amount >= IceShroom.getCost()){
+                GameMap.plants.add(new IceShroom(x, y));
+                DeckManager.deck.add(new DeckManager(numKey-1, IceShroom.getCooldown(), Inventory.selectedPlants.get(numKey-1)));
+                Inventory.selectedPlants.remove(numKey-1);
 
-        if (numKey == 1){
-            if (Deck.deck[0] == "Sunflower"){
-                GameMap.plants.add(new Sunflower(x, y));
-            }
-            else if (Deck.deck[0] == "Cactus"){
-                GameMap.plants.add(new Cactus(x, y));
-            }
-            else if (Deck.deck[0] == "Ice Shroom"){
-                GameMap.plants.add(new IceShroom(x, y));
-            }
-            else if (Deck.deck[0] == "Jalapeno"){
-                GameMap.plants.add(new Jalapeno(x, y));
-            }
-            else if (Deck.deck[0] == "Lilypad"){
-                GameMap.plants.add(new Lilypad(x, y));
-            }
-            else if (Deck.deck[0] == "Peashooter"){
-                GameMap.plants.add(new PeaShooter(x, y));
-            }
-            else if (Deck.deck[0] == "Snow Pea"){
-                GameMap.plants.add(new SnowPea(x, y));
-            }
-            else if (Deck.deck[0] == "Squash"){
-                GameMap.plants.add(new Squash(x, y));
-            }
-            else if (Deck.deck[0] == "Sunflower"){
-                GameMap.plants.add(new Sunflower(x, y));
-            }
-            else if (Deck.deck[0] == "Tangle Kelp"){
-                GameMap.plants.add(new TangleKelp(x, y));
-            }
-            else if (Deck.deck[0] == "Wallnut"){
-                GameMap.plants.add(new Wallnut(x, y));
+                Inventory.selectedPlants.add(numKey-1, null);
             }
         }
-        else if (numKey == 2){
-            if (Deck.deck[1] == "Sunflower"){
-                GameMap.plants.add(new Sunflower(x, y));
-            }
-            else if (Deck.deck[1] == "Cactus"){
-                GameMap.plants.add(new Cactus(x, y));
-            }
-            else if (Deck.deck[1] == "Ice Shroom"){
-                GameMap.plants.add(new IceShroom(x, y));
-            }
-            else if (Deck.deck[1] == "Jalapeno"){
+        else if (Inventory.selectedPlants.get(numKey-1) == "././res/deck/jalapeno.png"){
+            if (Sun.sun_amount >= Jalapeno.getCost()){
                 GameMap.plants.add(new Jalapeno(x, y));
-            }
-            else if (Deck.deck[1] == "Lilypad"){
-                GameMap.plants.add(new Lilypad(x, y));
-            }
-            else if (Deck.deck[1] == "Peashooter"){
-                GameMap.plants.add(new PeaShooter(x, y));
-            }
-            else if (Deck.deck[1] == "Snow Pea"){
-                GameMap.plants.add(new SnowPea(x, y));
-            }
-            else if (Deck.deck[1] == "Squash"){
-                GameMap.plants.add(new Squash(x, y));
-            }
-            else if (Deck.deck[1] == "Sunflower"){
-                GameMap.plants.add(new Sunflower(x, y));
-            }
-            else if (Deck.deck[1] == "Tangle Kelp"){
-                GameMap.plants.add(new TangleKelp(x, y));
-            }
-            else if (Deck.deck[1] == "Wallnut"){
-                GameMap.plants.add(new Wallnut(x, y));
+                DeckManager.deck.add(new DeckManager(numKey-1, Jalapeno.getCooldown(), Inventory.selectedPlants.get(numKey-1)));
+                Inventory.selectedPlants.remove(numKey-1);
+
+                Inventory.selectedPlants.add(numKey-1, null);
             }
         }
-        else if (numKey == 3){
-            if (Deck.deck[2] == "Sunflower"){
-                GameMap.plants.add(new Sunflower(x, y));
-            }
-            else if (Deck.deck[2] == "Cactus"){
-                GameMap.plants.add(new Cactus(x, y));
-            }
-            else if (Deck.deck[2] == "Ice Shroom"){
-                GameMap.plants.add(new IceShroom(x, y));
-            }
-            else if (Deck.deck[2] == "Jalapeno"){
-                GameMap.plants.add(new Jalapeno(x, y));
-            }
-            else if (Deck.deck[2] == "Lilypad"){
+        else if (Inventory.selectedPlants.get(numKey-1) == "././res/deck/lilypad.png"){
+            if (Sun.sun_amount >= Lilypad.getCost()){
                 GameMap.plants.add(new Lilypad(x, y));
-            }
-            else if (Deck.deck[2] == "Peashooter"){
-                GameMap.plants.add(new PeaShooter(x, y));
-            }
-            else if (Deck.deck[2] == "Snow Pea"){
-                GameMap.plants.add(new SnowPea(x, y));
-            }
-            else if (Deck.deck[2] == "Squash"){
-                GameMap.plants.add(new Squash(x, y));
-            }
-            else if (Deck.deck[2] == "Sunflower"){
-                GameMap.plants.add(new Sunflower(x, y));
-            }
-            else if (Deck.deck[2] == "Tangle Kelp"){
-                GameMap.plants.add(new TangleKelp(x, y));
-            }
-            else if (Deck.deck[2] == "Wallnut"){
-                GameMap.plants.add(new Wallnut(x, y));
+                DeckManager.deck.add(new DeckManager(numKey-1, Lilypad.getCooldown(), Inventory.selectedPlants.get(numKey-1)));
+                Inventory.selectedPlants.remove(numKey-1);
+
+                Inventory.selectedPlants.add(numKey-1, null);
             }
         }
-        else if (numKey == 4){
-            if (Deck.deck[3] == "Sunflower"){
-                GameMap.plants.add(new Sunflower(x, y));
-            }
-            else if (Deck.deck[3] == "Cactus"){
-                GameMap.plants.add(new Cactus(x, y));
-            }
-            else if (Deck.deck[3] == "Ice Shroom"){
-                GameMap.plants.add(new IceShroom(x, y));
-            }
-            else if (Deck.deck[3] == "Jalapeno"){
-                GameMap.plants.add(new Jalapeno(x, y));
-            }
-            else if (Deck.deck[3] == "Lilypad"){
-                GameMap.plants.add(new Lilypad(x, y));
-            }
-            else if (Deck.deck[3] == "Peashooter"){
+        else if (Inventory.selectedPlants.get(numKey-1) == "././res/deck/peashooter.png"){
+            if (Sun.sun_amount >= PeaShooter.getCost()){
                 GameMap.plants.add(new PeaShooter(x, y));
-            }
-            else if (Deck.deck[3] == "Snow Pea"){
-                GameMap.plants.add(new SnowPea(x, y));
-            }
-            else if (Deck.deck[3] == "Squash"){
-                GameMap.plants.add(new Squash(x, y));
-            }
-            else if (Deck.deck[3] == "Sunflower"){
-                GameMap.plants.add(new Sunflower(x, y));
-            }
-            else if (Deck.deck[3] == "Tangle Kelp"){
-                GameMap.plants.add(new TangleKelp(x, y));
-            }
-            else if (Deck.deck[3] == "Wallnut"){
-                GameMap.plants.add(new Wallnut(x, y));
+                DeckManager.deck.add(new DeckManager(numKey-1, PeaShooter.getCooldown(), Inventory.selectedPlants.get(numKey-1)));
+                Inventory.selectedPlants.remove(numKey-1);
+
+                Inventory.selectedPlants.add(numKey-1, null);
             }
         }
-        else if (numKey == 5){
-            if (Deck.deck[4] == "Sunflower"){
-                GameMap.plants.add(new Sunflower(x, y));
-            }
-            else if (Deck.deck[4] == "Cactus"){
-                GameMap.plants.add(new Cactus(x, y));
-            }
-            else if (Deck.deck[4] == "Ice Shroom"){
-                GameMap.plants.add(new IceShroom(x, y));
-            }
-            else if (Deck.deck[4] == "Jalapeno"){
-                GameMap.plants.add(new Jalapeno(x, y));
-            }
-            else if (Deck.deck[4] == "Lilypad"){
-                GameMap.plants.add(new Lilypad(x, y));
-            }
-            else if (Deck.deck[4] == "Peashooter"){
-                GameMap.plants.add(new PeaShooter(x, y));
-            }
-            else if (Deck.deck[4] == "Snow Pea"){
+        else if (Inventory.selectedPlants.get(numKey-1) == "././res/deck/snowpea.png"){
+            if (Sun.sun_amount >= SnowPea.getCost()){
                 GameMap.plants.add(new SnowPea(x, y));
-            }
-            else if (Deck.deck[4] == "Squash"){
-                GameMap.plants.add(new Squash(x, y));
-            }
-            else if (Deck.deck[4] == "Sunflower"){
-                GameMap.plants.add(new Sunflower(x, y));
-            }
-            else if (Deck.deck[4] == "Tangle Kelp"){
-                GameMap.plants.add(new TangleKelp(x, y));
-            }
-            else if (Deck.deck[4] == "Wallnut"){
-                GameMap.plants.add(new Wallnut(x, y));
+                DeckManager.deck.add(new DeckManager(numKey-1, SnowPea.getCooldown(), Inventory.selectedPlants.get(numKey-1)));
+                Inventory.selectedPlants.remove(numKey-1);
+
+                Inventory.selectedPlants.add(numKey-1, null);
             }
         }
-        else if (numKey == 6){
-            if (Deck.deck[5] == "Sunflower"){
-                GameMap.plants.add(new Sunflower(x, y));
-            }
-            else if (Deck.deck[5] == "Cactus"){
-                GameMap.plants.add(new Cactus(x, y));
-            }
-            else if (Deck.deck[5] == "Ice Shroom"){
-                GameMap.plants.add(new IceShroom(x, y));
-            }
-            else if (Deck.deck[5] == "Jalapeno"){
-                GameMap.plants.add(new Jalapeno(x, y));
-            }
-            else if (Deck.deck[5] == "Lilypad"){
-                GameMap.plants.add(new Lilypad(x, y));
-            }
-            else if (Deck.deck[5] == "Peashooter"){
-                GameMap.plants.add(new PeaShooter(x, y));
-            }
-            else if (Deck.deck[5] == "Snow Pea"){
-                GameMap.plants.add(new SnowPea(x, y));
-            }
-            else if (Deck.deck[5] == "Squash"){
+        else if (Inventory.selectedPlants.get(numKey-1) == "././res/deck/squash.png"){
+            if (Sun.sun_amount >= Squash.getCost()){
                 GameMap.plants.add(new Squash(x, y));
+                DeckManager.deck.add(new DeckManager(numKey-1, Squash.getCooldown(), Inventory.selectedPlants.get(numKey-1)));
+                Inventory.selectedPlants.remove(numKey-1);
+
+                Inventory.selectedPlants.add(numKey-1, null);
             }
-            else if (Deck.deck[5] == "Sunflower"){
-                GameMap.plants.add(new Sunflower(x, y));
-            }
-            else if (Deck.deck[5] == "Tangle Kelp"){
+        }
+        else if (Inventory.selectedPlants.get(numKey-1) == "././res/deck/tanglekelp.png"){
+            if (Sun.sun_amount >= TangleKelp.getCost()){
                 GameMap.plants.add(new TangleKelp(x, y));
+                DeckManager.deck.add(new DeckManager(numKey-1, TangleKelp.getCooldown(), Inventory.selectedPlants.get(numKey-1)));
+                Inventory.selectedPlants.remove(numKey-1);
+
+                Inventory.selectedPlants.add(numKey-1, null);
             }
-            else if (Deck.deck[5] == "Wallnut"){
+        }
+        else if (Inventory.selectedPlants.get(numKey-1) == "././res/deck/wallnut.png"){
+            if (Sun.sun_amount >= Wallnut.getCost()){
                 GameMap.plants.add(new Wallnut(x, y));
+                DeckManager.deck.add(new DeckManager(numKey-1, Wallnut.getCooldown(), Inventory.selectedPlants.get(numKey-1)));
+                Inventory.selectedPlants.remove(numKey-1);
+
+                Inventory.selectedPlants.add(numKey-1, null);
             }
         }
     }
+
 }

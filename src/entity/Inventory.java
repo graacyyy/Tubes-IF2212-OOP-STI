@@ -15,7 +15,13 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import main.GamePanel;
+// import main.TitlePanel;
 import main.KeyHandler;
+import tile.GameMap;
+import entity.zombies.BalloonZombie;
+import entity.zombies.DolphinRiderZombie;
+import entity.zombies.PoleVaulting;
+import entity.zombies.Zombie;
 
 public class Inventory extends JPanel {
     private BufferedImage[] images = new BufferedImage[10];
@@ -36,11 +42,13 @@ public class Inventory extends JPanel {
     private int[] originalPositions = new int[10];
     public static ArrayList<Integer> finaldeck = new ArrayList<>();
     public static List<String> selectedPlants = new ArrayList<>();
+    // public static String[] deck = new String[6];
     private BufferedImage playButton;
     private BufferedImage clearAllButton;
     private GamePanel gamePanel;
     private KeyHandler kh;
     private int selectedIndex = -1;
+    private boolean running = true;
 
     public Inventory(GamePanel gamePanel, KeyHandler kh) {
         this.gamePanel = gamePanel;
@@ -110,7 +118,7 @@ public class Inventory extends JPanel {
 
     private void handleKeyPress() {
         if (kh.enterPressed) {
-        kh.enterPressed = false;
+            kh.enterPressed = false;
         if (selectedIndex == 10) {
             if (finaldeck.size() == 6) {
                 switchToGamePanel();
@@ -218,14 +226,16 @@ public class Inventory extends JPanel {
         }
     }
 
-    private void switchToGamePanel() {
+    public void switchToGamePanel() {
+        removeKeyListener(kh);
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
         frame.remove(this);
         frame.add(gamePanel);
         frame.revalidate();
         frame.repaint();
+        running = false;
         gamePanel.startGameThread();
-    }
+    }    
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -276,9 +286,10 @@ public class Inventory extends JPanel {
     @Override
     public void addNotify() {
         super.addNotify();
+        setFocusable(true);
         requestFocusInWindow();
         new Thread(() -> {
-            while (true) {
+            while (running) {
                 handleKeyPress();
                 try {
                     Thread.sleep(50);
@@ -289,17 +300,18 @@ public class Inventory extends JPanel {
         }).start();
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Inventory");
-            GamePanel gamePanel = new GamePanel();
-            KeyHandler kh = new KeyHandler();
-            Inventory inventory = new Inventory(gamePanel, kh);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.getContentPane().add(inventory);
-            frame.pack();
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-        });
-    }
+
+    // public static void main(String[] args) {
+    //     SwingUtilities.invokeLater(() -> {
+    //         JFrame frame = new JFrame("Inventory");
+    //         GamePanel gamePanel = new GamePanel();
+    //         KeyHandler kh = new KeyHandler();
+    //         Inventory inventory = new Inventory(gamePanel, kh);
+    //         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    //         frame.getContentPane().add(inventory);
+    //         frame.pack();
+    //         frame.setLocationRelativeTo(null);
+    //         frame.setVisible(true);
+    //     });
+    // }
 }

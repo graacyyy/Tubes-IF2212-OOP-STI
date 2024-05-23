@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.TimeoutException;
+// import java.util.concurrent.TimeoutException;
 
 import javax.imageio.ImageIO;
 

@@ -32,14 +32,14 @@ public class ImpZombie extends Zombie {
         }
         else if(isSlowed){
             for (Plant plant : GameMap.plants){
-                if (plant.getX() >= x - GamePanel.tileSize && plant.getX() <= x && plant.getY() == y){
+                if (plant.getX() >= x - GamePanel.tileSize+30 && plant.getX() <= x && plant.getY() == y){
                     target = plant;
                     isMoving = false;
                 }
             }
             
             if (isMoving){
-                if (timer >= 2){
+                if (timer >= 16){
                     moveZombie();
                     timer = 0;
                 } else{
@@ -47,7 +47,7 @@ public class ImpZombie extends Zombie {
                 }
                 freeze_timer++;
             }else{
-                if (timer >= 60){
+                if (timer >= 60*attack_speed){
                     target.takeDamage(attack_damage);
                     timer = 0;
                 }else{
@@ -63,21 +63,21 @@ public class ImpZombie extends Zombie {
         }
         else{
             for (Plant plant : GameMap.plants){
-                if (plant.getX() >= x - GamePanel.tileSize && plant.getX() <= x && plant.getY() == y){
+                if (plant.getX() >= x - GamePanel.tileSize+30 && plant.getX() <= x && plant.getY() == y){
                     target = plant;
                     isMoving = false;
                 }
             }
     
             if (isMoving){
-                if (timer >= 1){
+                if (timer >= 8){
                     moveZombie();
                     timer = 0;
                 } else{
                     timer++;
                 }
             }else{
-                if (timer >= 60){
+                if (timer >= 60*attack_speed){
                     target.takeDamage(attack_damage);
                     timer = 0;
                 }else{

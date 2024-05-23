@@ -22,7 +22,7 @@ import main.GamePanel;
 public abstract class Plant extends Entity implements CustomListener{
     protected static int cost;
     protected int range;
-    protected int cooldown;
+    protected static int cooldown;
     protected boolean is_waterplant;
     protected static boolean is_cooldown = true;
     protected boolean shootable;
@@ -55,12 +55,7 @@ public abstract class Plant extends Entity implements CustomListener{
         this.name = name;
     }
 
-    public void setCooldown(int cooldown){
-
-        this.cooldown = cooldown;
-    }
-
-    public int getCooldown(){
+    public static int getCooldown(){
 
         return cooldown;
     }
@@ -98,6 +93,7 @@ public abstract class Plant extends Entity implements CustomListener{
         
         return cost;
     }
+
     // public void setCost(int cost){
 
     public void setRange(int range){
