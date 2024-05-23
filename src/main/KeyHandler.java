@@ -12,6 +12,7 @@ public class KeyHandler implements KeyListener{
     public boolean pause = true;
     public int numKey;
     public int numberPressed;
+    public boolean swapPressed;
 
     @Override
     public void keyTyped(KeyEvent e) {}
