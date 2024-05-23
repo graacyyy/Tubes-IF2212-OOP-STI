@@ -12,10 +12,9 @@ import java.awt.Graphics2D;
 // import javax.sound.sampled.Clip;
 // import javax.sound.sampled.LineEvent;
 // import javax.sound.sampled.LineListener;
-import javax.swing.JFrame;
+// import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import entity.Inventory;
 import tile.UI;
 
 public class TitlePanel extends JPanel implements Runnable{
@@ -30,28 +29,26 @@ public class TitlePanel extends JPanel implements Runnable{
     public final static int helpState = 6;
     public final static int stepState = 7;
     
-    Thread titleThread;
     int FPS = 60;
     KeyHandler kh = new KeyHandler();
-    JFrame window = new JFrame();
-    Inventory inventoryPanel;
-    GamePanel gamePanel;
-    private static boolean running = true;
+    Thread titleThread;
+    // JFrame window = new JFrame();
+    private boolean running = true;
     
-    public TitlePanel(JFrame window, GamePanel gamePanel){
-
-        this.window = window;
-        this.gamePanel = gamePanel;
+    // public TitlePanel(JFrame window, GamePanel gamePanel){
+    public TitlePanel(){
+        // this.window = window;
+        // this.gamePanel = gamePanel;
         this.setPreferredSize(new Dimension(GamePanel.screenWidth, GamePanel.screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         this.addKeyListener(kh);
         this.setFocusable(true);
         gameState = titleState;
-  
     }
 
-    public void startTitle() {
+
+    public void startTitleThread() {
         
         System.out.println("thread");
         titleThread = new Thread(this);
@@ -90,14 +87,16 @@ public class TitlePanel extends JPanel implements Runnable{
     }
 
     public void update(){
+        
         repaint();
+
         if (TitlePanel.gameState == TitlePanel.titleState){
             if(kh.enterPressed){
                 kh.enterPressed = true;
                 if (UI.commandNum == 1){
                     // Switch to InventoryPanel
-                    switchToInventoryPanel();
-                    removeKeyListener(kh);
+                    // switchToInventoryPanel();
+                    // removeKeyListener(kh);
                 } else if (UI.commandNum == 2) { 
                     TitlePanel.gameState = TitlePanel.helpState;
                 } else if (UI.commandNum == 5){
@@ -123,7 +122,8 @@ public class TitlePanel extends JPanel implements Runnable{
             if(kh.enterPressed){
                 kh.enterPressed = false;
                 if (UI.commandNum == 1){
-                    TitlePanel.gameState = TitlePanel.playState;
+                    // TitlePanel.gameState = TitlePanel.playState;
+                    Screen.inventory();
                 } else if (UI.commandNum == 2) { 
                     TitlePanel.gameState = TitlePanel.helpState;
                 } else if (UI.commandNum == 5){
@@ -147,6 +147,13 @@ public class TitlePanel extends JPanel implements Runnable{
         }
     } 
 
+    public void setRunning(boolean running){
+        this.running = running;
+    }
+
+    public boolean isRunning(){
+        return running;
+    }
 
     public void paintComponent(Graphics g){
 
@@ -165,21 +172,21 @@ public class TitlePanel extends JPanel implements Runnable{
         }
     }
 
-    public void switchToInventoryPanel() {
-        if (inventoryPanel == null) {
-            inventoryPanel = new Inventory(gamePanel, kh);
-        }
-        window.remove(this);
-        window.add(inventoryPanel);
-        window.revalidate();
-        window.repaint();
-        stopThread();
-        inventoryPanel.requestFocusInWindow();
-    }
+    // public void switchToInventoryPanel() {
+    //     if (inventoryPanel == null) {
+    //         inventoryPanel = new Inventory(gamePanel, kh);
+    //     }
+    //     window.remove(this);
+    //     window.add(inventoryPanel);
+    //     window.revalidate();
+    //     window.repaint();
+    //     stopThread();
+    //     inventoryPanel.requestFocusInWindow();
+    // }
     
-    public static void stopThread() {
-        running = false;
-    }
+    // public static void stopThread() {
+    //     running = false;
+    // }
 
     // public static void main(String[] args){
 

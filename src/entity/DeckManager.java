@@ -3,6 +3,7 @@ package entity;
 import java.util.ArrayList;
 
 import main.CustomListener;
+import main.Inventory;
 
 public class DeckManager implements CustomListener{
     protected int index;

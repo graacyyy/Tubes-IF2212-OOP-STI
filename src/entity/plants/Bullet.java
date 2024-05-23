@@ -38,7 +38,7 @@ public class Bullet implements CustomListener{
 
 
     public void moveBullet(){
-        x++;
+        x+=2;
     }
 
 
