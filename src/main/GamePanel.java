@@ -189,13 +189,13 @@ public class GamePanel extends JPanel implements Runnable{
             // SPAWN ZOMBIE
             if (gametime >= 20 && gametime <= 160){
                 int chances = randomize.nextInt(1,10);
-                if (chances == 2 || chances == 5 || chances == 9){
-                    if (timer >= 60 && GameMap.zombies.size() < 10){
+                if ((chances == 1 || chances == 4 || chances == 9) && timer >= 60*3){
+                    if (GameMap.zombies.size() < 10){
                         ZombieSpawner.spawn();
-                        timer = 0;
                     } 
-                    else timer++;
+                    timer = 0;
                 }
+                else timer++;
             }
     
             // ITERATOR 

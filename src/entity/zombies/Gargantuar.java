@@ -17,6 +17,7 @@ public class Gargantuar extends Zombie {
         jumped = false;
     }
 
+    @Override
     public void actionPerformed() {
         if (isFreezed){
             if (freeze_timer >= 120){
@@ -45,15 +46,22 @@ public class Gargantuar extends Zombie {
                 }
                 freeze_timer++;
             }else{
-                if (timer >= 60*attack_speed){
+                if (!firstDamage){
                     target.takeDamage(attack_damage);
-                    timer = 0;
-                }else{
-                    timer++;
+                    firstDamage = true;
+                }
+                else{
+                    if (timer >= 60*attack_speed){
+                        target.takeDamage(attack_damage);
+                        timer = 0;
+                    }else{
+                        timer++;
+                    }
                 }
                 isMoving = true;
                 freeze_timer++;
             }
+
             if(freeze_timer>=180){
                 freeze_timer=0;
                 isSlowed=false;
@@ -75,11 +83,18 @@ public class Gargantuar extends Zombie {
                     timer++;
                 }
             }else{
-                if (timer >= 60*attack_speed){
+                if (!firstDamage){
                     target.takeDamage(attack_damage);
-                    timer = 0;
-                }else{
-                    timer++;
+                    firstDamage = true;
+                }
+                else{
+                    if (timer >= 60*attack_speed){
+                        target.takeDamage(attack_damage);
+                        timer = 0;
+                    }else{
+                        timer++;
+                    }
+
                 }
             }
             isMoving = true;
