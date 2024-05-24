@@ -22,10 +22,8 @@ public class BalloonZombie extends Zombie{
         if (!isPopped){
             health =  (int) (health*0.5);
             isPopped = true;
-            System.out.println("Balloon popped");
         }
         else{
-            System.out.println("Balloon already popped, take damage");
             takeDamage(damage);
         }
     }
