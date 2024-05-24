@@ -19,16 +19,48 @@ public class UI {
     static Font heading2;
     static String text;
     private static BufferedImage titleImage, loseImage, winImage, pauseImage, helpImage1, helpImage2;
+    // private static BufferedImage[] plantImages = new BufferedImage[10];
     public static int commandNum = 1;
+
+    static BufferedImage[] plantImages = new BufferedImage[10];
+    static BufferedImage[] zombieImages = new BufferedImage[10];
 
     static {
         try {
-            titleImage = ImageIO.read(new File("./res/menu/titlemenu.png"));
-            loseImage = ImageIO.read(new File("./res/menu/gameover.png"));
-            winImage = ImageIO.read(new File("./res/menu/winPage.png"));
-            pauseImage = ImageIO.read(new File("./res/menu/pause.png"));
-            helpImage1 = ImageIO.read(new File("./res/menu/help_1.png"));
-            helpImage2 = ImageIO.read(new File("./res/menu/help_2.png"));
+            titleImage = ImageIO.read(new File("././res/menu/titlemenu.png"));
+            loseImage = ImageIO.read(new File("././res/menu/gameover.png"));
+            winImage = ImageIO.read(new File("././res/menu/winPage.png"));
+            pauseImage = ImageIO.read(new File("././res/menu/pause.png"));
+            helpImage1 = ImageIO.read(new File("././res/menu/help_1.png"));
+            helpImage2 = ImageIO.read(new File("././res/menu/help_2.png"));
+
+            plantImages[0] = ImageIO.read(new File("././res/menu/plantList/1.png"));
+            plantImages[1] = ImageIO.read(new File("././res/menu/plantList/2.png"));
+            plantImages[2] = ImageIO.read(new File("././res/menu/plantList/3.png"));
+            plantImages[3] = ImageIO.read(new File("././res/menu/plantList/4.png"));
+            plantImages[4] = ImageIO.read(new File("././res/menu/plantList/5.png"));
+            plantImages[5] = ImageIO.read(new File("././res/menu/plantList/6.png"));
+            plantImages[6] = ImageIO.read(new File("././res/menu/plantList/7.png"));
+            plantImages[7] = ImageIO.read(new File("././res/menu/plantList/8.png"));
+            plantImages[8] = ImageIO.read(new File("././res/menu/plantList/9.png"));
+            plantImages[9] = ImageIO.read(new File("././res/menu/plantList/10.png"));
+
+            zombieImages[0] = ImageIO.read(new File("././res/menu/zombieList/1.png"));
+            zombieImages[1] = ImageIO.read(new File("././res/menu/zombieList/2.png"));
+            zombieImages[2] = ImageIO.read(new File("././res/menu/zombieList/3.png"));
+            zombieImages[3] = ImageIO.read(new File("././res/menu/zombieList/4.png"));
+            zombieImages[4] = ImageIO.read(new File("././res/menu/zombieList/5.png"));
+            zombieImages[5] = ImageIO.read(new File("././res/menu/zombieList/6.png"));
+            zombieImages[6] = ImageIO.read(new File("././res/menu/zombieList/7.png"));
+            zombieImages[7] = ImageIO.read(new File("././res/menu/zombieList/8.png"));
+            zombieImages[8] = ImageIO.read(new File("././res/menu/zombieList/9.png"));
+            zombieImages[9] = ImageIO.read(new File("././res/menu/zombieList/10.png"));
+
+            // plantImage = ImageIO.read(new File("././res/menu/plantList/1.png"));
+
+            // for (int j = 0; j < 10; j ++){
+            //     plantImages[j] = ImageIO.read(new File("././res/menu/plantList/" + j +".png"));
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -235,6 +267,22 @@ public class UI {
             int y = (int) (GamePanel.tileSize*5.5f);
             g2.drawString(text, x, y);
             g2.drawString(">", x-GamePanel.tileSize, y);
+        }
+    }
+
+    public static void drawPlantList(Graphics2D g2, int i){
+        if (TitlePanel.gameState == TitlePanel.plantState){
+            if (plantImages[i] != null && i >= 0 && i < 10) {
+                g2.drawImage(plantImages[i], 0, 0, GamePanel.screenWidth, GamePanel.screenHeight, null);
+            }    
+        }
+    }
+
+    public static void drawZombieList(Graphics2D g2, int i){
+        if (TitlePanel.gameState == TitlePanel.zombieState){
+            if (zombieImages[i] != null && i >= 0 && i < 10) {
+                g2.drawImage(zombieImages[i], 0, 0, GamePanel.screenWidth, GamePanel.screenHeight, null);
+            }    
         }
     }
 /* 
