@@ -18,11 +18,11 @@
 - Michael VS Lalapan dapat dimainkan!
 
 ## STRUKTUR PROGRAM
-├───res    # file-file resources seperti png dan wav.
-├───src
-    ├───entity        # Berisikan class-class entitas yang akan digunakan dalam permainan
+├───res         #File-file resources seperti png dan wav
+└───src
+    ├───entity          #Berisikan class-class entitas yang akan digunakan dalam permainan        
     │   ├───plants
-    │   └───zombies
-    ├───main            # Berisikan class-class panel GUI dan Main class
-    └───tile            # Berisikan class-class kebutuhan untuk menggambar background tiap panel
-└───MichaelVSLalapan.jar    # File .jar untuk menjalankan program
+    │   └───zombies 
+    ├───main            #Berisikan class-class panel GUI dan Main class
+    └───tile            #Berisikan class-class kebutuhan untuk menggambar background tiap panel
+└───MichaelVSLalapan.jar    #File .jar untuk menjalankan program
