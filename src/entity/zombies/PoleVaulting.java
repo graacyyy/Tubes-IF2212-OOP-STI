@@ -4,7 +4,8 @@ import entity.plants.Plant;
 import main.GamePanel;
 import tile.GameMap;
 
-public class PoleVaulting extends Zombie {
+public class PoleVaulting extends Zombie{
+
     boolean instantKill;
 
     public PoleVaulting(int x, int y){
@@ -20,6 +21,7 @@ public class PoleVaulting extends Zombie {
 
     @Override
     public void actionPerformed() {
+
         if (isFreezed){
             System.out.println("test");
             if (freeze_timer >= 120){

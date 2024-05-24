@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-// import entity.zombies.BalloonZombie;
 import entity.zombies.Zombie;
 
 import java.awt.Graphics2D;
@@ -16,6 +15,7 @@ import main.GamePanel;
 import tile.GameMap;
 
 public class Bullet implements CustomListener{
+
     protected int x;
     protected int y;
     protected int damage;
@@ -23,24 +23,33 @@ public class Bullet implements CustomListener{
     protected boolean hit;
 
     public Bullet(int x, int y, int damage){
+
         this.x = x;
         this.y = y;
         this.damage=damage;
     }
 
+    // GETTER & SETTER
     public int getX(){
+
         return this.x;
     }
 
     public int getY(){
+
         return this.y;
     }
 
+    public boolean isHit(){
 
-    public void moveBullet(){
-        x+=2;
+        return hit;
     }
 
+    // METHODS
+    public void moveBullet(){
+
+        x+=2;
+    }
 
     public void draw(Graphics2D g2){
 
@@ -55,16 +64,15 @@ public class Bullet implements CustomListener{
     }
 
     public void hit(Zombie zombie) {
+
         zombie.takeDamage(damage);
         System.out.println("Bullet hit zombie");
     }
 
-    public boolean isHit(){
-        return hit;
-    }
 
     @Override
     public void actionPerformed() {
+
         moveBullet();
         for (Zombie zombie : GameMap.zombies){
             if (zombie.getX() >= x&&zombie.getX() <= x+GamePanel.tileSize-30 && zombie.getY() == y){
@@ -73,5 +81,4 @@ public class Bullet implements CustomListener{
             }
         }
     }
-
 }

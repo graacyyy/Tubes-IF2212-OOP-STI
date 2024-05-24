@@ -1,7 +1,6 @@
 package entity.plants;
 
 import entity.zombies.*;
-// import main.GamePanel;
 import tile.GameMap;
 
 public class IceShroom extends Plant{
@@ -12,13 +11,14 @@ public class IceShroom extends Plant{
         name = "Ice Shroom";
         cost = 75;
         health = 100;
-        attack_damage = 200;
+        attack_damage = 20;
         attack_speed = 0;
         range = -1;
         cooldown = 20;
         fileimage = "././res/plants/iceshroom.png";
     }
 
+    // METHODS
     public void freeze(Zombie zombie){
     
         zombie.setIsFreezed(true);
@@ -31,6 +31,7 @@ public class IceShroom extends Plant{
 
     @Override
     public void actionPerformed() {
+
         if (timer >= 3){
             for (Zombie zombie : GameMap.zombies) {
                 freeze(zombie);

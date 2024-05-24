@@ -18,7 +18,9 @@ public class Cactus extends Plant{
         fileimage = "././res/plants/cactus.png";
     }
 
+    //METHODS
     public void shootPea(){
+
         CactusBullet bullet = new CactusBullet (x, y, attack_damage);
         GameMap.bullets.add(bullet);
     }
@@ -28,6 +30,7 @@ public class Cactus extends Plant{
 
     @Override
     public void actionPerformed() {
+
         shootable = true;
         if (!firstshoot){
             for (Zombie zombie : GameMap.zombies) {
@@ -57,5 +60,4 @@ public class Cactus extends Plant{
             }
         }
     }
-    
 }

@@ -6,7 +6,7 @@ import tile.GameMap;
 
 public class PeaShooter extends Plant {
 
-    int timer = 0;
+    protected int timer = 0;
 
     public PeaShooter(int x, int y) {
 
@@ -21,7 +21,9 @@ public class PeaShooter extends Plant {
         fileimage = "././res/plants/peashooter.png";
     }
 
+    // METHODS
     public void shootPea(){
+
         PeaBullet bullet = new PeaBullet(x, y, attack_damage);
         GameMap.bullets.add(bullet);
     }
@@ -31,6 +33,7 @@ public class PeaShooter extends Plant {
 
     @Override
     public void actionPerformed() {
+
         shootable = true;
         if (!firstshoot){
             for (Zombie zombie : GameMap.zombies) {

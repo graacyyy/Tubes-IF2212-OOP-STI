@@ -16,8 +16,9 @@ import javax.swing.JPanel;
 
 
 public class Inventory extends JPanel {
-    private BufferedImage[] images = new BufferedImage[10];
-    private String[] imagePaths = {
+
+    public BufferedImage[] images = new BufferedImage[10];
+    public String[] imagePaths = {
         "././res/deck/cactus.png",
         "././res/deck/iceshroom.png",
         "././res/deck/jalapeno.png",
@@ -30,27 +31,26 @@ public class Inventory extends JPanel {
         "././res/deck/wallnut.png",
     };
 
-    private int[] imagePositions = new int[10];
-    private int[] originalPositions = new int[10];
+    public int[] imagePositions = new int[10];
+    public int[] originalPositions = new int[10];
+
     public static ArrayList<Integer> finaldeck = new ArrayList<>();
     public static List<String> selectedPlants = new ArrayList<>();
-    // public static String[] deck = new String[6];
-    private BufferedImage playButton;
-    private BufferedImage clearAllButton;
-    private BufferedImage swapButton;
-    // private GamePanel gamePanel;
-    KeyHandler kh = new KeyHandler();
-    private int selectedIndex = -1;
-    private int firstSwapIndex = -1;
-    private int secondSwapIndex = -1;
-    private boolean swapMode = false;
+    
+    public KeyHandler kh = new KeyHandler();
+    public BufferedImage playButton;
+    public BufferedImage clearAllButton;
+    public BufferedImage swapButton;
+
+    public int selectedIndex = -1;
+    public int firstSwapIndex = -1;
+    public int secondSwapIndex = -1;
+    public boolean swapMode = false;
 
     private boolean running = true;
 
-    // public Inventory(GamePanel gamePanel, KeyHandler kh) {
     public Inventory() {
-        // this.gamePanel = gamePanel;
-        // this.kh = kh;
+
         initializePanel();
         loadImages();
         calculateImagePositions();
@@ -59,13 +59,67 @@ public class Inventory extends JPanel {
         addKeyListener(kh);
     }
 
-    private void initializePanel() {
+    public void initializePanel() {
+
         setPreferredSize(new Dimension(704, 448));
         setDoubleBuffered(true);
-        setBackground(Color.white);
+        setBackground(Color.black);
+    }
+    
+    public void setRunning(boolean running){
+        
+        this.running = running;
     }
 
-    private void loadImages() {
+    public boolean isRunning(){
+
+        return running;
+    }
+
+    // ADD AND REMOVE FROM DECK
+    public void addPlantToDeck(String filePath) {
+
+        selectedPlants.add(filePath);
+    }
+
+    public void removePlantFromDeck(String filePath) {
+
+        selectedPlants.remove(filePath);
+    }
+
+    // ADD AND REMOVE FROM INVENTORY
+    public void addPlantToInventory(int index) {
+
+        imagePositions[index] = originalPositions[index];
+    }
+
+    public void removePlantFromInventory(int index) {
+
+        imagePositions[index] = -1;
+    }
+
+    public void clearAllPlants() {
+
+        if (!finaldeck.isEmpty()) {
+            for (int index : finaldeck) {
+                addPlantToInventory(index);
+            }
+            finaldeck.clear();
+            selectedPlants.clear();
+            repaint();
+            // displaySelectedPlants();
+        }
+    }
+
+    public String extractPlantName(String filePath) {
+
+        String fileName = new File(filePath).getName();
+        int dotIndex = fileName.lastIndexOf('.');
+        return (dotIndex != -1) ? fileName.substring(0, dotIndex) : fileName;
+    }
+
+    public void loadImages() {
+
         try {
             playButton = ImageIO.read(new File("././res/play.png"));
             clearAllButton = ImageIO.read(new File("././res/clear.png"));
@@ -79,7 +133,8 @@ public class Inventory extends JPanel {
         }
     }
 
-    private void calculateImagePositions() {
+    public void calculateImagePositions() {
+
         int index = 0;
         for (int y = 2; y <= 3; y++) {
             for (int x = 0; x < 5; x++) {
@@ -88,34 +143,16 @@ public class Inventory extends JPanel {
         }
     }
 
-    private void storeOriginalPositions() {
+    public void storeOriginalPositions() {
+
         for (int i = 0; i < imagePositions.length; i++) {
             originalPositions[i] = imagePositions[i];
         }
     }
 
-    private String extractPlantName(String filePath) {
-        String fileName = new File(filePath).getName();
-        int dotIndex = fileName.lastIndexOf('.');
-        return (dotIndex != -1) ? fileName.substring(0, dotIndex) : fileName;
-    }
-
-    private void addPlantToDeck(String filePath) {
-        selectedPlants.add(filePath);
-    }
-
-    private void removePlantFromDeck(String filePath) {
-        selectedPlants.remove(filePath);
-    }
-
-    public void displaySelectedPlants() {
-        System.out.println("Selected Plants:");
-        for (String plant : selectedPlants) {
-            System.out.println(plant);
-        }
-    }
-
-    private void handleKeyPress() {
+    // KEYHANDLER
+    public void handleKeyPress() {
+        
         if (kh.enterPressed) {
             kh.enterPressed = false;
             if (swapMode) {
@@ -160,46 +197,46 @@ public class Inventory extends JPanel {
                     JOptionPane.showMessageDialog(this, "You can only select up to 6 plants for the deck");
                 }
                 repaint();
-                displaySelectedPlants();
+                // displaySelectedPlants();
             }
-    }
-
-    if (kh.upPressed) {
-        kh.upPressed = false;
-        if (selectedIndex < 5) {
-            selectedIndex = 10; 
-        } else {
-            selectedIndex -= 5;
         }
-        repaint();
-    }
 
-    if (kh.downPressed) {
-        kh.downPressed = false;
-        if (selectedIndex >= 5 && selectedIndex < 10) {
-            selectedIndex = 11; 
-        } 
-        else if (selectedIndex >= 10){
-            selectedIndex = 12;
+        if (kh.upPressed) {
+            kh.upPressed = false;
+            if (selectedIndex < 5) {
+                selectedIndex = 10; 
+            } else {
+                selectedIndex -= 5;
+            }
+            repaint();
         }
-        else {
-            selectedIndex += 5;
+
+        if (kh.downPressed) {
+            kh.downPressed = false;
+            if (selectedIndex >= 5 && selectedIndex < 10) {
+                selectedIndex = 11; 
+            } 
+            else if (selectedIndex >= 10){
+                selectedIndex = 12;
+            }
+            else {
+                selectedIndex += 5;
+            }
+            repaint();
         }
-        repaint();
-    }
 
-    if (kh.leftPressed) {
-        kh.leftPressed = false;
-        selectedIndex = (selectedIndex - 1 + 13) % 13; 
-        repaint();
-    }
+        if (kh.leftPressed) {
+            kh.leftPressed = false;
+            selectedIndex = (selectedIndex - 1 + 13) % 13; 
+            repaint();
+        }
 
-    if (kh.rightPressed) {
-        kh.rightPressed = false;
-        selectedIndex = (selectedIndex + 1) % 13; 
-        repaint();
-    }
-
+        if (kh.rightPressed) {
+            kh.rightPressed = false;
+            selectedIndex = (selectedIndex + 1) % 13; 
+            repaint();
+        }
+        
         if (kh.numPressed) {
             kh.numPressed = false;
             int numKey = kh.numKey;
@@ -213,13 +250,15 @@ public class Inventory extends JPanel {
                     removePlantFromDeck(plantPath);
                     JOptionPane.showMessageDialog(this, extractPlantName(plantPath) + " removed from deck");
                     repaint();
-                    displaySelectedPlants();
+                    // displaySelectedPlants();
                 }
             }
         }
     }
 
-    private void handleSwapSelection() {
+    //SWAP
+    public void handleSwapSelection() {
+        
         if (selectedIndex >= 0 && selectedIndex < 10) {
             if (firstSwapIndex == -1) {
                 firstSwapIndex = selectedIndex;
@@ -232,11 +271,12 @@ public class Inventory extends JPanel {
         }
     }
 
-    private void swapSelectedPlants() {
+    public void swapSelectedPlants() {
+
         if (firstSwapIndex != -1 && secondSwapIndex != -1 && firstSwapIndex != secondSwapIndex) {
             boolean firstInDeck = finaldeck.contains(firstSwapIndex);
             boolean secondInDeck = finaldeck.contains(secondSwapIndex);
-
+            
             if (firstInDeck && secondInDeck) {
                 int firstIndexInDeck = finaldeck.indexOf(firstSwapIndex);
                 int secondIndexInDeck = finaldeck.indexOf(secondSwapIndex);
@@ -285,70 +325,37 @@ public class Inventory extends JPanel {
         }
     }
 
+    //DISPLAY
+    public void displaySelectedPlants() {
 
-    private void addPlantToInventory(int index) {
-        imagePositions[index] = originalPositions[index];
-    }
-
-    private void removePlantFromInventory(int index) {
-        imagePositions[index] = -1;
-    }
-
-    public void clearAllPlants() {
-        if (!finaldeck.isEmpty()) {
-            for (int index : finaldeck) {
-                addPlantToInventory(index);
-            }
-            finaldeck.clear();
-            selectedPlants.clear();
-            // JOptionPane.showMessageDialog(this, "All plants removed from deck");
-            repaint();
-            displaySelectedPlants();
+        System.out.println("Selected Plants:");
+        for (String plant : selectedPlants) {
+            System.out.println(plant);
         }
     }
-
-    public void setRunning(boolean running){
-        this.running = running;
-    }
-
-    public boolean isRunning(){
-        return running;
-    }
-
-    // public void switchToGamePanel() {
-    //     removeKeyListener(kh);
-    //     JFrame frame = Main.window;
-    //     if (frame != null){
-    //         frame.remove(this);
-    //         frame.add(gamePanel);
-    //         frame.invalidate();
-    //         frame.validate();
-    //         frame.repaint();
-    //         running = false;
-    //         gamePanel.startGameThread();
-    //         gamePanel.requestFocusInWindow();
-    //     }
-    // }    
-
+    
     @Override
-    protected void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g) {
+        
         super.paintComponent(g);
 
+        // DRAW PLANT CARDS
         try {
-        BufferedImage backgroundImage = ImageIO.read(new File("././res/inventory.png"));
-        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            BufferedImage backgroundImage = ImageIO.read(new File("././res/inventory.png"));
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        } catch (IOException e) {}
 
         for (int i = 0; i < images.length; i++) {
             int pos = imagePositions[i];
+
             if (pos != -1) {
                 int x = pos % 1000;
                 int y = pos / 1000;
                 g.drawImage(images[i], x, y, 90, 90, null);
             }
         }
+
+        // DRAW BUTTON
         for (int i = 0; i < finaldeck.size(); i++) {
             int x = i * 90;
             g.drawImage(images[finaldeck.get(i)], x, 0, 90, 90, null);
@@ -362,10 +369,12 @@ public class Inventory extends JPanel {
             g.fillRect(570, 10, 80, 30);
         }
 
+        // DRAW SELECTOR
         g.setColor(Color.WHITE);
         if (selectedIndex >= 0 && selectedIndex < 10) {
             int x=0;
             int y=0;
+            
             if(selectedIndex>4){
                 x = 90*(selectedIndex-5);
                 y = 90*3;
@@ -373,17 +382,18 @@ public class Inventory extends JPanel {
                 x = 90*(selectedIndex);
                 y = 90*2;
             }
-  
-                g.drawRect(x, y, 90, 90);
-            
-        } else if (selectedIndex == 10) {
+
+            g.drawRect(x, y, 90, 90);
+        } 
+        else if (selectedIndex == 10) {
             g.drawRect(570, 10, 80, 30);
-        } else if (selectedIndex == 11) {
+        } 
+        else if (selectedIndex == 11) {
             g.drawRect(570, 50, 80, 30);
-        } else if (selectedIndex == 12) {
+        } 
+        else if (selectedIndex == 12) {
             g.drawRect(570, 90, 80, 30);
         }
-
     }
 
     @Override
@@ -402,19 +412,4 @@ public class Inventory extends JPanel {
             }
         }).start();
     }
-
-
-    // public static void main(String[] args) {
-    //     SwingUtilities.invokeLater(() -> {
-    //         JFrame frame = new JFrame("Inventory");
-    //         GamePanel gamePanel = new GamePanel();
-    //         KeyHandler kh = new KeyHandler();
-    //         Inventory inventory = new Inventory(gamePanel, kh);
-    //         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    //         frame.getContentPane().add(inventory);
-    //         frame.pack();
-    //         frame.setLocationRelativeTo(null);
-    //         frame.setVisible(true);
-    //     });
-    // }
 }

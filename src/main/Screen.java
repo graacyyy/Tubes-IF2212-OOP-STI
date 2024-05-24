@@ -3,19 +3,22 @@ package main;
 import javax.swing.JFrame;
 
 import entity.DeckManager;
+import entity.Sun;
 import tile.GameMap;
 
 public class Screen {
 
-    static GamePanel gamePanel = new GamePanel();
-    static TitlePanel titlePanel = new TitlePanel();
-    static Inventory inventory = new Inventory();
-    static LosePanel losePanel = new LosePanel();
-    static WinPanel winPanel = new WinPanel();
-    static JFrame window;
+    public static GamePanel gamePanel = new GamePanel();
+    public static TitlePanel titlePanel = new TitlePanel();
+    public static Inventory inventory = new Inventory();
+    public static LosePanel losePanel = new LosePanel();
+    public static WinPanel winPanel = new WinPanel();
+    public static JFrame window;
 
     public static void start(){
+
         window = new JFrame();
+
         window.setTitle("MichaelVSLalapan");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
@@ -29,14 +32,16 @@ public class Screen {
     }
 
     public static void inventory(){
-        // titlePanel.removeKeyListener(titlePanel.kh);
+
         inventory.clearAllPlants();
         GameMap.zombies.clear();
         GameMap.plants.clear();
         GameMap.bullets.clear();
         Inventory.selectedPlants.clear();
         DeckManager.deck.clear();
+        Sun.setSunAmount(50);
         GamePanel.gametime = 0;
+
         window.remove(titlePanel);
         titlePanel.setRunning(false);
         window.setTitle("MichaelVSLalapan");
@@ -44,19 +49,16 @@ public class Screen {
         window.setResizable(false);
 
         window.add(inventory);
-        // inventory.addKeyListener(inventory.kh);
         inventory.setRunning(true);
         inventory.requestFocusInWindow();
         window.pack();
 
         window.setLocationRelativeTo(null);
         window.setVisible(true);
-
-        // titlePanel.startTitle();
     }
 
     public static void play(){
-        // inventory.removeKeyListener(inventory.kh);
+
         window.remove(inventory);
         inventory.setRunning(false);
         window.setTitle("MichaelVSLalapan");
@@ -65,7 +67,6 @@ public class Screen {
 
         window.add(gamePanel);
         gamePanel.requestFocusInWindow();
-        // gamePanel.addKeyListener(gamePanel.kh);
         gamePanel.setRunning(true);
         window.pack();
 
@@ -75,6 +76,7 @@ public class Screen {
     }
 
     public static void lose(){
+
         window.remove(gamePanel);
         gamePanel.setRunning(false);
         window.setTitle("MichaelVSLalapan");
@@ -91,6 +93,7 @@ public class Screen {
     }
 
     public static void win(){
+
         window.remove(gamePanel);
         gamePanel.setRunning(false);
         window.setTitle("MichaelVSLalapan");
@@ -107,6 +110,7 @@ public class Screen {
     }
 
     public static void playAgain(){
+
         if (losePanel.isRunning()){
             window.remove(losePanel);
             losePanel.setRunning(false);
@@ -116,6 +120,7 @@ public class Screen {
             window.remove(winPanel);
             winPanel.setRunning(false);
         }
+
         window.setTitle("MichaelVSLalapan");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);

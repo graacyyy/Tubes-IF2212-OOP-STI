@@ -30,19 +30,17 @@ public class TitlePanel extends JPanel implements Runnable{
     public final static int stepState = 7;
     
     int FPS = 60;
-    KeyHandler kh = new KeyHandler();
-    Thread titleThread;
-    // JFrame window = new JFrame();
+    public KeyHandler kh = new KeyHandler();
+    public Thread titleThread;
     private boolean running = true;
     
-    int COLUMNS = 4;
-    int ROWS = 3;
-    int TOTAL_ITEMS = 10;
-    int i = 0;
-    // public TitlePanel(JFrame window, GamePanel gamePanel){
+    public int COLUMNS = 4;
+    public int ROWS = 3;
+    public int TOTAL_ITEMS = 10;
+    public int i = 0;
+
     public TitlePanel(){
-        // this.window = window;
-        // this.gamePanel = gamePanel;
+
         this.setPreferredSize(new Dimension(GamePanel.screenWidth, GamePanel.screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);

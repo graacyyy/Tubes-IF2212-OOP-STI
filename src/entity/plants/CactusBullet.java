@@ -10,9 +10,10 @@ public class CactusBullet extends Bullet{
         super(x,y,damage);
         fileimage = "././res/bullet/cactus.png";
     }
-
+    
     @Override
     public void hit(Zombie zombie) {
+
         if (zombie instanceof BalloonZombie){
             ((BalloonZombie)zombie).popped(damage);
         }
