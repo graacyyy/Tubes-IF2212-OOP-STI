@@ -156,17 +156,17 @@ public class TitlePanel extends JPanel implements Runnable{
 
         else if (TitlePanel.gameState == TitlePanel.plantState){
             if (kh.leftPressed) {
+                kh.leftPressed = false;
                 if (i > 0) {
                     i--;
                 }
-                kh.leftPressed = false;
             }
         
             if (kh.rightPressed) {
-                if (i < 10) {
+                kh.rightPressed = false;
+                if (i < 9) {
                     i++;
                 } 
-                kh.rightPressed = false;
             }
         
             if (kh.upPressed) {
@@ -192,17 +192,18 @@ public class TitlePanel extends JPanel implements Runnable{
             ROWS = 4;
 
             if (kh.leftPressed) {
+                kh.leftPressed = false;
                 if (i > 0) {
                     i--;
                 }
-                kh.leftPressed = false;
+                
             }
         
             if (kh.rightPressed) {
-                if (i < 10) {
-                    i++;
-                } 
                 kh.rightPressed = false;
+                if (i < 9) {
+                    i++;
+                }
             }
         
             if (kh.upPressed) {
