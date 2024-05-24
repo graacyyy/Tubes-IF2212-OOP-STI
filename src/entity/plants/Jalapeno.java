@@ -26,6 +26,7 @@ public class Jalapeno extends Plant{
 
     @Override
     public void actionPerformed() {
+
         if (timer >= 3){
             for (Zombie zombie : GameMap.zombies) {
                 if (zombie.getY() == y){

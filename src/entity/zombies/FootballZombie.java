@@ -13,13 +13,13 @@ public class FootballZombie extends Zombie {
         health = 360;
         attack_damage = 100;
         attack_speed = 1;
-        is_aquatic = true;
+        is_aquatic = false;
         fileimage = "././res/zombies/footballzombie.png";
-        jumped = false;
     }
 
     @Override
     public void actionPerformed() {
+        
         if (isFreezed){
             System.out.println("test");
             if (freeze_timer >= 120){

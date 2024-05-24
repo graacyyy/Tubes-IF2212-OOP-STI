@@ -21,6 +21,7 @@ public class SnowPea extends Plant {
         fileimage = "././res/plants/snowpea.png";
     }
 
+    // METHODS
     public void shootPea(){
       
         SnowBullet bullet = new SnowBullet(x, y, attack_damage);

@@ -12,7 +12,6 @@ import entity.zombies.Gargantuar;
 import entity.zombies.ImpZombie;
 import entity.zombies.NormalZombie;
 import entity.zombies.PoleVaulting;
-// import entity.zombies.Zombie;
 import main.GamePanel;
 import tile.GameMap;
 
@@ -22,6 +21,7 @@ public class ZombieSpawner {
 
     public static void spawn (){
         int y = randomize.nextInt(1,7);
+            // ZOMBIE IN WATER
             if (y == 3 || y == 4){
                 int x = randomize.nextInt(1,3);
                 switch (x) {
@@ -33,6 +33,7 @@ public class ZombieSpawner {
                         break;
                 }
             }
+            // ZOMBIE ON LAND
             else {
                 int x = randomize.nextInt(1,9);
                 switch (x) {

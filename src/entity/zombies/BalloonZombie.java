@@ -15,10 +15,10 @@ public class BalloonZombie extends Zombie{
         attack_speed = 1;
         is_aquatic = false;
         fileimage = "././res/zombies/ballonzombie.png";
-        jumped = false;
     }
 
     public void popped(int damage){
+
         if (!isPopped){
             health =  (int) (health*0.5);
             isPopped = true;
@@ -30,7 +30,9 @@ public class BalloonZombie extends Zombie{
         }
     }
 
+    @Override
     public void actionPerformed() {
+
         if (isFreezed){
             if (freeze_timer >= 120){
                 isFreezed = false;

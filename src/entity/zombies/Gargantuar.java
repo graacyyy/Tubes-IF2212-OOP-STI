@@ -7,6 +7,7 @@ import tile.GameMap;
 public class Gargantuar extends Zombie {
     
     public Gargantuar(int x, int y){
+        
         super(x,y);
         name = "Gargantuar Zombie";
         health = 500;
@@ -14,11 +15,11 @@ public class Gargantuar extends Zombie {
         attack_speed = 1;
         is_aquatic = false;
         fileimage = "././res/zombies/gargantuar.png";
-        jumped = false;
     }
 
     @Override
     public void actionPerformed() {
+
         if (isFreezed){
             if (freeze_timer >= 120){
                 isFreezed = false;

@@ -7,9 +7,9 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineEvent;
 import javax.sound.sampled.LineListener;
-// import javax.swing.JFrame;
 
 public class Main {
+
     public static void main(String[] args) {
 
         Screen.start();
@@ -17,7 +17,8 @@ public class Main {
 
     }
 
-    private static void playBackSound(String soundFilePath) {
+    public static void playBackSound(String soundFilePath) {
+
         try {
             File soundFile = new File(soundFilePath);
             // System.out.println("Alamat file asli: " + soundFile.getAbsolutePath());

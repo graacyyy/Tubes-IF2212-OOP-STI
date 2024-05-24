@@ -11,11 +11,12 @@ import tile.UI;
 public class WinPanel extends JPanel implements Runnable{
 
     int FPS = 60;
-    KeyHandler kh = new KeyHandler();
+    public KeyHandler kh = new KeyHandler();
+    public Thread winThread;
     private boolean running = true;
-    Thread winThread;
 
     public WinPanel(){
+
         this.setPreferredSize(new Dimension(GamePanel.screenWidth, GamePanel.screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
@@ -95,14 +96,17 @@ public class WinPanel extends JPanel implements Runnable{
     }
 
     public void setRunning(boolean running){
+
         this.running = running;
     }
 
     public boolean isRunning(){
+
         return running;
     }
 
     public void paintComponent(Graphics g){
+        
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D)g;

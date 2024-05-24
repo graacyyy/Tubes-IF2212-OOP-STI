@@ -15,13 +15,14 @@ public class ImpZombie extends Zombie {
         attack_speed = 1;
         is_aquatic = false;
         fileimage = "././res/zombies/impzombie.png";
-        jumped = false;
     }
 
     @Override
     public void actionPerformed() {
+
         if (isFreezed){
             System.out.println("test");
+            
             if (freeze_timer >= 120){
                 isFreezed = false;
                 freeze_timer = 0;
@@ -38,7 +39,7 @@ public class ImpZombie extends Zombie {
                     isMoving = false;
                 }
             }
-            
+        
             if (isMoving){
                 if (timer >= 16){
                     moveZombie();

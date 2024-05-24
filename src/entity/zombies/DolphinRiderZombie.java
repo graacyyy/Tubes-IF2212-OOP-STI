@@ -5,6 +5,7 @@ import main.GamePanel;
 import tile.GameMap;
 
 public class DolphinRiderZombie extends Zombie {
+    
     boolean instantKill;
 
     public DolphinRiderZombie(int x, int y){
@@ -16,10 +17,11 @@ public class DolphinRiderZombie extends Zombie {
         attack_speed = 1;
         is_aquatic = true;
         fileimage = "././res/zombies/dolphinrider.png";
-        jumped = false;
     }
 
+    @Override
     public void actionPerformed() {
+
         if (isFreezed){
             System.out.println("test");
             if (freeze_timer >= 120){
