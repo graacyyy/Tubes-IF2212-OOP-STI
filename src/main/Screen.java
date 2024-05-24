@@ -29,6 +29,7 @@ public class Screen {
         window.setLocationRelativeTo(null);
         window.setVisible(true);
         titlePanel.startTitleThread();
+        AudioPlayer.playBackSound("res/audio/title_sound.wav", true);
     }
 
     public static void inventory(){
@@ -55,6 +56,7 @@ public class Screen {
 
         window.setLocationRelativeTo(null);
         window.setVisible(true);
+        AudioPlayer.playBackSound("res/audio/inventory_sound.wav", true);
     }
 
     public static void play(){
@@ -73,6 +75,7 @@ public class Screen {
         window.setLocationRelativeTo(null);
         window.setVisible(true);
         gamePanel.startGameThread();
+        AudioPlayer.playBackSound("res/audio/playstate_sound.wav", true);
     }
 
     public static void lose(){
@@ -90,6 +93,7 @@ public class Screen {
         window.setLocationRelativeTo(null);
         window.setVisible(true);
         losePanel.startLoseThread();
+        AudioPlayer.playBackSound("res/audio/losestate_sound.wav");
     }
 
     public static void win(){
@@ -107,6 +111,7 @@ public class Screen {
         window.setLocationRelativeTo(null);
         window.setVisible(true);
         winPanel.startWinThread();
+        AudioPlayer.playBackSound("res/audio/winstate_sound.wav");
     }
 
     public static void playAgain(){
@@ -133,6 +138,7 @@ public class Screen {
         window.setLocationRelativeTo(null);
         window.setVisible(true);
         titlePanel.startTitleThread();
+        AudioPlayer.playBackSound("res/audio/title_sound.wav", true);
     }
 
 }
