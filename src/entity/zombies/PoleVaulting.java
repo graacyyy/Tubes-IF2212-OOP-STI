@@ -18,6 +18,7 @@ public class PoleVaulting extends Zombie {
         fileimage = "././res/zombies/polevault.png";
     }
 
+    @Override
     public void actionPerformed() {
         if (isFreezed){
             System.out.println("test");
@@ -47,11 +48,17 @@ public class PoleVaulting extends Zombie {
                 }
                 freeze_timer++;
             }else{
-                if (timer >= 60*attack_speed){
+                if (!firstDamage){
                     target.takeDamage(attack_damage);
-                    timer = 0;
-                }else{
-                    timer++;
+                    firstDamage = true;
+                }
+                else{
+                    if (timer >= 60*attack_speed){
+                        target.takeDamage(attack_damage);
+                        timer = 0;
+                    }else{
+                        timer++;
+                    }
                 }
                 isMoving = true;
                 freeze_timer++;
@@ -82,11 +89,17 @@ public class PoleVaulting extends Zombie {
                     instantKill = true;
                 }
                 else{
-                    if (timer >= 60*attack_speed){
+                    if (!firstDamage){
                         target.takeDamage(attack_damage);
-                        timer = 0;
-                    }else{
-                        timer++;
+                        firstDamage = true;
+                    }
+                    else{
+                        if (timer >= 60*attack_speed){
+                            target.takeDamage(attack_damage);
+                            timer = 0;
+                        }else{
+                            timer++;
+                        }
                     }
                 }
             }

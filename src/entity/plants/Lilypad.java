@@ -14,7 +14,6 @@ public class Lilypad extends Plant {
         attack_speed = 0;
         range = 0;
         cooldown = 10;
-        is_waterplant = true;
         fileimage = "././res/plants/lilypad.png";
     }
 

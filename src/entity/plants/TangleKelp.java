@@ -16,7 +16,6 @@ public class TangleKelp extends Plant{
         attack_speed = 0;
         range = -1;
         cooldown = 20;
-        is_waterplant = true;
         fileimage = "././res/plants/tanglekelp.png";
     }
 

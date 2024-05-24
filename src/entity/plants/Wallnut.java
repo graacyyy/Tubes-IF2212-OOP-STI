@@ -14,7 +14,6 @@ public class Wallnut extends Plant{
         attack_speed = 0;
         range = 0;
         cooldown = 20;
-        is_waterplant = false;
         fileimage = "././res/plants/wallnut.png";
     }
 

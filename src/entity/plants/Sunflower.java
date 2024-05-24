@@ -19,7 +19,6 @@ public class Sunflower extends Plant {
         attack_speed = 0;
         range = 0;
         cooldown = 10;
-        is_waterplant = false;
         fileimage = "././res/plants/sunflower.png";
     }
 

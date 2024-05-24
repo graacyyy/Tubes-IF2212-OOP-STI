@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
 
         Screen.start();
-        playBackSound("res/audio/title.wav");
+        playBackSound("././res/audio/title.wav");
 
     }
 

@@ -23,12 +23,12 @@ public class UI {
 
     static {
         try {
-            titleImage = ImageIO.read(new File("./res/menu/titlemenu.png"));
-            loseImage = ImageIO.read(new File("./res/menu/gameover.png"));
-            winImage = ImageIO.read(new File("./res/menu/winPage.png"));
-            pauseImage = ImageIO.read(new File("./res/menu/pause.png"));
-            helpImage1 = ImageIO.read(new File("./res/menu/help_1.png"));
-            helpImage2 = ImageIO.read(new File("./res/menu/help_2.png"));
+            titleImage = ImageIO.read(new File("././res/menu/titlemenu.png"));
+            loseImage = ImageIO.read(new File("././res/menu/gameover.png"));
+            winImage = ImageIO.read(new File("././res/menu/winPage.png"));
+            pauseImage = ImageIO.read(new File("././res/menu/pause.png"));
+            helpImage1 = ImageIO.read(new File("././res/menu/help_1.png"));
+            helpImage2 = ImageIO.read(new File("././res/menu/help_2.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
