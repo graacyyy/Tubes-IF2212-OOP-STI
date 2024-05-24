@@ -1,33 +1,79 @@
 package tile;
 
-import java.awt.BasicStroke;
+// import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
+// import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.plaf.basic.BasicComboBoxUI.KeyHandler;
+// import javax.swing.plaf.basic.BasicComboBoxUI.KeyHandler;
 
 import main.GamePanel;
+import main.TitlePanel;
 
 public class UI {
     public static Font titleFont;
     static Font heading2;
     static String text;
-    private static BufferedImage titleImage, loseImage, winImage, pauseImage, helpImage1, helpImage2;
+    private static BufferedImage titleImage, loseImage, winImage, pauseImage, helpImage1;
+    // private static BufferedImage[] plantImages = new BufferedImage[10];
     public static int commandNum = 1;
+
+    static BufferedImage[] plantImages = new BufferedImage[10];
+    static BufferedImage[] zombieImages = new BufferedImage[10];
+    static BufferedImage[] stepImages = new BufferedImage[13];
 
     static {
         try {
-            titleImage = ImageIO.read(new File("./res/menu/titlemenu.png"));
-            loseImage = ImageIO.read(new File("./res/menu/gameover.png"));
-            winImage = ImageIO.read(new File("./res/menu/winPage.png"));
-            pauseImage = ImageIO.read(new File("./res/menu/pause.png"));
-            helpImage1 = ImageIO.read(new File("./res/menu/help_1.png"));
-            helpImage2 = ImageIO.read(new File("./res/menu/help_2.png"));
+            titleImage = ImageIO.read(new File("././res/menu/titlemenu.png"));
+            loseImage = ImageIO.read(new File("././res/menu/gameover.png"));
+            winImage = ImageIO.read(new File("././res/menu/winPage.png"));
+            pauseImage = ImageIO.read(new File("././res/menu/pause.png"));
+            helpImage1 = ImageIO.read(new File("././res/menu/help_1.png"));
+          
+            plantImages[0] = ImageIO.read(new File("././res/menu/plantList/1.png"));
+            plantImages[1] = ImageIO.read(new File("././res/menu/plantList/2.png"));
+            plantImages[2] = ImageIO.read(new File("././res/menu/plantList/3.png"));
+            plantImages[3] = ImageIO.read(new File("././res/menu/plantList/4.png"));
+            plantImages[4] = ImageIO.read(new File("././res/menu/plantList/5.png"));
+            plantImages[5] = ImageIO.read(new File("././res/menu/plantList/6.png"));
+            plantImages[6] = ImageIO.read(new File("././res/menu/plantList/7.png"));
+            plantImages[7] = ImageIO.read(new File("././res/menu/plantList/8.png"));
+            plantImages[8] = ImageIO.read(new File("././res/menu/plantList/9.png"));
+            plantImages[9] = ImageIO.read(new File("././res/menu/plantList/10.png"));
+
+            zombieImages[0] = ImageIO.read(new File("././res/menu/zombieList/1.png"));
+            zombieImages[1] = ImageIO.read(new File("././res/menu/zombieList/2.png"));
+            zombieImages[2] = ImageIO.read(new File("././res/menu/zombieList/3.png"));
+            zombieImages[3] = ImageIO.read(new File("././res/menu/zombieList/4.png"));
+            zombieImages[4] = ImageIO.read(new File("././res/menu/zombieList/5.png"));
+            zombieImages[5] = ImageIO.read(new File("././res/menu/zombieList/6.png"));
+            zombieImages[6] = ImageIO.read(new File("././res/menu/zombieList/7.png"));
+            zombieImages[7] = ImageIO.read(new File("././res/menu/zombieList/8.png"));
+            zombieImages[8] = ImageIO.read(new File("././res/menu/zombieList/9.png"));
+            zombieImages[9] = ImageIO.read(new File("././res/menu/zombieList/10.png"));
+
+            stepImages[0] = ImageIO.read(new File("././res/menu/tutorial/1.png"));
+            stepImages[1] = ImageIO.read(new File("././res/menu/tutorial/2.png"));
+            stepImages[2] = ImageIO.read(new File("././res/menu/tutorial/3.png"));
+            stepImages[3] = ImageIO.read(new File("././res/menu/tutorial/4.png"));
+            stepImages[4] = ImageIO.read(new File("././res/menu/tutorial/5.png"));
+            stepImages[5] = ImageIO.read(new File("././res/menu/tutorial/6.png"));
+            stepImages[6] = ImageIO.read(new File("././res/menu/tutorial/7.png"));
+            stepImages[7] = ImageIO.read(new File("././res/menu/tutorial/8.png"));
+            stepImages[8] = ImageIO.read(new File("././res/menu/tutorial/9.png"));
+            stepImages[9] = ImageIO.read(new File("././res/menu/tutorial/10.png"));
+            stepImages[10] = ImageIO.read(new File("././res/menu/tutorial/11.png"));
+            stepImages[11] = ImageIO.read(new File("././res/menu/tutorial/12.png"));
+            stepImages[12] = ImageIO.read(new File("././res/menu/tutorial/13.png"));
+            // plantImage = ImageIO.read(new File("././res/menu/plantList/1.png"));
+
+            // for (int j = 0; j < 10; j ++){
+            //     plantImages[j] = ImageIO.read(new File("././res/menu/plantList/" + j +".png"));
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -46,7 +92,7 @@ public class UI {
         g2.setFont(titleFont);
         g2.setColor(Color.white);
 
-        if(GamePanel.gameState == GamePanel.titleState) {
+        if(TitlePanel.gameState == TitlePanel.titleState) {
             // BACKGROUND
             
             // TITLE NAME
@@ -117,7 +163,7 @@ public class UI {
         g2.setFont(titleFont);
         g2.setColor(Color.white);
 
-        if(GamePanel.gameState == GamePanel.loseState) {
+        if(TitlePanel.gameState == TitlePanel.loseState) {
             // BACKGROUND
             
             // TITLE NAME
@@ -157,7 +203,7 @@ public class UI {
         g2.setFont(titleFont);
         g2.setColor(Color.white);
 
-        if(GamePanel.gameState == GamePanel.winState) {
+        if(TitlePanel.gameState == TitlePanel.winState) {
             // BACKGROUND
             
             // TITLE NAME
@@ -203,28 +249,7 @@ public class UI {
         g2.setFont(titleFont);
         g2.setColor(Color.white);
 
-        if(GamePanel.gameState == GamePanel.helpState) {
-
-            // MENU
-            g2.setFont(titleFont);
-
-            text = "NEXT";
-            int x = getXForCenteredText(g2, text);
-            int y = (int) (GamePanel.tileSize*5.5f);
-            g2.drawString(text, x, y);
-            g2.drawString(">", x-GamePanel.tileSize, y);
-        }
-    }
-
-    public static void drawStep(Graphics2D g2) {
-        if (helpImage2 != null) {
-            g2.drawImage(helpImage2, 0, 0, GamePanel.screenWidth, GamePanel.screenHeight,null);
-        }
-
-        g2.setFont(titleFont);
-        g2.setColor(Color.white);
-
-        if(GamePanel.gameState == GamePanel.stepState) {
+        if(TitlePanel.gameState == TitlePanel.helpState) {
 
             // MENU
             g2.setFont(titleFont);
@@ -233,7 +258,41 @@ public class UI {
             int x = getXForCenteredText(g2, text);
             int y = (int) (GamePanel.tileSize*5.5f);
             g2.drawString(text, x, y);
-            g2.drawString(">", x-GamePanel.tileSize, y);
+            if(commandNum == 1){
+                g2.drawString(">", x-GamePanel.tileSize, y);
+            }
+
+            text = "TUTORIAL";
+            x = getXForCenteredText(g2, text);
+            y += GamePanel.tileSize*0.5f;
+            g2.drawString(text, x, y);
+            if(commandNum == 2){
+                g2.drawString(">", x-GamePanel.tileSize, y);
+            }
+        }
+    }
+
+    public static void drawStep(Graphics2D g2, int i) {
+        if (TitlePanel.gameState == TitlePanel.stepState){
+            if (stepImages[i] != null && i >= 0 && i < 13) {
+                g2.drawImage(stepImages[i], 0, 0, GamePanel.screenWidth, GamePanel.screenHeight, null);
+            }   
+        }
+    }
+
+    public static void drawPlantList(Graphics2D g2, int i){
+        if (TitlePanel.gameState == TitlePanel.plantState){
+            if (plantImages[i] != null && i >= 0 && i < 10) {
+                g2.drawImage(plantImages[i], 0, 0, GamePanel.screenWidth, GamePanel.screenHeight, null);
+            }    
+        }
+    }
+
+    public static void drawZombieList(Graphics2D g2, int i){
+        if (TitlePanel.gameState == TitlePanel.zombieState){
+            if (zombieImages[i] != null && i >= 0 && i < 10) {
+                g2.drawImage(zombieImages[i], 0, 0, GamePanel.screenWidth, GamePanel.screenHeight, null);
+            }    
         }
     }
 /* 

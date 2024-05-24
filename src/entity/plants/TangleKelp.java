@@ -16,7 +16,6 @@ public class TangleKelp extends Plant{
         attack_speed = 0;
         range = -1;
         cooldown = 20;
-        is_waterplant = true;
         fileimage = "././res/plants/tanglekelp.png";
     }
 
@@ -30,7 +29,7 @@ public class TangleKelp extends Plant{
     public void actionPerformed() {
         if (timer >= 3){
             for (Zombie zombie : GameMap.zombies) {
-                if (zombie.getX() <= x + GamePanel.tileSize && zombie.getX() >= x && zombie.getY() == y){
+                if (zombie.getX() <= x + GamePanel.tileSize+30 && zombie.getX() >= x && zombie.getY() == y){
                     instantKill(zombie);
                     health = 0;
                 }

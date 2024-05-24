@@ -14,13 +14,19 @@ public class BalloonZombie extends Zombie{
         attack_damage = 100;
         attack_speed = 1;
         is_aquatic = false;
-        fileimage = "././res/zombie/ballonzombie.png";
+        fileimage = "././res/zombies/ballonzombie.png";
         jumped = false;
     }
 
-    public void popped(){
+    public void popped(int damage){
         if (!isPopped){
             health =  (int) (health*0.5);
+            isPopped = true;
+            System.out.println("Balloon popped");
+        }
+        else{
+            System.out.println("Balloon already popped, take damage");
+            takeDamage(damage);
         }
     }
 
@@ -37,14 +43,14 @@ public class BalloonZombie extends Zombie{
         }
         else if(isSlowed){
             for (Plant plant : GameMap.plants){
-                if (plant.getX() >= x - GamePanel.tileSize && plant.getX() <= x && plant.getY() == y){
+                if (plant.getX() >= x - GamePanel.tileSize+30 && plant.getX() <= x && plant.getY() == y){
                     target = plant;
                     isMoving = false;
                 }
             }
             
             if (isMoving){
-                if (timer >= 6){
+                if (timer >= 16){
                     moveZombie();
                     timer = 0;
                 } else{
@@ -52,15 +58,22 @@ public class BalloonZombie extends Zombie{
                 }
                 freeze_timer++;
             }else{
-                if (timer >= 60){
+                if(!firstDamage){
                     target.takeDamage(attack_damage);
-                    timer = 0;
-                }else{
-                    timer++;
+                    firstDamage = true;
+                }
+                else{
+                    if (timer >= 60*attack_speed){
+                        target.takeDamage(attack_damage);
+                        timer = 0;
+                    }else{
+                        timer++;
+                    }
                 }
                 isMoving = true;
                 freeze_timer++;
             }
+
             if(freeze_timer>=180){
                 freeze_timer=0;
                 isSlowed=false;
@@ -68,14 +81,14 @@ public class BalloonZombie extends Zombie{
         }
         else{
             for (Plant plant : GameMap.plants){
-                if (plant.getX() >= x - GamePanel.tileSize && plant.getX() <= x && plant.getY() == y){
+                if (plant.getX() >= x - GamePanel.tileSize+30 && plant.getX() <= x && plant.getY() == y){
                     target = plant;
                     isMoving = false;
                 }
             }
     
             if (isMoving){
-                if (timer >= 3){
+                if (timer >= 8){
                     moveZombie();
                     timer = 0;
                 } else{
@@ -83,11 +96,17 @@ public class BalloonZombie extends Zombie{
                 }
             }
             else{
-                if (timer >= 60){
+                if (!firstDamage){
                     target.takeDamage(attack_damage);
-                    timer = 0;
-                }else{
-                    timer++;
+                    firstDamage = false;
+                }
+                else{
+                    if (timer >= 60*attack_speed){
+                        target.takeDamage(attack_damage);
+                        timer = 0;
+                    }else{
+                        timer++;
+                    }
                 }
             }
             isMoving = true;

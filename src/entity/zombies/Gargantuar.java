@@ -17,6 +17,7 @@ public class Gargantuar extends Zombie {
         jumped = false;
     }
 
+    @Override
     public void actionPerformed() {
         if (isFreezed){
             if (freeze_timer >= 120){
@@ -30,14 +31,14 @@ public class Gargantuar extends Zombie {
         }
         else if(isSlowed){
             for (Plant plant : GameMap.plants){
-                if (plant.getX() >= x - GamePanel.tileSize && plant.getX() <= x && plant.getY() == y){
+                if (plant.getX() >= x - GamePanel.tileSize+30 && plant.getX() <= x && plant.getY() == y){
                     target = plant;
                     isMoving = false;
                 }
             }
             
             if (isMoving){
-                if (timer >= 4){
+                if (timer >= 18){
                     moveZombie();
                     timer = 0;
                 } else{
@@ -45,15 +46,22 @@ public class Gargantuar extends Zombie {
                 }
                 freeze_timer++;
             }else{
-                if (timer >= 60){
+                if (!firstDamage){
                     target.takeDamage(attack_damage);
-                    timer = 0;
-                }else{
-                    timer++;
+                    firstDamage = true;
+                }
+                else{
+                    if (timer >= 60*attack_speed){
+                        target.takeDamage(attack_damage);
+                        timer = 0;
+                    }else{
+                        timer++;
+                    }
                 }
                 isMoving = true;
                 freeze_timer++;
             }
+
             if(freeze_timer>=180){
                 freeze_timer=0;
                 isSlowed=false;
@@ -61,25 +69,32 @@ public class Gargantuar extends Zombie {
         }
         else{
             for (Plant plant : GameMap.plants){
-                if (plant.getX() >= x - GamePanel.tileSize && plant.getX() <= x && plant.getY() == y){
+                if (plant.getX() >= x - GamePanel.tileSize+30 && plant.getX() <= x && plant.getY() == y){
                     target = plant;
                     isMoving = false;
                 }
             }
     
             if (isMoving){
-                if (timer >= 2){
+                if (timer >= 9){
                     moveZombie();
                     timer = 0;
                 } else{
                     timer++;
                 }
             }else{
-                if (timer >= 60){
+                if (!firstDamage){
                     target.takeDamage(attack_damage);
-                    timer = 0;
-                }else{
-                    timer++;
+                    firstDamage = true;
+                }
+                else{
+                    if (timer >= 60*attack_speed){
+                        target.takeDamage(attack_damage);
+                        timer = 0;
+                    }else{
+                        timer++;
+                    }
+
                 }
             }
             isMoving = true;

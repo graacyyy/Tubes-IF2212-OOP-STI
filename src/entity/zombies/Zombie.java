@@ -27,6 +27,7 @@ public class Zombie extends Entity implements CustomListener{
     protected boolean isFreezed = false;
     protected boolean isPopped = false;
     protected boolean jumped;
+    protected boolean firstDamage = false;
 
     int timer = 0;
     int freeze_timer = 0;
@@ -207,7 +208,7 @@ public class Zombie extends Entity implements CustomListener{
         } catch (IOException e) {
         }
         
-        g2.drawImage(image, x, y, GamePanel.tileSize+10, GamePanel.tileSize+10, null);
+        g2.drawImage(image, x, y-20, GamePanel.tileSize+10, GamePanel.tileSize+10, null);
     }
 
     @Override
@@ -225,14 +226,14 @@ public class Zombie extends Entity implements CustomListener{
         }
         else if(isSlowed){
             for (Plant plant : GameMap.plants){
-                if (plant.getX() >= x - GamePanel.tileSize && plant.getX() <= x && plant.getY() == y){
+                if (plant.getX() >= x - GamePanel.tileSize+30 && plant.getX() <= x && plant.getY() == y){
                     target = plant;
                     isMoving = false;
                 }
             }
             
             if (isMoving){
-                if (timer >= 10){
+                if (timer >= 20){
                     moveZombie();
                     timer = 0;
                 } else{
@@ -240,15 +241,22 @@ public class Zombie extends Entity implements CustomListener{
                 }
                 freeze_timer++;
             }else{
-                if (timer >= 60){
+                if (!firstDamage){
                     target.takeDamage(attack_damage);
-                    timer = 0;
-                }else{
-                    timer++;
+                    firstDamage = true;
+                }
+                else{
+                    if (timer >= 60*attack_speed){
+                        target.takeDamage(attack_damage);
+                        timer = 0;
+                    }else{
+                        timer++;
+                    }
                 }
                 isMoving = true;
                 freeze_timer++;
             }
+
             if(freeze_timer>=180){
                 freeze_timer=0;
                 isSlowed=false;
@@ -256,28 +264,34 @@ public class Zombie extends Entity implements CustomListener{
         }
         else{
             for (Plant plant : GameMap.plants){
-                if (plant.getX() >= x - GamePanel.tileSize && plant.getX() <= x && plant.getY() == y){
+                if (plant.getX() >= x - GamePanel.tileSize+30 && plant.getX() <= x && plant.getY() == y){
                     target = plant;
                     isMoving = false;
                 }
             }
     
             if (isMoving){
-                if (timer >= 5){
+                if (timer >= 10){
                     moveZombie();
                     timer = 0;
                 } else{
                     timer++;
                 }
             }else{
-                if (timer >= 60){
+                if (!firstDamage){
                     target.takeDamage(attack_damage);
-                    timer = 0;
-                }else{
-                    timer++;
+                    firstDamage = true;
                 }
-                isMoving = true;
+                else{
+                    if (timer >= 60*attack_speed){
+                        target.takeDamage(attack_damage);
+                        timer = 0;
+                    }else{
+                        timer++;
+                    }
+                }
             }
+            isMoving = true;
         }
     }
 }

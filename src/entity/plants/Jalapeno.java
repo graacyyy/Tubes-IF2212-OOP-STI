@@ -15,7 +15,6 @@ public class Jalapeno extends Plant{
         attack_speed = 0;
         range = -1;
         cooldown = 20;
-        is_waterplant = false;
         fileimage = "././res/plants/jalapeno.png";
     }
 

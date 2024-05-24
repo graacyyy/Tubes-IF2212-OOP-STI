@@ -18,6 +18,7 @@ public class FootballZombie extends Zombie {
         jumped = false;
     }
 
+    @Override
     public void actionPerformed() {
         if (isFreezed){
             System.out.println("test");
@@ -32,14 +33,14 @@ public class FootballZombie extends Zombie {
         }
         else if(isSlowed){
             for (Plant plant : GameMap.plants){
-                if (plant.getX() >= x - GamePanel.tileSize && plant.getX() <= x && plant.getY() == y){
+                if (plant.getX() >= x - GamePanel.tileSize+30 && plant.getX() <= x && plant.getY() == y){
                     target = plant;
                     isMoving = false;
                 }
             }
             
             if (isMoving){
-                if (timer >= 4){
+                if (timer >= 16){
                     moveZombie();
                     timer = 0;
                 } else{
@@ -47,15 +48,22 @@ public class FootballZombie extends Zombie {
                 }
                 freeze_timer++;
             }else{
-                if (timer >= 60){
+                if (!firstDamage){
                     target.takeDamage(attack_damage);
-                    timer = 0;
-                }else{
-                    timer++;
+                    firstDamage = true;
+                }
+                else{
+                    if (timer >= 60*attack_speed){
+                        target.takeDamage(attack_damage);
+                        timer = 0;
+                    }else{
+                        timer++;
+                    }
                 }
                 isMoving = true;
                 freeze_timer++;
             }
+
             if(freeze_timer>=180){
                 freeze_timer=0;
                 isSlowed=false;
@@ -63,25 +71,31 @@ public class FootballZombie extends Zombie {
         }
         else{
             for (Plant plant : GameMap.plants){
-                if (plant.getX() >= x - GamePanel.tileSize && plant.getX() <= x && plant.getY() == y){
+                if (plant.getX() >= x - GamePanel.tileSize+30 && plant.getX() <= x && plant.getY() == y){
                     target = plant;
                     isMoving = false;
                 }
             }
     
             if (isMoving){
-                if (timer >= 2){
+                if (timer >= 8){
                     moveZombie();
                     timer = 0;
                 } else{
                     timer++;
                 }
             }else{
-                if (timer >= 60){
+                if (!firstDamage){
                     target.takeDamage(attack_damage);
-                    timer = 0;
-                }else{
-                    timer++;
+                    firstDamage = true;
+                }
+                else{
+                    if (timer >= 60*attack_speed){
+                        target.takeDamage(attack_damage);
+                        timer = 0;
+                    }else{
+                        timer++;
+                    }
                 }
             }
             isMoving = true;

@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
+// import javax.swing.ImageIcon;
 
 import java.awt.Graphics2D;
 // import java.awt.image.BufferedImage;
@@ -22,10 +22,10 @@ import main.GamePanel;
 public abstract class Plant extends Entity implements CustomListener{
     protected static int cost;
     protected int range;
-    protected int cooldown;
-    protected boolean is_waterplant;
+    protected static int cooldown;
     protected static boolean is_cooldown = true;
     protected boolean shootable;
+    protected boolean firstshoot = false;
     int timer = 0;
 
     public Plant(int x, int y){
@@ -55,12 +55,7 @@ public abstract class Plant extends Entity implements CustomListener{
         this.name = name;
     }
 
-    public void setCooldown(int cooldown){
-
-        this.cooldown = cooldown;
-    }
-
-    public int getCooldown(){
+    public static int getCooldown(){
 
         return cooldown;
     }
@@ -98,6 +93,7 @@ public abstract class Plant extends Entity implements CustomListener{
         
         return cost;
     }
+
     // public void setCost(int cost){
 
     public void setRange(int range){

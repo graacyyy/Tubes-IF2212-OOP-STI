@@ -1,28 +1,5 @@
 package main;
 
-import entity.PlantSpawner;
-import entity.Sun;
-import entity.TileSelector;
-import entity.ZombieSpawner;
-import entity.plants.Bullet;
-import entity.plants.IceShroom;
-import entity.plants.Jalapeno;
-import entity.plants.PeaShooter;
-import entity.plants.Plant;
-import entity.plants.SnowPea;
-import entity.plants.Sunflower;
-import entity.plants.TangleKelp;
-import entity.zombies.BalloonZombie;
-import entity.zombies.BucketHead;
-import entity.zombies.ConeHead;
-import entity.zombies.DolphinRiderZombie;
-import entity.zombies.DuckyTubeZombie;
-import entity.zombies.FootballZombie;
-import entity.zombies.Gargantuar;
-import entity.zombies.ImpZombie;
-import entity.zombies.NormalZombie;
-import entity.zombies.PoleVaulting;
-import entity.zombies.Zombie;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -32,9 +9,27 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
+// import java.io.File;
+// import java.io.IOException;
 import java.util.Random;
+
 import javax.imageio.ImageIO;
+// import javax.swing.JFrame;
+// import javax.swing.JFrame;
+// import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+// import javax.swing.SwingUtilities;
+
+import entity.TileSelector;
+import entity.plants.Bullet;
+import entity.plants.Lilypad;
+import entity.plants.Plant;
+// import entity.zombies.NormalZombie;
+import entity.zombies.Zombie;
+import entity.ZombieSpawner;
+import entity.DeckManager;
+import entity.PlantSpawner;
+import entity.Sun;
 import tile.GameMap;
 import tile.UI;
 
@@ -42,23 +37,22 @@ import tile.UI;
 public class GamePanel extends JPanel implements Runnable{
 
     // STATE
-    public static int gameState;
-    public final static int titleState = 0;
-    public final static int playState = 1;
-    public final static int loseState = 2;
-    public final static int winState = 3;
-    public final static int plantState = 4;
-    public final static int zombieState = 5;
-    public final static int helpState = 6;
-    public final static int stepState = 7;
-    public final static int inventoryState = 8;
+    // public static int gameState;
+    // public final static int titleState = 0;
+    // public final static int playState = 1;
+    // public final static int loseState = 2;
+    // public final static int winState = 3;
+    // public final static int plantState = 4;
+    // public final static int zombieState = 5;
+    // public final static int helpState = 6;
+    // public final static int stepState = 7;
+    // public final static int inventoryState = 8;
 
-    public static boolean pause = false;
     
     // SCREEN SETTINGS
     final static int originalTileSize = 16; // 16x16
     final static int scale = 4;
-
+    
     public final static int tileSize = originalTileSize * scale; // 64x64
     public final static int maxScreenCol = 11;
     public final static int maxScreenRow = 7; // jadiin 7 buat deck diatas
@@ -69,24 +63,22 @@ public class GamePanel extends JPanel implements Runnable{
     int FPS = 60;
     
     // GAME OBJECTS
+    public static int gametime = 0;
     GameMap gameMap = new GameMap();
-    MouseHandler mh = new MouseHandler();
     KeyHandler kh = new KeyHandler();
     Random randomize = new Random();
     Thread gameThread, titleThread;
-    BufferedImage image3;
-    int timer = 0;
-    public static int gametime = 0;
-    int selectedX, selectedY;
     Zombie zb;
     Plant pl;
     TileSelector tileSelector = new TileSelector();
-    CollisionChecker collisionChecker = new CollisionChecker(this);
-    boolean plantable;
-    // int sun = 50;
     Font font = new Font("Terminal", Font.BOLD, 14);
     Font font2 = new Font("Terminal", Font.BOLD, 12);
-
+    boolean plantable;
+    boolean isLilypad;
+    private boolean running = true;
+    int timer = 0;
+    int selectedX, selectedY;
+    // int sun = 50;
     int suntimer=0;
     int suninterval=5;
 
@@ -95,28 +87,27 @@ public class GamePanel extends JPanel implements Runnable{
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
-        this.addMouseListener(mh);
         this.addKeyListener(kh);
         this.setFocusable(true);
-        gameState = titleState;
-        AudioPlayer.playBackSound("res/audio/backsoundMichaelVsLalapan.wav", true);
+        // losePanel = new LosePanel();
+
         // moveZombie();
         // moveBullet();
     }
 
     public void startGameThread() {
-        
+
         System.out.println("thread");
         gameThread = new Thread(this);
         gameThread.start();
     }
 
-    public void startTitle() {
+    // public void startTitle() {
         
-        System.out.println("thread");
-        titleThread = new Thread(this);
-        gameThread.start();
-    }
+    //     System.out.println("thread");
+    //     titleThread = new Thread(this);
+    //     gameThread.start();
+    // }
 
     @Override
     public void run() {
@@ -128,7 +119,7 @@ public class GamePanel extends JPanel implements Runnable{
         long timer = 0;
         int drawCount = 0;
 
-        while(!pause){
+        while(running){
 
             currentTime = System.nanoTime();
 
@@ -141,7 +132,7 @@ public class GamePanel extends JPanel implements Runnable{
                 delta--;
                 drawCount++;
             }
-
+            
             if(timer >= 1000000000){
                 System.out.println("FPS:" + drawCount);
                 drawCount = 0;
@@ -151,24 +142,31 @@ public class GamePanel extends JPanel implements Runnable{
             }
         }
     }
-
+    
     public void update(){
-
+        
         repaint();
-            if(gametime <= 100){
-                if(suntimer>=suninterval*60){
-                    Sun.addsun(25);
-                    System.out.println("Sun otomatis");
-                    suninterval = randomize.nextInt(5,11) ;
-                    suntimer=0;
-                }else{
-                    suntimer++;
-                }
+        
+        // SUN OTOMATIS
+        if(gametime <= 100){
+            if(suntimer>=suninterval*60){
+                Sun.addsun(25);
+                System.out.println("Sun otomatis");
+                suninterval = randomize.nextInt(5,11) ;
+                suntimer=0;
+            }else{
+                suntimer++;
             }
+        }
             // SPAWN PLANT
             plantable = true;
+            isLilypad = false;
             for (Plant plant : GameMap.plants) {
                 if (selectedX == plant.getX() && selectedY == plant.getY()){
+                    if (plant instanceof Lilypad){
+                        isLilypad = true;
+                        break;
+                    }
                     plantable = false;
                 }
             }
@@ -176,104 +174,28 @@ public class GamePanel extends JPanel implements Runnable{
             if (kh.numPressed == true && kh.numKey == 7){
                 plantable = true;
             }
-    
-            if (kh.numPressed == true && plantable){
-                kh.numPressed = false;
-                int plantIndex = kh.numKey;
-                switch (plantIndex) {
-                    case 1:
-                    if (Sun.getSunAmount() >= Sunflower.getCost()){
-                        PlantSpawner.spawn(new Sunflower(selectedX, selectedY));
-                        Sun.reducesun(Sunflower.getCost());
-                    }
-                        break;
-                    case 2:
-                    if (Sun.getSunAmount() >= TangleKelp.getCost()){
-                        PlantSpawner.spawn(new TangleKelp(selectedX, selectedY));
-                        Sun.reducesun(TangleKelp.getCost());
-                    }
-                        break;
-                    case 3:
-                    if (Sun.getSunAmount() >= Jalapeno.getCost()){
-                        PlantSpawner.spawn(new Jalapeno(selectedX, selectedY));
-                        Sun.reducesun(Jalapeno.getCost());
-                    }
-                        break;
-                    case 4:
-                    if (Sun.getSunAmount() >= IceShroom.getCost()){
-                        PlantSpawner.spawn(new IceShroom(selectedX, selectedY));
-                        Sun.reducesun(IceShroom.getCost());
-                    }  
-                        break;
-                    case 5:
-                    if (Sun.getSunAmount() >= PeaShooter.getCost()){
-                        PlantSpawner.spawn(new PeaShooter(selectedX, selectedY));
-                        Sun.reducesun(PeaShooter.getCost());
-                    }
-                        break;
-                    case 6:
-                    if (Sun.getSunAmount() >= SnowPea.getCost()){
-                        PlantSpawner.spawn(new SnowPea(selectedX, selectedY));
-                        Sun.reducesun(SnowPea.getCost());
-                    }
-                        break;
-                    case 7:
+        //  System.out.println(kh.numPressed);
+        //  System.out.println(plantable);
+            if (kh.numPressed == true && (plantable || isLilypad)){
+                if (kh.numKey == 7){
                     GameMap.plants.removeIf(plant -> plant.getX() == selectedX && plant.getY() == selectedY);
-                        break;
                 }
+                else{
+                    PlantSpawner.spawn(kh.numKey, selectedX, selectedY, isLilypad);
+                }
+                isLilypad = false;
             }
     
             // SPAWN ZOMBIE
             if (gametime >= 20 && gametime <= 160){
                 int chances = randomize.nextInt(1,10);
-                if (chances == 3 || chances == 5 || chances == 7){
-                    if (timer >= 60 && GameMap.zombies.size() < 10){
-                        int y = randomize.nextInt(1,7);
-                        if (y == 3 || y == 4){
-                            int x = randomize.nextInt(1,3);
-                            switch (x) {
-                                case 1:
-                                ZombieSpawner.spawn(new DolphinRiderZombie(10*tileSize, y*tileSize));
-                                    break;
-                                case 2:
-                                ZombieSpawner.spawn(new DuckyTubeZombie(10*tileSize, y*tileSize));
-                                    break;
-                            }
-                        }
-                        else {
-                            int x = randomize.nextInt(1,9);
-                            switch (x) {
-                                case 1:
-                                ZombieSpawner.spawn(new BalloonZombie(10*tileSize, y*tileSize));
-                                    break;
-                                case 2:
-                                ZombieSpawner.spawn(new BucketHead(10*tileSize, y*tileSize));
-                                    break;
-                                case 3:
-                                ZombieSpawner.spawn(new ConeHead(10*tileSize, y*tileSize));
-                                    break;
-                                case 4:
-                                ZombieSpawner.spawn(new FootballZombie(10*tileSize, y*tileSize));
-                                    break;
-                                case 5:
-                                ZombieSpawner.spawn(new Gargantuar(10*tileSize, y*tileSize));
-                                    break;
-                                case 6:
-                                ZombieSpawner.spawn(new ImpZombie(10*tileSize, y*tileSize));
-                                    break;
-                                case 7:
-                                ZombieSpawner.spawn(new NormalZombie(10*tileSize, y*tileSize));
-                                    break;
-                                case 8:
-                                ZombieSpawner.spawn(new PoleVaulting(10*tileSize, y*tileSize));
-                                    break;
-                            }
-                        }
-            
-                        timer = 0;
+                if ((chances == 1 || chances == 4 || chances == 9) && timer >= 60*3){
+                    if (GameMap.zombies.size() < 10){
+                        ZombieSpawner.spawn();
                     } 
-                    else timer++;
+                    timer = 0;
                 }
+                else timer++;
             }
     
             // ITERATOR 
@@ -294,6 +216,15 @@ public class GamePanel extends JPanel implements Runnable{
                     planIterator.remove();
                 }
             }
+
+            Iterator<DeckManager> deckIterator = DeckManager.deck.iterator();
+            while (deckIterator.hasNext()){
+                DeckManager deck = deckIterator.next();
+                deck.actionPerformed();
+                if (deck.isReady()){
+                    deckIterator.remove();
+                }
+            }
     
             Iterator<Zombie> zombieIterator = GameMap.zombies.iterator();
             while (zombieIterator.hasNext()){
@@ -303,73 +234,177 @@ public class GamePanel extends JPanel implements Runnable{
                     zombieIterator.remove();
                 }
             }
-    
-            // TILESELECTOR HANDLER
-            if (kh.enterPressed == true){
-                kh.enterPressed = false;
-                selectedX = tileSelector.getX();
-                selectedY = tileSelector.getY();
-                System.out.println("X: " + selectedX + " Y: " + selectedY);
-                // if (kh.numPressed == true){
-                //     isPlanted = true;
-                // }
-            }           
-            else if (kh.upPressed == true){
-                kh.upPressed = false;
-                if (tileSelector.getY() == tileSize){
-                    tileSelector.setY((maxScreenRow-1)*tileSize);
-                }
-                else tileSelector.setY(tileSelector.getY()-tileSize);
-            }
-    
-            else if (kh.downPressed == true){
-                kh.downPressed = false;
-                if (tileSelector.getY() == (maxScreenRow-1)*tileSize){
-                    tileSelector.setY(tileSize);
-                }
-                else tileSelector.setY(tileSelector.getY()+tileSize);
-            }
-    
-            else if (kh.leftPressed == true){
-                kh.leftPressed = false;
-                if (tileSelector.getX() == tileSize){
-                    tileSelector.setX((maxScreenCol-2)*tileSize);
-                }
-                else tileSelector.setX(tileSelector.getX()-tileSize);
-            }
-            else if (kh.rightPressed == true){
-                kh.rightPressed = false;
-                if (tileSelector.getX() == (maxScreenCol-2)*tileSize){
-                    tileSelector.setX(tileSize);
-                }
-                else tileSelector.setX(tileSelector.getX()+tileSize);
-            }
-            else if (kh.numPressed == true){
-                kh.numPressed = false;
-                System.out.println("Number pressed: " + kh.numKey);
-            }
+
             
             // GAME STATE HANDLER
             if (gametime >= 200){
                 if (GameMap.zombies.size() <= 0){
-                    gameState = winState;
-                    AudioPlayer.playBackSound("res/audio/winstate_sound.wav");
-                } else {
-                    gameState = loseState;
-                    UI.commandNum = 1;
-                }
+                    TitlePanel.gameState = TitlePanel.winState;
+                    Screen.win();
+                } 
             } else {
                 for (Zombie zombie : GameMap.zombies) {
                     if (zombie.getX() == 0) {
-                        gameState = loseState;
                         UI.commandNum = 1;
+                        TitlePanel.gameState = TitlePanel.loseState;
+                        Screen.lose();
                         break; 
                     }
                 }
             }
-        // }
+
+            // KEYHANDLER
+            if (kh.enterPressed) {
+                kh.enterPressed = false;
+                selectedX = tileSelector.getX();
+                selectedY = tileSelector.getY();
+            }
+    
+            if (kh.upPressed) {
+                kh.upPressed = false;
+                if (tileSelector.getY() == tileSize) {
+                    tileSelector.setY((maxScreenRow - 1) * tileSize);
+                } else {
+                    tileSelector.setY(tileSelector.getY() - tileSize);
+                }
+            }
+    
+            if (kh.downPressed) {
+                kh.downPressed = false;
+                if (tileSelector.getY() == (maxScreenRow - 1) * tileSize) {
+                    tileSelector.setY(tileSize);
+                } else {
+                    tileSelector.setY(tileSelector.getY() + tileSize);
+                }
+            }
+    
+            if (kh.leftPressed) {
+                kh.leftPressed = false;
+                if (tileSelector.getX() == tileSize) {
+                    tileSelector.setX((maxScreenCol - 2) * tileSize);
+                } else {
+                    tileSelector.setX(tileSelector.getX() - tileSize);
+                }
+            }
+            
+            if (kh.rightPressed) {
+                kh.rightPressed = false;
+                if (tileSelector.getX() == (maxScreenCol - 2) * tileSize) {
+                    tileSelector.setX(tileSize);
+                } else {
+                    tileSelector.setX(tileSelector.getX() + tileSize);
+                }
+            }
+
+            if (kh.numPressed == true){
+                kh.numPressed = false;
+                System.out.println("Number pressed: " + kh.numKey);
+            }
+            // if(kh.upPressed == true){
+                //     kh.upPressed = false;
+                //     UI.commandNum--;
+                //     if (UI.commandNum < 1){
+                //         UI.commandNum = 2;
+                //     }
+                // }
+    
+                // if(kh.downPressed == true){
+                //     kh.downPressed = false;
+                //     UI.commandNum++;
+                //     if (UI.commandNum > 2){
+                //         UI.commandNum = 1;
+                //     }
+                // }
+    
+                // if(kh.enterPressed){
+                //     kh.enterPressed = false;
+                //     if (UI.commandNum == 1){
+                //         TitlePanel.gameState = TitlePanel.playState;
+                //     } else {
+                //         System.exit(0); 
+                //     }
+                // } 
+    
+                // if (kh.enterPressed == true){
+                //     kh.enterPressed = false;
+                //     selectedX = tileSelector.getX();
+                //     selectedY = tileSelector.getY();
+                //     System.out.println("X: " + selectedX + " Y: " + selectedY);
+                // }           
+                // if (kh.upPressed == true){
+                //     kh.upPressed = false;
+                //     if (tileSelector.getY() == tileSize){
+                //         tileSelector.setY((maxScreenRow-1)*tileSize);
+                //         System.out.println("Tile X " + tileSelector.getX() + "Tile Y: " + tileSelector.getY());
+    
+                //     }
+                //     else {
+                //         tileSelector.setY(tileSelector.getY()-tileSize);
+                //         System.out.println("Tile X " + tileSelector.getX() + "Tile Y: " + tileSelector.getY());
+                //     }
+                // }
         
+                // if (kh.downPressed == true){
+                //     kh.downPressed = false;
+                //     if (tileSelector.getY() == (maxScreenRow-1)*tileSize){
+                //         tileSelector.setY(tileSize);
+                //         System.out.println("Tile X " + tileSelector.getX() + "Tile Y: " + tileSelector.getY());
+                //     }
+                //     else {
+                //         tileSelector.setY(tileSelector.getY()+tileSize);
+                //         System.out.println("Tile X " + tileSelector.getX() + "Tile Y: " + tileSelector.getY());
+                //     }
+                // }
+        
+                // if (kh.leftPressed == true){
+                //     kh.leftPressed = false;
+                //     if (tileSelector.getX() == tileSize){
+                //         tileSelector.setX((maxScreenCol-2)*tileSize);
+                //         System.out.println("Tile X " + tileSelector.getX() + "Tile Y: " + tileSelector.getY());
+                //     }
+                //     else {
+                //         tileSelector.setX(tileSelector.getX()-tileSize);
+                //         System.out.println("Tile X " + tileSelector.getX() + "Tile Y: " + tileSelector.getY());
+                //     }
+                // }
+                // if (kh.rightPressed == true){
+                //     kh.rightPressed = false;
+                //     if (tileSelector.getX() == (maxScreenCol-2)*tileSize){
+                //         tileSelector.setX(tileSize);
+                //         System.out.println("Tile X " + tileSelector.getX() + "Tile Y: " + tileSelector.getY());
+                //     }
+                //     else {
+                //         tileSelector.setX(tileSelector.getX()+tileSize);
+                //         System.out.println("Tile X " + tileSelector.getX() + "Tile Y: " + tileSelector.getY());
+                //     }
+                // }
+    } 
+    
+    public void setRunning(boolean running){
+        this.running = running;
     }
+
+    public boolean isRunning(){
+        return running;
+    }
+    
+    // public void switchToLosePanel(){
+    //     JFrame frame = Main.window;
+    //     if (frame != null) {
+    //         this.setVisible(false);
+    //         frame.remove(this);
+    //         frame.add(losePanel);
+    //         frame.revalidate();
+    //         frame.repaint();
+    //         stopThread();
+    //         losePanel.startLose();
+    //         losePanel.requestFocusInWindow();
+    //     }
+    // }
+
+    // public void stopThread(){
+    //     pause = true;
+    // }
 
     public void paintComponent(Graphics g){
 
@@ -377,51 +412,46 @@ public class GamePanel extends JPanel implements Runnable{
 
         Graphics2D g2 = (Graphics2D)g;
 
-        if (gameState == titleState){
-            UI.drawTitle(g2);
-        } else if (gameState == loseState) {
-            UI.drawLose(g2);
-        } else if (gameState == winState) {
-            UI.drawWin(g2);
-        } 
-        else if (gameState == helpState) {
-            // System.out.println("HELP STATE-------");
-            UI.drawHelp(g2);
-        } 
-        else if (gameState == stepState) {
-            UI.drawStep(g2);
-        } else if (gameState == inventoryState){
-            UI.drawHelp(g2);
-        } else {
-            gameMap.draw(g2);
+        gameMap.draw(g2);
 
-            for (int i = 0; i < GameMap.bullets.size(); i++) {
-                if(GameMap.bullets.get(i)!=null){
-                    GameMap.bullets.get(i).draw(g2);
-                }
+        for (int i = 0; i < GameMap.bullets.size(); i++) {
+            if(GameMap.bullets.get(i)!=null){
+                GameMap.bullets.get(i).draw(g2);
             }
-
-            for (int i = 0; i < GameMap.plants.size(); i++) {
-                if(GameMap.plants.get(i)!=null){
-                    GameMap.plants.get(i).draw(g2);
-                }
-            }
-            
-            for (int i = 0; i < GameMap.zombies.size(); i++) {
-                if(GameMap.zombies.get(i)!=null){
-                    GameMap.zombies.get(i).draw(g2);
-                }
-            }
-            
-            tileSelector.draw(g2);
-            
-            gameMap.drawDeck(g2);
-            
-            drawSun(g2);
-            drawGameTime(g2);
-            drawTime(g2);
-            g2.dispose();
         }
+
+        for (int i = 0; i < GameMap.plants.size(); i++) {
+            if(GameMap.plants.get(i)!=null){
+                GameMap.plants.get(i).draw(g2);
+            }
+        }
+        
+        tileSelector.draw(g2);
+
+        for (int i = 0; i < GameMap.zombies.size(); i++) {
+            if(GameMap.zombies.get(i)!=null){
+                GameMap.zombies.get(i).draw(g2);
+            }
+        }
+        
+        
+        gameMap.drawDeck(g2);
+        
+        for (int i = 0; i < Inventory.selectedPlants.size(); i++) {
+            if(Inventory.selectedPlants.get(i)!=null){
+                try {
+                    BufferedImage image = ImageIO.read(new File(Inventory.selectedPlants.get(i)));
+                    g2.drawImage(image, (i+1)*tileSize, 2, tileSize, tileSize-10, null);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        
+        drawSun(g2);
+        drawGameTime(g2);
+        drawTime(g2);
+        g2.dispose();    
     }
 
     public void drawSun(Graphics2D g2){

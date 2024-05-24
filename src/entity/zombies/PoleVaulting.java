@@ -5,6 +5,7 @@ import main.GamePanel;
 import tile.GameMap;
 
 public class PoleVaulting extends Zombie {
+    boolean instantKill;
 
     public PoleVaulting(int x, int y){
 
@@ -15,9 +16,9 @@ public class PoleVaulting extends Zombie {
         attack_speed = 1;
         is_aquatic = false;
         fileimage = "././res/zombies/polevault.png";
-        jumped = false;
     }
 
+    @Override
     public void actionPerformed() {
         if (isFreezed){
             System.out.println("test");
@@ -32,26 +33,32 @@ public class PoleVaulting extends Zombie {
         }
         else if(isSlowed){
             for (Plant plant : GameMap.plants){
-                if (plant.getX() >= x - GamePanel.tileSize && plant.getX() <= x && plant.getY() == y){
+                if (plant.getX() >= x - GamePanel.tileSize+30 && plant.getX() <= x && plant.getY() == y){
                     target = plant;
                     isMoving = false;
                 }
             }
+            
             if (isMoving){
-                if (timer >= 6){
+                if (timer >= 20){
                     moveZombie();
                     timer = 0;
                 } else{
                     timer++;
                 }
                 freeze_timer++;
-            }
-            else{
-                if (timer >= 60){
+            }else{
+                if (!firstDamage){
                     target.takeDamage(attack_damage);
-                    timer = 0;
-                }else{
-                    timer++;
+                    firstDamage = true;
+                }
+                else{
+                    if (timer >= 60*attack_speed){
+                        target.takeDamage(attack_damage);
+                        timer = 0;
+                    }else{
+                        timer++;
+                    }
                 }
                 isMoving = true;
                 freeze_timer++;
@@ -63,22 +70,7 @@ public class PoleVaulting extends Zombie {
         }
         else{
             for (Plant plant : GameMap.plants){
-                if (plant.getX() >= x - GamePanel.tileSize && plant.getX() <= x && plant.getY() == y){
-                    target = plant;
-                    isMoving = false;
-                }
-            }
-            if (isMoving){
-                if (timer >= 3){
-                    moveZombie();
-                    timer = 0;
-                } else{
-                    timer++;
-                }
-            }
-            else if(isSlowed){
-            for (Plant plant : GameMap.plants){
-                if (plant.getX() >= x - GamePanel.tileSize && plant.getX() <= x && plant.getY() == y){
+                if (plant.getX() >= x - GamePanel.tileSize+30 && plant.getX() <= x && plant.getY() == y){
                     target = plant;
                     isMoving = false;
                 }
@@ -92,24 +84,26 @@ public class PoleVaulting extends Zombie {
                     timer++;
                 }
             }else{
-                if (timer >= 60){
-                    target.takeDamage(attack_damage);
-                    timer = 0;
-                }else{
-                    timer++;
+                if (!instantKill){
+                    target.setHealth(0);
+                    instantKill = true;
                 }
-                isMoving = true;
-            }
-        }
-            else{
-                if (timer >= 60){
-                    target.takeDamage(attack_damage);
-                    timer = 0;
-                }else{
-                    timer++;
+                else{
+                    if (!firstDamage){
+                        target.takeDamage(attack_damage);
+                        firstDamage = true;
+                    }
+                    else{
+                        if (timer >= 60*attack_speed){
+                            target.takeDamage(attack_damage);
+                            timer = 0;
+                        }else{
+                            timer++;
+                        }
+                    }
                 }
-                isMoving = true;
             }
+            isMoving = true;
         }
     }
 }

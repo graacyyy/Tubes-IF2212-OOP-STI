@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.TimeoutException;
+// import java.util.concurrent.TimeoutException;
 
 import javax.imageio.ImageIO;
 
@@ -32,41 +32,41 @@ public class GameMap {
         try{
             // Game Area
             tile[0] = new Tile();
-            tile[0].image = ImageIO.read(new File("./res/tiles/grass.png"));
+            tile[0].image = ImageIO.read(new File("././res/tiles/grass.png"));
 
             tile[1] = new Tile();
-            tile[1].image = ImageIO.read(new File("./res/tiles/home.png"));
+            tile[1].image = ImageIO.read(new File("././res/tiles/home.png"));
 
             tile[2] = new Tile();
-            tile[2].image = ImageIO.read(new File("./res/tiles/pool.png"));
+            tile[2].image = ImageIO.read(new File("././res/tiles/pool.png"));
 
             tile[3] = new Tile();
-            tile[3].image = ImageIO.read(new File("./res/tiles/spawn.png"));
+            tile[3].image = ImageIO.read(new File("././res/tiles/spawn.png"));
 
             // Deck 
             tile[4] = new Tile();
-            tile[4].image = ImageIO.read(new File("./res/deck/deck01.png"));
+            tile[4].image = ImageIO.read(new File("././res/deck/deck01.png"));
 
             tile[5] = new Tile();
-            tile[5].image = ImageIO.read(new File("./res/deck/deck02.png"));
+            tile[5].image = ImageIO.read(new File("././res/deck/deck02.png"));
 
             tile[6] = new Tile();
-            tile[6].image = ImageIO.read(new File("./res/deck/deck03.png"));
+            tile[6].image = ImageIO.read(new File("././res/deck/deck03.png"));
 
             tile[7] = new Tile();
-            tile[7].image = ImageIO.read(new File("./res/deck/deck04.png"));
+            tile[7].image = ImageIO.read(new File("././res/deck/deck04.png"));
 
             tile[8] = new Tile();
-            tile[8].image = ImageIO.read(new File("./res/deck/deck05.png"));
+            tile[8].image = ImageIO.read(new File("././res/deck/deck05.png"));
 
             tile[9] = new Tile();
-            tile[9].image = ImageIO.read(new File("./res/deck/deck06.png"));
+            tile[9].image = ImageIO.read(new File("././res/deck/deck06.png"));
 
             tile[10] = new Tile();
-            tile[10].image = ImageIO.read(new File("./res/deck/deck07.png"));
+            tile[10].image = ImageIO.read(new File("././res/deck/deck07.png"));
 
             tile[11] = new Tile();
-            tile[11].image = ImageIO.read(new File("./res/deck/deck08.png"));
+            tile[11].image = ImageIO.read(new File("././res/deck/deck08.png"));
 
         } catch(IOException e) {
             e.printStackTrace();

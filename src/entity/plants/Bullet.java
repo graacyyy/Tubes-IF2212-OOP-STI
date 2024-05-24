@@ -38,7 +38,7 @@ public class Bullet implements CustomListener{
 
 
     public void moveBullet(){
-        x++;
+        x+=2;
     }
 
 
@@ -56,6 +56,7 @@ public class Bullet implements CustomListener{
 
     public void hit(Zombie zombie) {
         zombie.takeDamage(damage);
+        System.out.println("Bullet hit zombie");
     }
 
     public boolean isHit(){
@@ -66,7 +67,7 @@ public class Bullet implements CustomListener{
     public void actionPerformed() {
         moveBullet();
         for (Zombie zombie : GameMap.zombies){
-            if (zombie.getX() >= x&&zombie.getX() <= x+GamePanel.tileSize && zombie.getY() == y){
+            if (zombie.getX() >= x&&zombie.getX() <= x+GamePanel.tileSize-30 && zombie.getY() == y){
                 hit(zombie);
                 hit = true;
             }
