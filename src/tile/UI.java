@@ -18,12 +18,13 @@ public class UI {
     public static Font titleFont;
     static Font heading2;
     static String text;
-    private static BufferedImage titleImage, loseImage, winImage, pauseImage, helpImage1, helpImage2;
+    private static BufferedImage titleImage, loseImage, winImage, pauseImage, helpImage1;
     // private static BufferedImage[] plantImages = new BufferedImage[10];
     public static int commandNum = 1;
 
     static BufferedImage[] plantImages = new BufferedImage[10];
     static BufferedImage[] zombieImages = new BufferedImage[10];
+    static BufferedImage[] stepImages = new BufferedImage[13];
 
     static {
         try {
@@ -32,7 +33,6 @@ public class UI {
             winImage = ImageIO.read(new File("././res/menu/winPage.png"));
             pauseImage = ImageIO.read(new File("././res/menu/pause.png"));
             helpImage1 = ImageIO.read(new File("././res/menu/help_1.png"));
-            helpImage2 = ImageIO.read(new File("././res/menu/help_2.png"));
           
             plantImages[0] = ImageIO.read(new File("././res/menu/plantList/1.png"));
             plantImages[1] = ImageIO.read(new File("././res/menu/plantList/2.png"));
@@ -56,6 +56,19 @@ public class UI {
             zombieImages[8] = ImageIO.read(new File("././res/menu/zombieList/9.png"));
             zombieImages[9] = ImageIO.read(new File("././res/menu/zombieList/10.png"));
 
+            stepImages[0] = ImageIO.read(new File("././res/menu/tutorial/1.png"));
+            stepImages[1] = ImageIO.read(new File("././res/menu/tutorial/2.png"));
+            stepImages[2] = ImageIO.read(new File("././res/menu/tutorial/3.png"));
+            stepImages[3] = ImageIO.read(new File("././res/menu/tutorial/4.png"));
+            stepImages[4] = ImageIO.read(new File("././res/menu/tutorial/5.png"));
+            stepImages[5] = ImageIO.read(new File("././res/menu/tutorial/6.png"));
+            stepImages[6] = ImageIO.read(new File("././res/menu/tutorial/7.png"));
+            stepImages[7] = ImageIO.read(new File("././res/menu/tutorial/8.png"));
+            stepImages[8] = ImageIO.read(new File("././res/menu/tutorial/9.png"));
+            stepImages[9] = ImageIO.read(new File("././res/menu/tutorial/10.png"));
+            stepImages[10] = ImageIO.read(new File("././res/menu/tutorial/11.png"));
+            stepImages[11] = ImageIO.read(new File("././res/menu/tutorial/12.png"));
+            stepImages[12] = ImageIO.read(new File("././res/menu/tutorial/13.png"));
             // plantImage = ImageIO.read(new File("././res/menu/plantList/1.png"));
 
             // for (int j = 0; j < 10; j ++){
@@ -241,32 +254,29 @@ public class UI {
             // MENU
             g2.setFont(titleFont);
 
-            text = "NEXT";
-            int x = getXForCenteredText(g2, text);
-            int y = (int) (GamePanel.tileSize*5.5f);
-            g2.drawString(text, x, y);
-            g2.drawString(">", x-GamePanel.tileSize, y);
-        }
-    }
-
-    public static void drawStep(Graphics2D g2) {
-        if (helpImage2 != null) {
-            g2.drawImage(helpImage2, 0, 0, GamePanel.screenWidth, GamePanel.screenHeight,null);
-        }
-
-        g2.setFont(titleFont);
-        g2.setColor(Color.white);
-
-        if(TitlePanel.gameState == TitlePanel.stepState) {
-
-            // MENU
-            g2.setFont(titleFont);
-
             text = "MENU";
             int x = getXForCenteredText(g2, text);
             int y = (int) (GamePanel.tileSize*5.5f);
             g2.drawString(text, x, y);
-            g2.drawString(">", x-GamePanel.tileSize, y);
+            if(commandNum == 1){
+                g2.drawString(">", x-GamePanel.tileSize, y);
+            }
+
+            text = "TUTORIAL";
+            x = getXForCenteredText(g2, text);
+            y += GamePanel.tileSize*0.5f;
+            g2.drawString(text, x, y);
+            if(commandNum == 2){
+                g2.drawString(">", x-GamePanel.tileSize, y);
+            }
+        }
+    }
+
+    public static void drawStep(Graphics2D g2, int i) {
+        if (TitlePanel.gameState == TitlePanel.stepState){
+            if (stepImages[i] != null && i >= 0 && i < 13) {
+                g2.drawImage(stepImages[i], 0, 0, GamePanel.screenWidth, GamePanel.screenHeight, null);
+            }   
         }
     }
 
