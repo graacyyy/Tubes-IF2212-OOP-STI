@@ -14,5 +14,5 @@
 ## HOW TO PLAY
 - Download zip dan extract folder 
 - Buka folder pada terminal, pastikan directory sudah benar
-- Ketik 'java -jar MichaelVSLalapan.jar'
+- Ketik `java -jar MichaelVSLalapan.jar`
 - Michael VS Lalapan dapat dimainkan!
