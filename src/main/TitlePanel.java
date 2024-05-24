@@ -35,6 +35,10 @@ public class TitlePanel extends JPanel implements Runnable{
     // JFrame window = new JFrame();
     private boolean running = true;
     
+    int COLUMNS = 4;
+    int ROWS = 3;
+    int TOTAL_ITEMS = 10;
+    int i = 0;
     // public TitlePanel(JFrame window, GamePanel gamePanel){
     public TitlePanel(){
         // this.window = window;
@@ -47,7 +51,7 @@ public class TitlePanel extends JPanel implements Runnable{
         gameState = titleState;
     }
 
-
+    
     public void startTitleThread() {
         
         System.out.println("thread");
@@ -99,7 +103,11 @@ public class TitlePanel extends JPanel implements Runnable{
                     // removeKeyListener(kh);
                 } else if (UI.commandNum == 2) { 
                     TitlePanel.gameState = TitlePanel.helpState;
-                } else if (UI.commandNum == 5){
+                } else if (UI.commandNum == 3) {
+                    TitlePanel.gameState = TitlePanel.plantState;
+                } else if (UI.commandNum == 4) {
+                    TitlePanel.gameState = TitlePanel.zombieState;
+                } else if (UI.commandNum == 5) {
                     System.exit(0); 
                 }     
             }
@@ -145,6 +153,77 @@ public class TitlePanel extends JPanel implements Runnable{
                 TitlePanel.gameState = TitlePanel.stepState;
             } 
         }
+
+        else if (TitlePanel.gameState == TitlePanel.plantState){
+            if (kh.leftPressed) {
+                if (i > 0) {
+                    i--;
+                }
+                kh.leftPressed = false;
+            }
+        
+            if (kh.rightPressed) {
+                if (i < 10) {
+                    i++;
+                } 
+                kh.rightPressed = false;
+            }
+        
+            if (kh.upPressed) {
+                if (i - COLUMNS >= 0) {
+                    i -= COLUMNS;
+                }
+                kh.upPressed = false;
+            }
+
+            if (kh.downPressed) {
+                if (i + COLUMNS < TOTAL_ITEMS) {
+                    i += COLUMNS;
+                }
+                kh.downPressed = false;
+            }
+            if (kh.menuPressed) {
+                kh.menuPressed = false;
+                gameState = titleState;
+            }
+        }
+        else if (TitlePanel.gameState == TitlePanel.zombieState){
+            COLUMNS = 3;
+            ROWS = 4;
+
+            if (kh.leftPressed) {
+                if (i > 0) {
+                    i--;
+                }
+                kh.leftPressed = false;
+            }
+        
+            if (kh.rightPressed) {
+                if (i < 10) {
+                    i++;
+                } 
+                kh.rightPressed = false;
+            }
+        
+            if (kh.upPressed) {
+                if (i - COLUMNS >= 0) {
+                    i -= COLUMNS;
+                }
+                kh.upPressed = false;
+            }
+
+            if (kh.downPressed) {
+                if (i + COLUMNS < TOTAL_ITEMS) {
+                    i += COLUMNS;
+                }
+                kh.downPressed = false;
+            }
+
+            if (kh.menuPressed) {
+                kh.menuPressed = false;
+                gameState = titleState;
+            }
+        }
     } 
 
     public void setRunning(boolean running){
@@ -169,6 +248,12 @@ public class TitlePanel extends JPanel implements Runnable{
         } 
         else if (gameState == stepState) {
             UI.drawStep(g2);
+        }
+        else if (gameState == plantState){
+            UI.drawPlantList(g2, i);
+        }
+        else if (gameState == zombieState){
+            UI.drawZombieList(g2, i);
         }
     }
 

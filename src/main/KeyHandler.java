@@ -8,7 +8,7 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener{
 
-    public boolean upPressed, downPressed, leftPressed, rightPressed, numPressed, enterPressed, pausePressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, numPressed, enterPressed, pausePressed, menuPressed;
     public boolean pause = true;
     public int numKey;
     public int numberPressed;
@@ -156,6 +156,9 @@ public class KeyHandler implements KeyListener{
             if(code == KeyEvent.VK_7){
                 numPressed = true;
                 numKey = 7;
+            }
+            if(code == KeyEvent.VK_M){
+                menuPressed = true;
             }
         //     if (code == KeyEvent.VK_P){
         //         if(pause){
