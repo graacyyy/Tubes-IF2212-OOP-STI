@@ -23,9 +23,9 @@ public abstract class Plant extends Entity implements CustomListener{
     protected static int cost;
     protected int range;
     protected static int cooldown;
-    protected boolean is_waterplant;
     protected static boolean is_cooldown = true;
     protected boolean shootable;
+    protected boolean firstshoot = false;
     int timer = 0;
 
     public Plant(int x, int y){

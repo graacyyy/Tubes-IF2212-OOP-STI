@@ -33,7 +33,7 @@ public class UI {
             pauseImage = ImageIO.read(new File("././res/menu/pause.png"));
             helpImage1 = ImageIO.read(new File("././res/menu/help_1.png"));
             helpImage2 = ImageIO.read(new File("././res/menu/help_2.png"));
-
+          
             plantImages[0] = ImageIO.read(new File("././res/menu/plantList/1.png"));
             plantImages[1] = ImageIO.read(new File("././res/menu/plantList/2.png"));
             plantImages[2] = ImageIO.read(new File("././res/menu/plantList/3.png"));

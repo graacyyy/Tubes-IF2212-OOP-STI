@@ -27,6 +27,7 @@ public class Zombie extends Entity implements CustomListener{
     protected boolean isFreezed = false;
     protected boolean isPopped = false;
     protected boolean jumped;
+    protected boolean firstDamage = false;
 
     int timer = 0;
     int freeze_timer = 0;
@@ -240,15 +241,22 @@ public class Zombie extends Entity implements CustomListener{
                 }
                 freeze_timer++;
             }else{
-                if (timer >= 60*attack_speed){
+                if (!firstDamage){
                     target.takeDamage(attack_damage);
-                    timer = 0;
-                }else{
-                    timer++;
+                    firstDamage = true;
+                }
+                else{
+                    if (timer >= 60*attack_speed){
+                        target.takeDamage(attack_damage);
+                        timer = 0;
+                    }else{
+                        timer++;
+                    }
                 }
                 isMoving = true;
                 freeze_timer++;
             }
+
             if(freeze_timer>=180){
                 freeze_timer=0;
                 isSlowed=false;
@@ -270,14 +278,20 @@ public class Zombie extends Entity implements CustomListener{
                     timer++;
                 }
             }else{
-                if (timer >= 60*attack_speed){
+                if (!firstDamage){
                     target.takeDamage(attack_damage);
-                    timer = 0;
-                }else{
-                    timer++;
+                    firstDamage = true;
                 }
-                isMoving = true;
+                else{
+                    if (timer >= 60*attack_speed){
+                        target.takeDamage(attack_damage);
+                        timer = 0;
+                    }else{
+                        timer++;
+                    }
+                }
             }
+            isMoving = true;
         }
     }
 }

@@ -15,7 +15,6 @@ public class Cactus extends Plant{
         attack_speed = 3;
         range = -1;
         cooldown = 20;
-        is_waterplant = false;
         fileimage = "././res/plants/cactus.png";
     }
 
@@ -30,19 +29,32 @@ public class Cactus extends Plant{
     @Override
     public void actionPerformed() {
         shootable = true;
-        if (timer >= 60*attack_speed){
+        if (!firstshoot){
             for (Zombie zombie : GameMap.zombies) {
                 if (zombie.getY() == y){
                     if (shootable){
                         shootPea();
                         shootable = false;
-                        timer = 0;
+                        firstshoot = true;
                     }
                 }
             }
         }
-        else {
-            timer++;
+        else{
+            if (timer >= 60*attack_speed){
+                for (Zombie zombie : GameMap.zombies) {
+                    if (zombie.getY() == y){
+                        if (shootable){
+                            shootPea();
+                            shootable = false;
+                            timer = 0;
+                        }
+                    }
+                }
+            }
+            else {
+                timer++;
+            }
         }
     }
     
