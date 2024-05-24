@@ -124,7 +124,7 @@ public class GamePanel extends JPanel implements Runnable{
     }
     
     public void update(){
-        
+
         repaint();
         
         // SUN OTOMATIS
@@ -281,9 +281,9 @@ public class GamePanel extends JPanel implements Runnable{
         }
 
         // LIGHTING EFFECT
-        if (gametime >= 20 && gametime <= 200) {
+        if (gametime >= 100 && gametime <= 190) {
             darkening = true;
-        } else if (gametime > 200 && gametime <= 300) {
+        } else if (gametime >= 190 && gametime <= 300) {
             darkening = false;
         }
 
