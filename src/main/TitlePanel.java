@@ -96,9 +96,6 @@ public class TitlePanel extends JPanel implements Runnable{
             if(kh.enterPressed){
                 kh.enterPressed = true;
                 if (UI.commandNum == 1){
-                    // Switch to InventoryPanel
-                    // switchToInventoryPanel();
-                    // removeKeyListener(kh);
                 } else if (UI.commandNum == 2) { 
                     TitlePanel.gameState = TitlePanel.helpState;
                 } else if (UI.commandNum == 3) {
@@ -128,7 +125,6 @@ public class TitlePanel extends JPanel implements Runnable{
             if(kh.enterPressed){
                 kh.enterPressed = false;
                 if (UI.commandNum == 1){
-                    // TitlePanel.gameState = TitlePanel.playState;
                     Screen.inventory();
                 } else if (UI.commandNum == 2) { 
                     TitlePanel.gameState = TitlePanel.helpState;
@@ -253,10 +249,12 @@ public class TitlePanel extends JPanel implements Runnable{
     } 
 
     public void setRunning(boolean running){
+
         this.running = running;
     }
 
     public boolean isRunning(){
+
         return running;
     }
 
@@ -282,70 +280,4 @@ public class TitlePanel extends JPanel implements Runnable{
             UI.drawZombieList(g2, i);
         }
     }
-
-    // public void switchToInventoryPanel() {
-    //     if (inventoryPanel == null) {
-    //         inventoryPanel = new Inventory(gamePanel, kh);
-    //     }
-    //     window.remove(this);
-    //     window.add(inventoryPanel);
-    //     window.revalidate();
-    //     window.repaint();
-    //     stopThread();
-    //     inventoryPanel.requestFocusInWindow();
-    // }
-    
-    // public static void stopThread() {
-    //     running = false;
-    // }
-
-    // public static void main(String[] args){
-
-    //     JFrame window = new JFrame();
-    //     window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    //     window.setResizable(false);
-    //     window.setTitle("MichaelVSLalapan");
-
-    //     GamePanel gamePanel = new GamePanel();
-    //     TitlePanel titlePanel = new TitlePanel(window, gamePanel);
-    //     window.add(titlePanel);
-        
-    //     window.pack();
-
-    //     window.setLocationRelativeTo(null);
-    //     window.setVisible(true);
-
-    //     titlePanel.startTitle();
-
-    //     playBackSound("res/audio/title.wav");
-    // }
-
-    //     private static void playBackSound(String soundFilePath) {
-    //     try {
-    //         File soundFile = new File(soundFilePath);
-    //         // System.out.println("Alamat file asli: " + soundFile.getAbsolutePath());
-    //         if (!soundFile.exists()) {
-    //             throw new IllegalArgumentException("File not found: " + soundFilePath);
-    //         }
-    //         AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
-    //         Clip clip = AudioSystem.getClip();
-    //         clip.open(audioIn);
-
-    //         clip.addLineListener(new LineListener() {
-    //             @Override
-    //             public void update(LineEvent event) {
-    //                 if (event.getType() == LineEvent.Type.STOP) {
-    //                     // Biar ngulang lagi
-    //                     clip.setFramePosition(0);
-    //                     clip.start();
-    //                 }
-    //             }
-    //         });
-            
-    //         clip.start();
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
-    // }
-
 }
