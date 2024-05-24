@@ -277,7 +277,6 @@ public class GamePanel extends JPanel implements Runnable{
 
         if (kh.numPressed == true){
             kh.numPressed = false;
-            System.out.println("Number pressed: " + kh.numKey);
         }
 
         // LIGHTING EFFECT
