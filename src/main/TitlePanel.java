@@ -139,20 +139,47 @@ public class TitlePanel extends JPanel implements Runnable{
                 }
             }
         }
+        
+        else if (TitlePanel.gameState == TitlePanel.helpState){
+            if(kh.enterPressed){
+                kh.enterPressed = false;
+                if (UI.commandNum == 1){
+                    TitlePanel.gameState = TitlePanel.titleState;
+                } else if (UI.commandNum == 2) { 
+                    TitlePanel.gameState = TitlePanel.stepState;
+                }
+            }
+
+            if(kh.upPressed){
+                kh.upPressed = false;
+                UI.commandNum--;
+                if (UI.commandNum < 1){
+                    UI.commandNum = 2;
+                }
+            }
+
+            if(kh.downPressed){
+                kh.downPressed = false;
+                UI.commandNum++;
+                if (UI.commandNum > 2){
+                    UI.commandNum = 1;
+                }
+            }
+        }
 
         else if (TitlePanel.gameState == TitlePanel.stepState){
             if(kh.enterPressed) {
                 kh.enterPressed = false;
-                TitlePanel.gameState = TitlePanel.titleState;
+                if (i < 13){
+                    i++;
+                }
+
+                if (i == 13){
+                    i = 0;
+                    gameState = titleState;
+                }
             }
         } 
-            
-        else if (TitlePanel.gameState == TitlePanel.helpState){
-            if(kh.enterPressed){
-                kh.enterPressed = false;
-                TitlePanel.gameState = TitlePanel.stepState;
-            } 
-        }
 
         else if (TitlePanel.gameState == TitlePanel.plantState){
             if (kh.leftPressed) {
@@ -248,7 +275,7 @@ public class TitlePanel extends JPanel implements Runnable{
             UI.drawHelp(g2);
         } 
         else if (gameState == stepState) {
-            UI.drawStep(g2);
+            UI.drawStep(g2, i);
         }
         else if (gameState == plantState){
             UI.drawPlantList(g2, i);
